@@ -1,16 +1,10 @@
-![Eva designs and builds things for the web.](https://raw.githubusercontent.com/evadecker/eva.town/main/public/og/default.png)
+# Ky Decker
 
-<div align="center">
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1454513e-f8a3-468f-9f62-933c9225d8c2/deploy-status)](https://app.netlify.com/sites/eva-town/deploys) [![RSS](https://img.shields.io/badge/RSS-gray?logo=rss&logoColor=white&labelColor=eb7817)](https://ky.fyi/rss.xml)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1454513e-f8a3-468f-9f62-933c9225d8c2/deploy-status)](https://app.netlify.com/sites/eva-town/deploys) [![RSS](https://img.shields.io/badge/RSS-gray?logo=rss&logoColor=white&labelColor=eb7817)](https://eva.town/rss.xml)
+This is the source code for [ky.fyi](https://ky.fyi), designed, coded, and written by Ky—that's me! It's a place for me to share notes and learn in public. I try to update things regularly.
 
-</div>
-
-# Eva Decker
-
-This is the source code for [eva.town](https://eva.town), designed, coded, and written by Eva—that's me! It's a place for me to share notes and learn in public. I try to update things regularly.
-
-For information about the technology and tools behind the site, visit [eva.town/colophon](https://eva.town/colophon).
+For information about the technology and tools behind the site, visit [ky.fyi/colophon](https://ky.fyi/colophon).
 
 > [!NOTE]
 > You're welcome to fork this site, use it as inspiration, and modify things for your own projects—just don't steal it or try to claim it as your own. When in doubt, message me and we can chat about what you want to do.
@@ -29,17 +23,17 @@ Other scripts in `package.json` can also be run with `pnpm`.
 
 ## Link Checking
 
-[![Check Links](https://github.com/evadecker/eva.town/actions/workflows/links.yml/badge.svg)](https://github.com/evadecker/eva.town/actions/workflows/links.yml)
+[![Check Links](https://github.com/kydecker/ky.fyi/actions/workflows/links.yml/badge.svg)](https://github.com/kydecker/ky.fyi/actions/workflows/links.yml)
 
-A weekly [GitHub workflow](https://github.com/evadecker/eva.town/actions/workflows/links.yml) scans the site for broken links and will open an issue if one is found.
+A weekly [GitHub workflow](https://github.com/kydecker/ky.fyi/actions/workflows/links.yml) scans the site for broken links and will open an issue if one is found.
 
 ## Accessibility
 
-[![CI](https://github.com/evadecker/eva.town/actions/workflows/ci.yml/badge.svg)](https://github.com/evadecker/eva.town/actions/workflows/ci.yml)
+[![CI](https://github.com/kydecker/ky.fyi/actions/workflows/ci.yml/badge.svg)](https://github.com/kydecker/ky.fyi/actions/workflows/ci.yml)
 
 Every pull request is tested for automatically-detectable accessibility issues and HTML5 compliance.
 
-This site aims to conform to the Level AA accessibility standards outlined in the [WCAG 2.2 specification](https://www.w3.org/TR/WCAG22/). If you experience an issue with accessing any part of this site, please [file an issue](https://github.com/evadecker/eva.town/issues) and I’ll do my best to correct it.
+This site aims to conform to the Level AA accessibility standards outlined in the [WCAG 2.2 specification](https://www.w3.org/TR/WCAG22/). If you experience an issue with accessing any part of this site, please [file an issue](https://github.com/kydecker/ky.fyi/issues) and I’ll do my best to correct it.
 
 ## Notes To Self
 

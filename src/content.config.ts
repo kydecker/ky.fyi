@@ -1,5 +1,4 @@
 import { defineCollection } from "astro:content";
-import { feedLoader } from "@ascorbic/feed-loader";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
@@ -90,11 +89,5 @@ export const collections = {
       z.object({
         date: z.date(),
       }),
-  }),
-
-  photos: defineCollection({
-    loader: feedLoader({
-      url: "https://glass.photo/evadecker/rss",
-    }),
   }),
 };

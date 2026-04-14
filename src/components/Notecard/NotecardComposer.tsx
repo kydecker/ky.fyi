@@ -1,5 +1,10 @@
 import * as Fathom from "fathom-client";
-import { type ChangeEvent, useEffect, useState } from "react";
+import {
+  type ChangeEvent,
+  type SubmitEventHandler,
+  useEffect,
+  useState,
+} from "react";
 
 import styles from "./notecard.module.css";
 
@@ -135,11 +140,11 @@ export const NOTECARD_THEMES: Record<number, NotecardTheme> = {
 export const NotecardComposer = () => {
   const [selectedTheme, setSelectedTheme] = useState(1);
   const [contentValue, setContentValue] = useState("");
-  const [showWarning, setShowWarning] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const totalThemes = Object.keys(NOTECARD_THEMES).length;
 
-  // Helper functions for 1-based theme indexing
   const getNextThemeIndex = (currentIndex: number) => {
     return currentIndex === totalThemes ? 1 : currentIndex + 1;
   };
@@ -167,11 +172,11 @@ export const NotecardComposer = () => {
       e.target.value.length > 140
     ) {
       setContentValue(contentValue);
-      setShowWarning(true);
+      setErrorMessage("There's not enough room for that.");
       Fathom.trackEvent("guestbook: show textarea warning");
     } else {
       setContentValue(e.target.value);
-      if (showWarning) setShowWarning(false);
+      setErrorMessage(null);
     }
   };
 
@@ -185,8 +190,35 @@ export const NotecardComposer = () => {
     Fathom.trackEvent("guestbook: prev theme");
   };
 
-  const handleSubmit = () => {
-    Fathom.trackEvent("guestbook: submit");
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setErrorMessage(null);
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/guestbook", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        window.location.href = "/guestbook";
+        Fathom.trackEvent("guestbook: submit");
+        return;
+      }
+
+      const data = await res.json().catch(() => ({}));
+      const message =
+        typeof data?.error === "string" ? data.error : "Something went wrong.";
+      setErrorMessage(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -212,12 +244,9 @@ export const NotecardComposer = () => {
             wrap="hard"
             onChange={handleContentChange}
             value={contentValue}
+            disabled={isSubmitting}
           />
-          {showWarning && (
-            <div className={styles.warning}>
-              There’s not enough room for that.
-            </div>
-          )}
+          {errorMessage && <div className={styles.warning}>{errorMessage}</div>}
         </div>
         <div className={styles.bottom}>
           <label htmlFor="author" hidden>
@@ -233,6 +262,7 @@ export const NotecardComposer = () => {
             maxLength={28}
             autoComplete="off"
             data-1p-ignore
+            disabled={isSubmitting}
           />
           <label htmlFor="url" hidden>
             Your URL
@@ -245,6 +275,7 @@ export const NotecardComposer = () => {
             placeholder="URL (optional)"
             autoComplete="off"
             data-1p-ignore
+            disabled={isSubmitting}
           />
           <label htmlFor="special" hidden>
             <input id="special" name="special" aria-hidden />
@@ -257,6 +288,7 @@ export const NotecardComposer = () => {
                 type="button"
                 onClick={handlePrevTheme}
                 aria-label={`Change to previous theme: ${NOTECARD_THEMES[prevThemeIndex].alt}`}
+                disabled={isSubmitting}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -273,6 +305,7 @@ export const NotecardComposer = () => {
                 type="button"
                 onClick={handleNextTheme}
                 aria-label={`Change to next theme: ${NOTECARD_THEMES[nextThemeIndex].alt}`}
+                disabled={isSubmitting}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -285,7 +318,7 @@ export const NotecardComposer = () => {
               </button>
             </div>
           </div>
-          <button type="submit">
+          <button type="submit" disabled={isSubmitting}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

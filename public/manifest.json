@@ -1,6 +1,6 @@
 {
-  "short_name": "Eva Decker",
-  "name": "Eva Decker",
+  "short_name": "Ky Decker",
+  "name": "Ky Decker",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#121113",
-  "background_color": "#121113"
+  "theme_color": "#111111",
+  "background_color": "#111111"
 }

@@ -10,11 +10,11 @@ test("includes correct social links", async ({ page }) => {
 
   await expect(githubLink).toHaveAttribute(
     "href",
-    "https://github.com/evadecker",
+    "https://github.com/kydecker",
   );
   await expect(linkedInLink).toHaveAttribute(
     "href",
-    "https://linkedin.com/in/evadecker",
+    "https://linkedin.com/in/kyfyi",
   );
 });
 

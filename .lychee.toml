@@ -31,6 +31,15 @@ scheme = ["https"]
 # When links are available using HTTPS, treat HTTP links as errors.
 require_https = true
 
+# Base URL or website root directory to check relative URLs.
+base_url = "https://ky.fyi"
+
+# Root path to use when checking absolute local links, must be an absolute path
+root_dir = "/dist"
+
+# Enable the checking of fragments in links (anchor links).
+include_fragments = true
+
 #############################  Exclusions  ##########################
 
 # Exclude URLs and mail addresses from checking (supports regex).

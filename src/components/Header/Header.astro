@@ -1,6 +1,7 @@
 ---
 import Center from "../Center.astro";
 import { Icon } from "../Icon/Icon";
+import Logo from "./Logo.astro";
 
 const currentPath = Astro.url.pathname;
 const topLevelPath = currentPath.split("/")[1];
@@ -20,7 +21,7 @@ const navigation = [
 <header>
   <Center>
     <nav id="nav">
-      <h1><a href="/">Eva Decker</a></h1>
+      <h1><a href="/"><Logo /></a></h1>
       <div class="links">
         {
           navigation.map((item) => (
@@ -147,7 +148,13 @@ const navigation = [
       margin: 0;
 
       a {
+        font-weight: var(--font-weight-bold);
         padding-inline: 0;
+      }
+
+      .fyi {
+        font-weight: var(--font-weight-normal);
+        color: var(--gray-10);
       }
     }
   }

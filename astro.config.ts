@@ -13,7 +13,7 @@ import imgAttr from "remark-imgattr";
 import { autolinkConfig } from "./plugins/rehype-autolink-config";
 
 export default defineConfig({
-  site: "https://eva.town",
+  site: "https://ky.fyi",
   prefetch: true,
   integrations: [
     react(),
@@ -81,5 +81,7 @@ export default defineConfig({
     "/projects/boundaries-map": "/posts/boundaries-map",
     "/projects/commonplace": "/posts/commonplace",
     "/friends": "/webrings",
+    "/resume": "/downloads/ky-decker-resume.pdf",
+    "/downloads/eva-decker-resume.pdf": "/downloads/ky-decker-resume.pdf",
   },
 });

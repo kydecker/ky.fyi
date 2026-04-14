@@ -1,5 +1,5 @@
-- img: ./eva-town.png
-  alt: Eva Town
+- img: ./ky-fyi.png
+  alt: Ky Decker
   url: /about
 - img: ./frontend-horse.png
   alt: Frontend Horse
@@ -33,7 +33,7 @@
   url: https://queercoded.dev/
 - img: ./bluesky.gif
   alt: Follow me on Bluesky
-  url: https://bsky.app/profile/eva.town
+  url: https://bsky.app/profile/ky.fyi
 - img: ./made-by-hand.gif
   alt: Made by Hand
   url: /colophon

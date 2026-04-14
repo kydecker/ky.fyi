@@ -4,7 +4,6 @@ import "../styles/theme.css";
 
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import LoadingIndicator from "astro-loading-indicator/component";
 
 export interface Props {
   title: string;
@@ -16,7 +15,7 @@ export interface Props {
 const { title, description, ogImage, ogAlt } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Eva Decker`;
+const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
 ---
 
 <!doctype html>
@@ -52,7 +51,7 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Eva Decker`;
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Dispatches from Eva Town"
+      title="Dispatches from Ky Decker"
       href={new URL("rss.xml", Astro.site)}
     />
     <meta name="description" content={description} />
@@ -61,21 +60,20 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Eva Decker`;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Eva Decker" />
+    <meta property="og:site_name" content="Ky Decker" />
     <meta
       property="og:image"
       content={ogImage ?? `${Astro.url.origin}/og/default.png`}
     />
     <meta
       property="og:image:alt"
-      content={ogAlt ?? "Eva designs and builds things for the web."}
+      content={ogAlt ?? "Ky designs and builds things for the web."}
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{pageTitle}</title>
     <ClientRouter />
-    <LoadingIndicator color="var(--blue-9)" height="3px" threshold={600} />
     <script>
       import * as Fathom from "fathom-client";
       Fathom.load("WKFTECUZ");

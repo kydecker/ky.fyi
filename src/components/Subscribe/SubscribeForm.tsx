@@ -243,7 +243,7 @@ export const SubscribeForm = () => {
         console.error(error);
       });
 
-    const sender = "hey@evadecker.com";
+    const sender = "hi@ky.fyi";
     const sniperUrl = `https://sniperl.ink/v1/render?recipient=${recipientEmail}&sender=${sender}`;
 
     fetch(sniperUrl)

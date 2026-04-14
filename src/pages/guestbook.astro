@@ -1,5 +1,4 @@
 ---
-import { db, Guestbook as GuestbookDB } from "astro:db";
 import GuestbookEntries from "../components/Guestbook/GuestbookEntries.astro";
 import GuestbookPagination from "../components/Guestbook/GuestbookPagination.astro";
 import Notecard from "../components/Notecard/Notecard.astro";
@@ -18,39 +17,8 @@ if (currentPage === 1 && Astro.url.searchParams.has("page")) {
 
 const isFirstPage = currentPage === 1;
 
-if (Astro.request.method === "POST") {
-  const formData = await Astro.request.formData();
-  const author = formData.get("author") as string;
-  const content = formData.get("content") as string;
-  const url = formData.get("url") as string;
-  const theme = formData.get("theme") as string;
-  const honeypot = formData.get("special");
-
-  if (
-    !honeypot &&
-    typeof author === "string" &&
-    typeof content === "string" &&
-    content.length <= 140 &&
-    typeof url === "string" &&
-    typeof theme === "string"
-  ) {
-    // Extremely basic spam filtering to protect against bots
-    const isSpam = content.includes("<a href") || content.includes("href=");
-
-    await db.insert(GuestbookDB).values({
-      author,
-      content,
-      url: url || undefined,
-      theme: Number.parseInt(theme, 10),
-      isSpam,
-    });
-
-    return Astro.redirect("/guestbook");
-  }
-}
-
 const title = "Guestbook";
-const description = "Leave a message in eva.town.";
+const description = "Leave a message in ky.fyi.";
 ---
 
 <BaseLayout

@@ -45,4 +45,4 @@ User-agent: Webzio-Extended
 User-agent: YouBot
 Disallow: /
 
-Sitemap: https://eva.town/sitemap-index.xml
+Sitemap: https://ky.fyi/sitemap-index.xml

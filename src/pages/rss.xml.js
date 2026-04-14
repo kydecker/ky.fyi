@@ -9,7 +9,7 @@ export async function GET(context) {
   const posts = await getCollection("posts");
 
   return await rss({
-    title: "Eva Town",
+    title: "Ky Decker",
     description: "Dispatches from the world wide web.",
     site: context.site,
     trailingSlash: false,

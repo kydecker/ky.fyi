@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import GuestbookFeed from "src/components/Home/GuestbookFeed.astro";
-import PhotoFeed from "src/components/Home/PhotoFeed.astro";
 import WorkList from "src/components/Home/WorkList.astro";
 import Center from "../components/Center.astro";
 import Synth from "../components/Synth/Synth.astro";
@@ -30,16 +29,16 @@ const feed = work
 ---
 
 <BaseLayout
-  title="Eva Decker"
-  description="Eva is a designer and web developer based in NYC."
+  title="Ky Decker"
+  description="Ky is a designer and web developer based in NYC."
   includeFooter
 >
   <section class="home">
     <Center>
-      <h1 class="visuallyhidden">Eva designs and builds for the web</h1>
+      <h1 class="visuallyhidden">Ky designs and builds for the web</h1>
       <div class="intro">
         <p>
-          <strong><a href="/about">Eva Decker</a></strong> is a design engineer who
+          <strong><a href="/about">Ky Decker</a></strong> is a design engineer who
           likes playing piano and writing CSS. Currently living in NYC with <span
             class="nowrap"
             ><button type="button" data-sam-button>Samwise</button>.</span
@@ -56,12 +55,6 @@ const feed = work
       <h2>Projects</h2>
       <WorkList items={feed} />
     </Center>
-  </section>
-  <section>
-    <Center>
-      <h2>Latest <a href="https://glass.photo/evadecker">photos</a></h2>
-    </Center>
-    <PhotoFeed />
   </section>
   <section>
     <Center>
