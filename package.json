@@ -20,6 +20,11 @@
     "prepare": "husky",
     "check-links": "lychee --config .lychee.toml ."
   },
+  "lint-staged": {
+    "*": [
+      "biome check --write"
+    ]
+  },
   "dependencies": {
     "@ascorbic/feed-loader": "^2.0.1",
     "@astrojs/check": "^0.9.8",
@@ -63,6 +68,7 @@
     "hastscript": "^9.0.1",
     "html-validate": "^10.12.1",
     "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "postcss-html": "^1.8.1",
     "stylelint": "^15.11.0",
     "stylelint-config-html": "^1.1.0",
