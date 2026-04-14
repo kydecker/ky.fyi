@@ -42,7 +42,7 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
       astro:
-        specifier: ^6.1.6
+        specifier: ^6.1.2
         version: 6.1.6(@netlify/blobs@10.7.4)(@types/node@25.6.0)(jiti@2.6.1)(rollup@4.60.1)(sass@1.97.2)(typescript@5.9.3)(yaml@2.8.3)
       astro-expressive-code:
         specifier: ^0.41.7
