@@ -46,10 +46,6 @@ const navigation = [
 <script>
   import * as Fathom from "fathom-client";
   import { gray, grayDark } from "@radix-ui/colors";
-  import {
-    TRANSITION_BEFORE_SWAP,
-    isTransitionBeforeSwapEvent,
-  } from "astro:transitions/client";
 
   type Theme = "light" | "dark";
 
@@ -90,12 +86,10 @@ const navigation = [
   // Run on initial load
   setupToggle();
 
-  document.addEventListener(TRANSITION_BEFORE_SWAP, (ev) => {
-    if (isTransitionBeforeSwapEvent(ev)) {
-      // Run after view transitions
-      setupToggle(ev.newDocument);
-      setActiveTheme(getActiveTheme(), ev.newDocument);
-    }
+  document.addEventListener("astro:before-swap", (ev) => {
+    // Run after view transitions
+    setupToggle(ev.newDocument);
+    setActiveTheme(getActiveTheme(), ev.newDocument);
   });
 
   document.addEventListener("astro:page-load", () => {

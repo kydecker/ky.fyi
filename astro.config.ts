@@ -46,36 +46,34 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.local(),
-        name: "HEX Franklin",
-        cssVariable: "--font-sans",
-        fallbacks: ["sans-serif"],
-        options: {
-          variants: [
-            {
-              src: ["./src/fonts/HEX_Franklin_v0.3_Variable.woff2"],
-            },
-          ],
-        },
+  fonts: [
+    {
+      provider: fontProviders.local(),
+      name: "HEX Franklin",
+      cssVariable: "--font-sans",
+      fallbacks: ["sans-serif"],
+      options: {
+        variants: [
+          {
+            src: ["./src/fonts/HEX_Franklin_v0.3_Variable.woff2"],
+          },
+        ],
       },
-      {
-        provider: fontProviders.local(),
-        name: "MonoLisa",
-        cssVariable: "--font-mono",
-        fallbacks: ["monospace"],
-        options: {
-          variants: [
-            {
-              src: ["./src/fonts/MonoLisaVariableNormal.woff2"],
-            },
-          ],
-        },
+    },
+    {
+      provider: fontProviders.local(),
+      name: "MonoLisa",
+      cssVariable: "--font-mono",
+      fallbacks: ["monospace"],
+      options: {
+        variants: [
+          {
+            src: ["./src/fonts/MonoLisaVariableNormal.woff2"],
+          },
+        ],
       },
-    ],
-  },
+    },
+  ],
   redirects: {
     "/garden": "/",
     "/projects": "/",
