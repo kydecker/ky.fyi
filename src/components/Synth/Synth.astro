@@ -29,7 +29,7 @@ import SynthScreen from "./SynthScreen.astro";
     | "Csharp4"
     | "Dsharp4";
 
-  export type NoteName = WhiteKey | BlackKey;
+  type NoteName = WhiteKey | BlackKey;
 
   function prepareLoadSynth() {
     const synth: HTMLElement | null | undefined =

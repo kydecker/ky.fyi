@@ -6,12 +6,7 @@
     "esModuleInterop": true,
     "module": "ES6",
     "target": "ES6",
-    "typeRoots": ["./src/types", "./node_modules/@types", "./public/scripts"],
-    "plugins": [
-      {
-        "name": "@astrojs/ts-plugin"
-      }
-    ]
+    "typeRoots": ["./src/types", "./node_modules/@types", "./public/scripts"]
   },
   "extends": "astro/tsconfigs/strict",
   "include": [
