@@ -60,7 +60,7 @@ const TypedCharacter = ({
   );
 };
 
-export interface DialogueLineProps {
+interface DialogueLineProps {
   /**
    * Text to display
    */
