@@ -13,8 +13,6 @@
     "preview": "astro preview",
     "check": "astro check && biome check",
     "check:fix": "astro check && biome check --write",
-    "stylelint": "npx stylelint '**/*.{css,astro}'",
-    "stylelint:fix": "npx stylelint '**/*.{css,astro}' --fix",
     "test": "playwright test",
     "html-validate": "pnpm build && pnpm exec html-validate dist/*.html",
     "check-links": "lychee --config .lychee.toml .",
@@ -72,9 +70,6 @@
     "nano-staged": "^1.0.2",
     "postcss-html": "^1.8.1",
     "simple-git-hooks": "^2.13.1",
-    "stylelint": "^15.11.0",
-    "stylelint-config-html": "^1.1.0",
-    "stylelint-config-standard": "^34.0.0",
     "typescript": "^5.9.3"
   }
 }
