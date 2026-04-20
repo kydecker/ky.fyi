@@ -22,14 +22,6 @@
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged"
   },
-  "nano-staged": {
-    "*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,json,jsonc,css,astro}": [
-      "biome check --write"
-    ],
-    "*.{png,jpg,gif,webp,heic,avif,mp4,mov,mkv,webm}": [
-      "optimo"
-    ]
-  },
   "dependencies": {
     "@ascorbic/feed-loader": "^2.0.1",
     "@astrojs/check": "^0.9.8",
