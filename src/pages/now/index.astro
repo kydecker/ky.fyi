@@ -84,6 +84,24 @@ const description = "What’s Ky up to?";
   details {
     padding-block-start: var(--space-xl);
 
+    &::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow-y: clip;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition-property: content-visibility, block-size, opacity;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-out;
+        transition-behavior: allow-discrete;
+      }
+    }
+
+    &[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+
     summary {
       list-style: none;
       cursor: pointer;
@@ -101,7 +119,7 @@ const description = "What’s Ky up to?";
 
       &::before {
         content: "";
-        background-color: var(--gray-9);
+        background-color: var(--gray-8);
         clip-path: polygon(0 0, 86.6% 50%, 0 100%);
         width: var(--space-s);
         height: var(--space-s);
