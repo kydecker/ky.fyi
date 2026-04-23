@@ -2,7 +2,7 @@
 title: Colophon
 description: Colophon is a designer-y word for “how it’s made”—here’s what powers ky.fyi.
 datePublished: 2023-09-26 03:47:00-04:00
-dateModified: 2026-03-25 18:49:04-04:00
+dateModified: 2026-04-23 09:36:58-04:00
 img: ["./img600.webp", "./img900.webp", "./img1200.webp"]
 imgAlt: The spines of 12 books, including Visual Explanations, The Display of Quantitative Information, The Geometry of Type, Understanding Comics, Nicely Said, Don't Make Me Think!, Queer by Design, The 99% Invisible City, Interaction of Color, The Elements of Style, Thinking Fast and Slow, and The Death and Life of Great American Cities.
 ogImage: ./img1200.webp
@@ -22,7 +22,7 @@ Code is edited using [Cursor](https://cursor.com/) on a [MacBook Pro](https://ww
 
 End-to-end tests are written using [Playwright](https://playwright.dev), and I use [Polypane](https://polypane.app) to preview devices, test accessibility, and toggle user preferences like `prefers-reduced-motion`.
 
-Domain registration, hosting, and deployment are via [Netlify](https://netlify.com/). Email forwarding is through [ImprovMX](https://improvmx.com). I send occasional [newsletters](https://buttondown.com/notesfromeva) using [Buttondown](https://buttondown.com/).
+Domain registration, hosting, and deployment are via [Netlify](https://netlify.com/). I send occasional [newsletters](https://buttondown.com/notesfromeva) using [Buttondown](https://buttondown.com/).
 
 I shared more about the hardware I use on [Uses This](https://usesthis.com/interviews/eva.decker/).
 

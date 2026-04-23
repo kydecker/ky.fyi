@@ -1,0 +1,206 @@
+---
+import { getCollection, render } from "astro:content";
+import dayjs from "dayjs";
+import { RelativeDate } from "src/components/RelativeDate/RelativeDate";
+import ProseLayout from "src/layouts/ProseLayout.astro";
+
+const events = await getCollection("now");
+events.sort((a, b) => {
+  return dayjs(b.data.date).isBefore(dayjs(a.data.date)) ? -1 : 1;
+});
+const [latestEvent, ...previousEvents] = events;
+
+const { Content } = await render(latestEvent);
+
+const title = "Now";
+const description = "What’s Ky up to?";
+---
+
+<ProseLayout title={title} description={description}>
+  <div class="now">
+    <div class="date">
+      <RelativeDate date={latestEvent.data.date} client:load />
+    </div>
+    <div class="content">
+      <Content />
+    </div>
+  </div>
+  <details>
+    <summary><span>Previously&hellip;</span></summary>
+
+    <ul class="events">
+      {
+        previousEvents.map(async (event) => {
+          const { Content } = await render(event);
+
+          return (
+            <li class="event">
+              <div class="dot" aria-hidden />
+              <span class="heading">
+                <RelativeDate date={event.data.date} client:load />
+              </span>
+              <div class="line" aria-hidden />
+              <div class="content">
+                <Content />
+              </div>
+            </li>
+          );
+        })
+      }
+      <li class="event">
+        <div class="dot" aria-hidden></div>
+        <span class="heading">Awhile ago</span>
+        <div class="content">
+          <p>
+            I discovered <a href="https://nownownow.com/"
+              >https://nownownow.com/</a
+            >, which talks about building a <code>/now</code> page for sharing brief
+            updates on how things are going <strong>right now</strong>, as if
+            catching up with a friend for the first time in awhile. Big life
+            picture stuff. Sounds nice. Maybe I'll make one.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </details>
+</ProseLayout>
+
+<style>
+  .now {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+
+    .date {
+      font-size: var(--step-0);
+      color: var(--gray-11);
+    }
+
+    .content {
+      font-size: var(--step-1);
+    }
+  }
+
+  details {
+    padding-block-start: var(--space-xl);
+
+    &::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow-y: clip;
+      content-visibility: hidden;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition-property: content-visibility, block-size, opacity;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-out;
+        transition-behavior: allow-discrete;
+      }
+    }
+
+    &[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+      content-visibility: visible;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      color: var(--gray-11);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-m);
+      transition:
+        color 0.15s ease-out,
+        font-weight 0.15s ease-out;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::before {
+        content: "";
+        background-color: var(--gray-8);
+        clip-path: polygon(0 0, 86.6% 50%, 0 100%);
+        width: var(--space-s);
+        height: var(--space-s);
+        scale: 1.15;
+        transition:
+          rotate 0.15s ease-out,
+          background-color 0.15s ease-out;
+        flex-shrink: 0;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--gray-12);
+          font-weight: var(--font-weight-bold);
+
+          &::before {
+            background-color: var(--gray-11);
+          }
+        }
+      }
+    }
+
+    &[open] summary::before {
+      rotate: 90deg;
+    }
+  }
+
+  .events {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    .event {
+      display: grid;
+      grid-template-columns: var(--space-s) 1fr;
+      grid-template-areas:
+        "dot heading"
+        "line content";
+      column-gap: var(--space-m);
+      justify-content: center;
+
+      &::before {
+        content: "";
+      }
+    }
+
+    .dot {
+      grid-area: dot;
+      border-radius: var(--radius-full);
+      width: var(--space-s);
+      height: var(--space-s);
+      background-color: var(--gray-7);
+      place-self: center center;
+    }
+
+    .line {
+      grid-area: line;
+      width: 2px;
+      background-color: var(--gray-7);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      justify-self: center;
+    }
+
+    .heading {
+      all: unset;
+      font-size: var(--step-0);
+      color: var(--gray-11);
+      grid-area: heading;
+    }
+
+    .content {
+      grid-area: content;
+    }
+
+    .event:not(:last-child) .content {
+      padding-block-end: var(--space-xl);
+    }
+  }
+</style>
