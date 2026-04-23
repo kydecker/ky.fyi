@@ -88,10 +88,11 @@ const description = "What’s Ky up to?";
       block-size: 0;
       opacity: 0;
       overflow-y: clip;
+      content-visibility: hidden;
 
       @media (prefers-reduced-motion: no-preference) {
         transition-property: content-visibility, block-size, opacity;
-        transition-duration: 0.3s;
+        transition-duration: 0.2s;
         transition-timing-function: ease-out;
         transition-behavior: allow-discrete;
       }
@@ -100,6 +101,7 @@ const description = "What’s Ky up to?";
     &[open]::details-content {
       block-size: auto;
       opacity: 1;
+      content-visibility: visible;
     }
 
     summary {
