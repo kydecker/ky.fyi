@@ -5,12 +5,21 @@
     "source.fixAll": "explicit"
   },
   "editor.defaultFormatter": "biomejs.biome",
-  "cSpell.words": ["astro", "flexbox", "Photoshop"],
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[markdown]": {
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 80,
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
