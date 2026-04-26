@@ -22,7 +22,7 @@ Code is edited using [Cursor](https://cursor.com/) on a [MacBook Pro](https://ww
 
 End-to-end tests are written using [Playwright](https://playwright.dev), and I use [Polypane](https://polypane.app) to preview devices, test accessibility, and toggle user preferences like `prefers-reduced-motion`.
 
-Domain registration, hosting, and deployment are via [Netlify](https://netlify.com/). I send occasional [newsletters](https://buttondown.com/notesfromeva) using [Buttondown](https://buttondown.com/).
+Domain registration, hosting, and deployment are via [Netlify](https://netlify.com/). I send occasional [newsletters](https://buttondown.com/notesfromky) using [Buttondown](https://buttondown.com/).
 
 I shared more about the hardware I use on [Uses This](https://usesthis.com/interviews/eva.decker/).
 
