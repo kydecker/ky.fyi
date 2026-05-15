@@ -331,5 +331,6 @@
   border-radius: 0.75rem;
   overflow: hidden;
   margin-inline: auto;
+  /* biome-ignore lint/complexity/noImportantStyles: Necessary to override existing styles */
   margin-block: var(--space-xl) !important;
 }
