@@ -42,7 +42,7 @@
     "astro-expressive-code": "^0.42.0",
     "autoprefixer": "^10.5.0",
     "classnames": "^2.5.1",
-    "cssnano": "^7.1.5",
+    "cssnano": "^8.0.1",
     "dayjs": "^1.11.20",
     "fathom-client": "^3.7.2",
     "howler": "^2.2.4",
