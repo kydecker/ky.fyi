@@ -65,7 +65,7 @@
     "@types/howler": "^2.2.12",
     "@types/node": "^25.8.0",
     "hastscript": "^9.0.1",
-    "html-validate": "^10.13.1",
+    "html-validate": "^11.2.0",
     "knip": "^6.13.1",
     "nano-staged": "^1.0.2",
     "postcss-html": "^1.8.1",
