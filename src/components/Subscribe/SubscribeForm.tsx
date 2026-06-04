@@ -37,6 +37,7 @@ interface Remark {
 
 const TRIGGER_SOME_CHARACTERS_DIALOGUE_AT_LENGTH = 4;
 const REMARK_TIMEOUT = 1000;
+const SNIPER_SENDER = "hi@ky.fyi";
 
 const remarks: Record<RemarkType, Remark> = {
   intro: {
@@ -121,7 +122,13 @@ const remarks: Record<RemarkType, Remark> = {
     emote: "thinking",
   },
   success: {
-    text: ["yeah! get ready for e-mail (eva-mail)"],
+    text: [
+      "yeah! get ready for e-mail",
+      "i am INSIDE YOUR INBOX",
+      "woah. it worked",
+      "good job! we are linked together",
+      "subscribed. welcome to my home",
+    ],
     emote: "starstruck",
   },
   error: {
@@ -162,14 +169,16 @@ export const SubscribeForm = () => {
 
   const displayNewRemark = (
     remarkType: RemarkType,
-    options?: { force?: boolean },
+    options?: { force?: boolean; text?: string },
   ) => {
     const shouldDisplayNewRemark =
       options?.force === true || !justDisplayedRemarks;
 
     if (shouldDisplayNewRemark && remarkType !== currentRemarkType) {
       setCurrentRemarkType(remarkType);
-      setCurrentText(getRandomRemark(remarks[remarkType].text));
+      setCurrentText(
+        options?.text ?? getRandomRemark(remarks[remarkType].text),
+      );
       setCurrentEmote(remarks[remarkType].emote);
     }
   };
@@ -221,37 +230,38 @@ export const SubscribeForm = () => {
     setIsSubmitting(true);
     displayNewRemark("submitting", { force: true });
 
-    const url =
-      "https://buttondown.email/api/emails/embed-subscribe/notesfromky";
     const data = new FormData(e.target as HTMLFormElement);
 
-    fetch(url, { method: "POST", body: data })
-      .then((response) => {
+    fetch("/api/subscribe", { method: "POST", body: data })
+      .then(async (response) => {
         if (response.ok) {
-          setTimeout(() => {
-            displayNewRemark("success", { force: true });
-            setHasSubmitted(true);
-            setIsSubmitting(false);
-          }, 1500);
+          displayNewRemark("success", { force: true });
+          setHasSubmitted(true);
         } else {
-          console.error(response);
-          displayNewRemark("error", { force: true });
-          setIsSubmitting(false);
+          let errorText: string | undefined;
+          try {
+            const body = await response.json();
+            if (typeof body?.error === "string") errorText = body.error;
+          } catch {
+            // ignore
+          }
+          displayNewRemark("error", { force: true, text: errorText });
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Subscribe request failed:", error);
+        displayNewRemark("error", { force: true });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
 
-    const sender = "hi@ky.fyi";
-    const sniperUrl = `https://sniperl.ink/v1/render?recipient=${recipientEmail}&sender=${sender}`;
-
-    fetch(sniperUrl)
+    fetch(
+      `https://sniperl.ink/v1/render?recipient=${recipientEmail}&sender=${SNIPER_SENDER}`,
+    )
       .then(async (response) => {
         if (response.ok) {
-          await response.json().then((data) => {
-            setSniperData(data);
-          });
+          setSniperData(await response.json());
         }
       })
       .catch((error) => {
