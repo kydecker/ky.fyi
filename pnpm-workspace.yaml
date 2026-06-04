@@ -1,0 +1,5 @@
+packages:
+  - ky.fyi
+allowBuilds:
+  esbuild: true
+  sharp: true
