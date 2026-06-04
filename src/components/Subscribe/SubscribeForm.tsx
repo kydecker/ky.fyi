@@ -122,7 +122,13 @@ const remarks: Record<RemarkType, Remark> = {
     emote: "thinking",
   },
   success: {
-    text: ["yeah! get ready for e-mail (eva-mail)"],
+    text: [
+      "yeah! get ready for e-mail",
+      "i am INSIDE YOUR INBOX",
+      "woah. it worked",
+      "good job! we are linked together",
+      "subscribed. welcome to my home",
+    ],
     emote: "starstruck",
   },
   error: {
