@@ -9,13 +9,15 @@ import { RelativeDate } from "./RelativeDate/RelativeDate";
 interface Props {
   title: string;
   description?: string;
-  img?: ImageMetadata[];
-  imgAlt?: string;
+  headerImage?: {
+    image: ImageMetadata[];
+    alt: string;
+  };
   datePublished?: Date;
   dateModified?: Date;
 }
 
-const { title, description, img, imgAlt, datePublished, dateModified } =
+const { title, description, headerImage, datePublished, dateModified } =
   Astro.props;
 
 const isModifiedSameDay = dayjs(datePublished).isSame(dateModified, "day");
@@ -24,9 +26,9 @@ const isModifiedSameDay = dayjs(datePublished).isSame(dateModified, "day");
 <header class="page-header">
   <Center>
     {
-      img && imgAlt && (
+      headerImage && (
         <div class="page-image">
-          <Picture img={img} imgAlt={imgAlt} />
+          <Picture img={headerImage.image} imgAlt={headerImage.alt} />
         </div>
       )
     }

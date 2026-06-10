@@ -3,6 +3,6 @@ description: Create and export Lissajous Curves in SVG.
 year: 2024
 url: https://lissajous.ky.fyi
 category: tool
-img:
-  src: ./lissajous.png
+previewImage:
+  image: ./lissajous.png
   alt: An orange Lissajous curve on a dark gray grid.

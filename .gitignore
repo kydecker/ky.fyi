@@ -16,6 +16,7 @@ dist/
 *.tsbuildinfo
 .vercel
 .netlify
+.wrangler
 _site/
 
 # Logs

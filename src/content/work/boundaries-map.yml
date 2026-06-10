@@ -4,6 +4,6 @@ year: 2022
 url: https://boundaries.beta.nyc
 urlText: Explore boundaries
 category: open data
-img:
-  src: ./boundaries-map.png
+previewImage:
+  image: ./boundaries-map.png
   alt: An interface displays two overlapping polygons on a map of New York City.

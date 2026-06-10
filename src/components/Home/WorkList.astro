@@ -10,8 +10,8 @@ interface Props {
     urlText?: string;
     category: string;
     year: number;
-    img?: {
-      src: ImageMetadata;
+    previewImage?: {
+      image: ImageMetadata;
       alt: string;
     };
   }>;
@@ -50,10 +50,10 @@ const { items } = Astro.props;
                   : item.urlText || "Visit"}
               </a>
             </div>
-            {item.img && (
+            {item.previewImage && (
               <Image
-                src={item.img.src}
-                alt={item.img.alt}
+                src={item.previewImage.image}
+                alt={item.previewImage.alt}
                 layout="constrained"
               />
             )}

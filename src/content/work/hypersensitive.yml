@@ -3,6 +3,6 @@ description: A looping, generative meditation on overwhelm, autism, and synesthe
 year: 2024
 url: https://hypersensitive.ky.fyi
 category: procedural art
-img:
-  src: ./hypersensitive.png
+previewImage:
+  image: ./hypersensitive.png
   alt: Vibrant blocks of text obscure the words, 'It's all going to be okay.'

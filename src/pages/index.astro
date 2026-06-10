@@ -22,7 +22,7 @@ const feed = work
       year: post.data.datePublished.getFullYear(),
       url: `/posts/${post.id}`,
       category: post.data.type === "case-study" ? "case study" : "writing",
-      img: post.data.img,
+      previewImage: post.data.previewImage,
     })),
   )
   .sort((a, b) => b.year - a.year);

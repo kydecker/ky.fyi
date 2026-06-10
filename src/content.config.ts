@@ -1,5 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 export const collections = {
   posts: defineCollection({
@@ -10,13 +11,12 @@ export const collections = {
         description: z.string(),
         datePublished: z.date(),
         dateModified: z.date().optional(),
-        img: z
+        previewImage: z
           .object({
-            src: image(),
+            image: image(),
             alt: z.string(),
           })
           .optional(),
-        ogImage: image().optional(),
         type: z.enum(["post", "case-study"]).default("post"),
       }),
   }),
@@ -29,9 +29,18 @@ export const collections = {
         description: z.string(),
         datePublished: z.date(),
         dateModified: z.date().optional(),
-        img: image().array().optional(),
-        imgAlt: z.string().optional(),
-        ogImage: image().optional(),
+        headerImage: z
+          .object({
+            image: image().array(),
+            alt: z.string(),
+          })
+          .optional(),
+        previewImage: z
+          .object({
+            image: image(),
+            alt: z.string(),
+          })
+          .optional(),
       }),
   }),
 
@@ -45,12 +54,12 @@ export const collections = {
         title: z.string(),
         description: z.string().optional(),
         year: z.number(),
-        url: z.string().url(),
+        url: z.url(),
         urlText: z.string().optional(),
         category: z.string(),
-        img: z
+        previewImage: z
           .object({
-            src: image(),
+            image: image(),
             alt: z.string(),
           })
           .optional(),
@@ -63,9 +72,9 @@ export const collections = {
       z.object({
         title: z.string(),
         description: z.string(),
-        url: z.string().url(),
-        prev: z.string().url(),
-        next: z.string().url(),
+        url: z.url(),
+        prev: z.url(),
+        next: z.url(),
         color: z.string(), // Radix color
       }),
   }),

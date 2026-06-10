@@ -3,6 +3,6 @@ description: Generative staff paper for non-linear time.
 year: 2024
 url: https://composed.ky.fyi
 category: procedural art
-img:
-  src: ./composed.png
+previewImage:
+  image: ./composed.png
   alt: Procedurally generated staff paper, angled, askew.

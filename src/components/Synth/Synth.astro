@@ -31,6 +31,44 @@ import SynthScreen from "./SynthScreen.astro";
 
   type NoteName = WhiteKey | BlackKey;
 
+  /** Keyboard `e.key` → note (keydown + keyup). */
+  const KEY_TO_NOTE: Partial<Record<string, NoteName>> = {
+    a: "C3",
+    A: "C3",
+    w: "Csharp3",
+    W: "Csharp3",
+    s: "D3",
+    S: "D3",
+    e: "Dsharp3",
+    E: "Dsharp3",
+    d: "E3",
+    D: "E3",
+    f: "F3",
+    F: "F3",
+    t: "Fsharp3",
+    T: "Fsharp3",
+    g: "G3",
+    G: "G3",
+    y: "Gsharp3",
+    Y: "Gsharp3",
+    h: "A3",
+    H: "A3",
+    u: "Asharp3",
+    U: "Asharp3",
+    j: "B3",
+    J: "B3",
+    k: "C4",
+    K: "C4",
+    o: "Csharp4",
+    O: "Csharp4",
+    l: "D4",
+    L: "D4",
+    p: "Dsharp4",
+    P: "Dsharp4",
+    ";": "E4",
+    ":": "E4",
+  };
+
   function prepareLoadSynth() {
     const synth: HTMLElement | null | undefined =
       document.getElementById("synth");
@@ -327,189 +365,48 @@ import SynthScreen from "./SynthScreen.astro";
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
-        synth?.dataset.loading === "false" &&
-        synth?.matches(":focus-within")
+        synth?.dataset.loading !== "false" ||
+        !synth?.matches(":focus-within")
       ) {
-        hideKeyboardLetters();
-        switch (e.key) {
-          case "ArrowLeft":
-            e.preventDefault();
-            prevInstrument();
-            break;
-          case "ArrowRight":
-            e.preventDefault();
-            nextInstrument();
-            break;
-          case "a":
-          case "A":
-            e.preventDefault();
-            pressKey("C3");
-            break;
-          case "w":
-          case "W":
-            e.preventDefault();
-            pressKey("Csharp3");
-            break;
-          case "s":
-          case "S":
-            e.preventDefault();
-            pressKey("D3");
-            break;
-          case "e":
-          case "E":
-            e.preventDefault();
-            pressKey("Dsharp3");
-            break;
-          case "d":
-          case "D":
-            e.preventDefault();
-            pressKey("E3");
-            break;
-          case "f":
-          case "F":
-            e.preventDefault();
-            pressKey("F3");
-            break;
-          case "t":
-          case "T":
-            e.preventDefault();
-            pressKey("Fsharp3");
-            break;
-          case "g":
-          case "G":
-            e.preventDefault();
-            pressKey("G3");
-            break;
-          case "y":
-          case "Y":
-            e.preventDefault();
-            pressKey("Gsharp3");
-            break;
-          case "h":
-          case "H":
-            e.preventDefault();
-            pressKey("A3");
-            break;
-          case "u":
-          case "U":
-            e.preventDefault();
-            pressKey("Asharp3");
-            break;
-          case "j":
-          case "J":
-            e.preventDefault();
-            pressKey("B3");
-            break;
-          case "k":
-          case "K":
-            e.preventDefault();
-            pressKey("C4");
-            break;
-          case "o":
-          case "O":
-            e.preventDefault();
-            pressKey("Csharp4");
-            break;
-          case "l":
-          case "L":
-            e.preventDefault();
-            pressKey("D4");
-            break;
-          case "p":
-          case "P":
-            e.preventDefault();
-            pressKey("Dsharp4");
-            break;
-          case ";":
-          case ":":
-            e.preventDefault();
-            pressKey("E4");
-            break;
-          default:
-            break;
-        }
+        return;
       }
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        hideKeyboardLetters();
+        e.preventDefault();
+        if (e.key === "ArrowLeft") {
+          prevInstrument();
+        } else {
+          nextInstrument();
+        }
+        return;
+      }
+
+      const note = KEY_TO_NOTE[e.key];
+      if (note === undefined) {
+        return;
+      }
+
+      hideKeyboardLetters();
+      e.preventDefault();
+      pressKey(note);
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
       if (
-        synth &&
-        synth.dataset.loading === "false" &&
-        synth.matches(":focus-within")
+        !synth ||
+        synth.dataset.loading !== "false" ||
+        !synth.matches(":focus-within")
       ) {
-        switch (e.key) {
-          case "a":
-          case "A":
-            releaseKey("C3");
-            break;
-          case "w":
-          case "W":
-            releaseKey("Csharp3");
-            break;
-          case "s":
-          case "S":
-            releaseKey("D3");
-            break;
-          case "e":
-          case "E":
-            releaseKey("Dsharp3");
-            break;
-          case "d":
-          case "D":
-            releaseKey("E3");
-            break;
-          case "f":
-          case "F":
-            releaseKey("F3");
-            break;
-          case "t":
-          case "T":
-            releaseKey("Fsharp3");
-            break;
-          case "g":
-          case "G":
-            releaseKey("G3");
-            break;
-          case "y":
-          case "Y":
-            releaseKey("Gsharp3");
-            break;
-          case "h":
-          case "H":
-            releaseKey("A3");
-            break;
-          case "u":
-          case "U":
-            releaseKey("Asharp3");
-            break;
-          case "j":
-          case "J":
-            releaseKey("B3");
-            break;
-          case "k":
-          case "K":
-            releaseKey("C4");
-            break;
-          case "o":
-          case "O":
-            releaseKey("Csharp4");
-            break;
-          case "l":
-          case "L":
-            releaseKey("D4");
-            break;
-          case "p":
-          case "P":
-            releaseKey("Dsharp4");
-            break;
-          case ";":
-          case ":":
-            releaseKey("E4");
-            break;
-          default:
-            break;
-        }
+        return;
       }
+
+      const note = KEY_TO_NOTE[e.key];
+      if (note === undefined) {
+        return;
+      }
+
+      releaseKey(note);
     };
 
     const bindEvents = () => {

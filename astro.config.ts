@@ -1,5 +1,5 @@
 import db from "@astrojs/db";
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
@@ -30,8 +30,13 @@ export default defineConfig({
   trailingSlash: "never",
   adapter: netlify(),
   markdown: {
-    rehypePlugins: [rehypeHeadingIds, [rehypeAutolinkHeadings, autolinkConfig]],
-    remarkPlugins: [imgAttr],
+    processor: unified({
+      rehypePlugins: [
+        rehypeHeadingIds,
+        [rehypeAutolinkHeadings, autolinkConfig],
+      ],
+      remarkPlugins: [imgAttr],
+    }),
   },
   vite: {
     optimizeDeps: {
@@ -46,36 +51,34 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.local(),
-        name: "HEX Franklin",
-        cssVariable: "--font-sans",
-        fallbacks: ["sans-serif"],
-        options: {
-          variants: [
-            {
-              src: ["./src/fonts/HEX_Franklin_v0.3_Variable.woff2"],
-            },
-          ],
-        },
+  fonts: [
+    {
+      provider: fontProviders.local(),
+      name: "HEX Franklin",
+      cssVariable: "--font-sans",
+      fallbacks: ["sans-serif"],
+      options: {
+        variants: [
+          {
+            src: ["./src/fonts/HEX_Franklin_v0.3_Variable.woff2"],
+          },
+        ],
       },
-      {
-        provider: fontProviders.local(),
-        name: "MonoLisa",
-        cssVariable: "--font-mono",
-        fallbacks: ["monospace"],
-        options: {
-          variants: [
-            {
-              src: ["./src/fonts/MonoLisaVariableNormal.woff2"],
-            },
-          ],
-        },
+    },
+    {
+      provider: fontProviders.local(),
+      name: "MonoLisa",
+      cssVariable: "--font-mono",
+      fallbacks: ["monospace"],
+      options: {
+        variants: [
+          {
+            src: ["./src/fonts/MonoLisaVariableNormal.woff2"],
+          },
+        ],
       },
-    ],
-  },
+    },
+  ],
   redirects: {
     "/garden": "/",
     "/projects": "/",

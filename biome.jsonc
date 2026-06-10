@@ -1,8 +1,9 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
   "files": {
     "includes": [
       "**",
+      "!pnpm-lock.yaml",
       "!**/build",
       "!**/dist",
       "!**/node_modules",

@@ -29,10 +29,10 @@ jobs:
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js with pnpm cache
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24
           cache: "pnpm"
       
       - name: Install dependencies
@@ -55,10 +55,10 @@ jobs:
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js with pnpm cache
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24
           cache: "pnpm"
 
       - name: Install dependencies
@@ -93,10 +93,10 @@ jobs:
         with:
           version: 8
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js with pnpm cache
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24
           cache: "pnpm"
 
       - name: Install dependencies
