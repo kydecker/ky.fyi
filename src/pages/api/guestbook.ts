@@ -1,5 +1,8 @@
-import { and, db, eq, Guestbook as GuestbookDB, gte } from "astro:db";
 import type { APIRoute } from "astro";
+import { and, eq, gte } from "drizzle-orm";
+import { db } from "../../db";
+import { insertGuestbookEntry } from "../../db/queries/insert";
+import { guestbookTable } from "../../db/schema";
 
 export const prerender = false;
 
@@ -54,14 +57,17 @@ export const POST = (async ({ request, clientAddress }) => {
   }
 
   if (clientAddress) {
-    const cutoff = new Date(Date.now() - RATE_LIMIT_MS);
+    const cutoff = new Date(Date.now() - RATE_LIMIT_MS)
+      .toISOString()
+      .replace("T", " ")
+      .slice(0, 19);
     const recent = await db
-      .select({ id: GuestbookDB.id })
-      .from(GuestbookDB)
+      .select({ id: guestbookTable.id })
+      .from(guestbookTable)
       .where(
         and(
-          eq(GuestbookDB.ip, clientAddress),
-          gte(GuestbookDB.timestamp, cutoff),
+          eq(guestbookTable.ip, clientAddress),
+          gte(guestbookTable.timestamp, cutoff),
         ),
       )
       .limit(1);
@@ -76,7 +82,7 @@ export const POST = (async ({ request, clientAddress }) => {
 
   const isSpam = SPAM_FILTER_STRINGS.some((str) => content.includes(str));
 
-  await db.insert(GuestbookDB).values({
+  await insertGuestbookEntry({
     author,
     content,
     url: url || undefined,

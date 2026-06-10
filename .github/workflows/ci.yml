@@ -1,8 +1,8 @@
 name: CI
 
 env:
-  ASTRO_DB_REMOTE_URL: ${{ secrets.ASTRO_DB_REMOTE_URL }}
-  ASTRO_DB_APP_TOKEN: ${{ secrets.ASTRO_DB_APP_TOKEN }}
+  TURSO_CONNECTION_URL: ${{ secrets.TURSO_CONNECTION_URL }}
+  TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
 
 permissions:
   contents: read
@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 24
           cache: "pnpm"
-      
+
       - name: Install dependencies
         run: pnpm i
 

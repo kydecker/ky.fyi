@@ -1,16 +1,11 @@
 ---
-import { db, desc, eq, Guestbook as GuestbookDB, isNull, or } from "astro:db";
+import { getGuestbookEntries } from "../../db/queries/select";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
 
 const LIMIT = 8;
 
-const guestbook = await db
-  .select()
-  .from(GuestbookDB)
-  .where(or(eq(GuestbookDB.isSpam, false), isNull(GuestbookDB.isSpam)))
-  .orderBy(desc(GuestbookDB.timestamp))
-  .limit(LIMIT);
+const guestbook = await getGuestbookEntries(0, LIMIT);
 ---
 
 {

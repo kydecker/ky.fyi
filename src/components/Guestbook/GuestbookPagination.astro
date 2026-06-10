@@ -1,5 +1,5 @@
 ---
-import { count, db, eq, Guestbook as GuestbookDB, isNull, or } from "astro:db";
+import { getGuestbookCount } from "../../db/queries/select";
 import Center from "../Center.astro";
 import { Icon } from "../Icon/Icon";
 
@@ -7,11 +7,8 @@ const currentPage = Number(Astro.props.currentPage) || 1;
 
 const baseEntriesPerPage = 24;
 
-const entryCount = await db
-  .select({ count: count() })
-  .from(GuestbookDB)
-  .where(or(eq(GuestbookDB.isSpam, false), isNull(GuestbookDB.isSpam)));
-const totalEntries = entryCount[0].count;
+const entryCount = await getGuestbookCount();
+const totalEntries = entryCount?.count ?? 0;
 const remainingEntries = Math.max(0, totalEntries - 1);
 const totalPages = Math.max(
   1,
