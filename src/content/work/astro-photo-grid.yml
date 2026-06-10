@@ -4,6 +4,6 @@ year: 2025
 url: https://github.com/kydecker/astro-photo-grid
 urlText: View on GitHub
 category: site template
-img:
-  src: ./astro-photo-grid.png
+previewImage:
+  image: ./astro-photo-grid.png
   alt: A horizontal masonry grid of nature photos on a black background.

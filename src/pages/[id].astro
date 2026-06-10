@@ -19,17 +19,23 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { data } = page;
 const { Content } = await render(page);
+const {
+  title,
+  description,
+  datePublished,
+  dateModified,
+  headerImage,
+  previewImage,
+} = data;
 ---
 
 <ProseLayout
-  title={data.title}
-  description={data.description}
-  datePublished={data.datePublished}
-  dateModified={data.dateModified}
-  img={data.img}
-  imgAlt={data.imgAlt}
-  ogImage={data.ogImage?.src}
-  ogAlt={data.imgAlt}
+  title={title}
+  description={description}
+  datePublished={datePublished}
+  dateModified={dateModified}
+  headerImage={headerImage}
+  previewImage={previewImage}
 >
   <Content />
 </ProseLayout>

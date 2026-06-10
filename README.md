@@ -1,6 +1,6 @@
 # Ky Decker
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1454513e-f8a3-468f-9f62-933c9225d8c2/deploy-status)](https://app.netlify.com/sites/eva-town/deploys) [![RSS](https://img.shields.io/badge/RSS-gray?logo=rss&logoColor=white&labelColor=eb7817)](https://ky.fyi/rss.xml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1454513e-f8a3-468f-9f62-933c9225d8c2/deploy-status)](https://app.netlify.com/sites/ky-fyi/deploys) [![RSS](https://img.shields.io/badge/RSS-gray?logo=rss&logoColor=white&labelColor=eb7817)](https://ky.fyi/rss.xml)
 
 This is the source code for [ky.fyi](https://ky.fyi), designed, coded, and written by Ky—that's me! It's a place for me to share notes and learn in public. I try to update things regularly.
 

@@ -4,6 +4,6 @@ year: 2024
 url: https://namesake.fyi
 urlText: Visit and donate
 category: nonprofit
-img:
-  src: ./namesake.png
+previewImage:
+  image: ./namesake.png
   alt: A purple background with a snail on a flower. "Your name is yours to change."

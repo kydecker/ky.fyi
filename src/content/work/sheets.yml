@@ -3,6 +3,6 @@ description: Solo piano arrangements, engraved using LilyPond.
 year: 2026
 url: https://sheets.ky.fyi
 category: music composition
-img:
-  src: ./sheets.png
+previewImage:
+  image: ./sheets.png
   alt: The word "Sheets" in Times New Roman beneath a pink lotus flower.

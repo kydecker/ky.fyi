@@ -4,6 +4,6 @@ year: 2023
 url: https://genderswap.fm
 urlText: Explore the archive
 category: archive
-img:
-  src: ./genderswap-fm.png
+previewImage:
+  image: ./genderswap-fm.png
   alt: An interface showing pairs of albums side-by-side, each one a cover.

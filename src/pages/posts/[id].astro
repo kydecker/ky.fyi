@@ -25,13 +25,13 @@ const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
 
 const { data } = post;
-const { title, description, ogImage, datePublished, dateModified } = data;
+const { title, description, previewImage, datePublished, dateModified } = data;
 ---
 
 <ProseLayout
   title={title}
   description={description}
-  ogImage={ogImage?.src}
+  previewImage={previewImage}
   datePublished={datePublished}
   dateModified={dateModified}
 >

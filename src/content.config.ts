@@ -11,13 +11,12 @@ export const collections = {
         description: z.string(),
         datePublished: z.date(),
         dateModified: z.date().optional(),
-        img: z
+        previewImage: z
           .object({
-            src: image(),
+            image: image(),
             alt: z.string(),
           })
           .optional(),
-        ogImage: image().optional(),
         type: z.enum(["post", "case-study"]).default("post"),
       }),
   }),
@@ -30,9 +29,18 @@ export const collections = {
         description: z.string(),
         datePublished: z.date(),
         dateModified: z.date().optional(),
-        img: image().array().optional(),
-        imgAlt: z.string().optional(),
-        ogImage: image().optional(),
+        headerImage: z
+          .object({
+            image: image().array(),
+            alt: z.string(),
+          })
+          .optional(),
+        previewImage: z
+          .object({
+            image: image(),
+            alt: z.string(),
+          })
+          .optional(),
       }),
   }),
 
@@ -49,9 +57,9 @@ export const collections = {
         url: z.url(),
         urlText: z.string().optional(),
         category: z.string(),
-        img: z
+        previewImage: z
           .object({
-            src: image(),
+            image: image(),
             alt: z.string(),
           })
           .optional(),

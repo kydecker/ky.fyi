@@ -3,6 +3,6 @@ description: How do you define design?
 year: 2024
 url: https://design.ky.fyi
 category: poetic web
-img:
-  src: ./design-is.png
+previewImage:
+  image: ./design-is.png
   alt: Design is the deliberate creation of light for others.

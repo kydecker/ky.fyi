@@ -15,11 +15,13 @@ interface Props {
   includeFooter?: boolean;
   padTop?: boolean;
   padBottom?: boolean;
-  ogImage?: string;
-  ogAlt?: string;
+  previewImage?: {
+    image: ImageMetadata;
+    alt: string;
+  };
 }
 
-const { title, description, includeFooter, padTop, padBottom, ogImage, ogAlt } =
+const { title, description, includeFooter, padTop, padBottom, previewImage } =
   Astro.props;
 
 const forwards: TransitionAnimationPair = {
@@ -63,8 +65,7 @@ const viewTransition = {
 <UnstyledBase
   title={title}
   description={description}
-  ogImage={ogImage}
-  ogAlt={ogAlt}
+  previewImage={previewImage}
 >
   <script is:inline src="/scripts/preloadTheme.js"></script>
   <Header />

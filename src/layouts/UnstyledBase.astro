@@ -2,17 +2,25 @@
 import "../styles/reset.css";
 import "../styles/theme.css";
 
-import { Font } from "astro:assets";
+import { Font, getImage } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
+import defaultOgImage from "../images/default.png";
 
-export interface Props {
+interface Props {
   title: string;
   description: string;
-  ogImage?: string;
-  ogAlt?: string;
+  previewImage?: {
+    image: ImageMetadata;
+    alt: string;
+  };
 }
 
-const { title, description, ogImage, ogAlt } = Astro.props;
+const { title, description, previewImage } = Astro.props;
+const image = await getImage({
+  src: previewImage?.image ?? defaultOgImage,
+  width: 1200,
+  height: 630,
+});
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
@@ -61,13 +69,10 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Ky Decker" />
-    <meta
-      property="og:image"
-      content={ogImage ?? `${Astro.url.origin}/og/default.png`}
-    />
+    <meta property="og:image" content={image.src} />
     <meta
       property="og:image:alt"
-      content={ogAlt ?? "Ky designs and builds things for the web."}
+      content={previewImage?.alt ?? "Ky designs and builds things for the web."}
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="manifest" href="/manifest.json" />

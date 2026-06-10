@@ -4,6 +4,6 @@ year: 2025
 url: https://windy.ky.fyi
 urlText: Listen
 category: handmade web
-img:
-  src: ./windy-day.png
+previewImage:
+  image: ./windy-day.png
   alt: A plain HTML table on a cream colored background featuring rows of audio controls and small animated GIFs.

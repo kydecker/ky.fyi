@@ -3,7 +3,7 @@ import "./icon.css";
 import classNames from "classnames";
 
 // Icons sourced from https://remixicon.com
-export type IconType =
+type IconType =
   | "arrowLeft"
   | "arrowRight"
   | "code"
@@ -25,7 +25,7 @@ export type IconType =
   | "sparkling"
   | "sun";
 
-export interface IconProps {
+interface IconProps {
   /**
    * The icon to display
    */

@@ -10,10 +10,14 @@ interface Props {
   description: string;
   datePublished?: Date;
   dateModified?: Date;
-  img?: ImageMetadata[];
-  imgAlt?: string;
-  ogImage?: string;
-  ogAlt?: string;
+  headerImage?: {
+    image: ImageMetadata[];
+    alt: string;
+  };
+  previewImage?: {
+    image: ImageMetadata;
+    alt: string;
+  };
 }
 
 const {
@@ -21,10 +25,8 @@ const {
   description,
   datePublished,
   dateModified,
-  img,
-  imgAlt,
-  ogImage,
-  ogAlt,
+  headerImage,
+  previewImage,
 } = Astro.props;
 ---
 
@@ -33,8 +35,7 @@ const {
   description={smartquotes(description)}
   includeFooter
   padBottom
-  ogImage={ogImage}
-  ogAlt={ogAlt}
+  previewImage={previewImage}
 >
   <article itemscope itemtype="https://schema.org/BlogPosting">
     <PageHeader
@@ -42,8 +43,7 @@ const {
       description={smartquotes(description)}
       datePublished={datePublished}
       dateModified={dateModified}
-      img={img}
-      imgAlt={imgAlt}
+      headerImage={headerImage}
     />
     <section itemprop="articleBody" class="prose">
       <slot />

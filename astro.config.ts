@@ -1,5 +1,5 @@
 import db from "@astrojs/db";
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
@@ -30,8 +30,13 @@ export default defineConfig({
   trailingSlash: "never",
   adapter: netlify(),
   markdown: {
-    rehypePlugins: [rehypeHeadingIds, [rehypeAutolinkHeadings, autolinkConfig]],
-    remarkPlugins: [imgAttr],
+    processor: unified({
+      rehypePlugins: [
+        rehypeHeadingIds,
+        [rehypeAutolinkHeadings, autolinkConfig],
+      ],
+      remarkPlugins: [imgAttr],
+    }),
   },
   vite: {
     optimizeDeps: {
