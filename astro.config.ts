@@ -1,4 +1,3 @@
-import db from "@astrojs/db";
 import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
@@ -25,7 +24,6 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
-    db(),
   ],
   trailingSlash: "never",
   adapter: netlify(),

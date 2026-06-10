@@ -1,0 +1,73 @@
+---
+import GuestbookEntries from "../../components/Guestbook/GuestbookEntries.astro";
+import GuestbookPagination from "../../components/Guestbook/GuestbookPagination.astro";
+import Notecard from "../../components/Notecard/Notecard.astro";
+import { NotecardComposer } from "../../components/Notecard/NotecardComposer";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import guestbookPreview from "./guestbook.png";
+
+export const prerender = false;
+
+// Get the current page from search params
+const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
+
+// Redirect page=1 to base URL
+if (currentPage === 1 && Astro.url.searchParams.has("page")) {
+  return Astro.redirect("/guestbook");
+}
+
+const isFirstPage = currentPage === 1;
+
+const title = "Guestbook";
+const description = "Leave a message in ky.fyi.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  includeFooter
+  padBottom
+  previewImage={{
+    image: guestbookPreview,
+    alt: "A collection of hand-drawn postcards. The middle one has a flower drawn with a green highlighter.",
+  }}
+>
+  <h1 class="visually-hidden">Guestbook</h1>
+  <div class="notecards">
+    {isFirstPage && <NotecardComposer client:load />}
+    <GuestbookEntries currentPage={currentPage} server:defer>
+      <Fragment slot="fallback">
+        {
+          Array.from({ length: 24 }).map(() => (
+            <Notecard theme={1} content="" loading />
+          ))
+        }
+      </Fragment>
+    </GuestbookEntries>
+  </div>
+  <GuestbookPagination currentPage={currentPage} server:defer />
+</BaseLayout>
+
+<style>
+  .notecards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--space-2xl);
+    padding: var(--space-xl);
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  import * as Fathom from "fathom-client";
+
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelector("[data-fathom='explanation']")
+      ?.addEventListener("click", () => {
+        Fathom.trackEvent("guestbook: learn more");
+      });
+  });
+</script>

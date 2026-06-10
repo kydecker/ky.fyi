@@ -1,0 +1,111 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Center from "../../components/Center.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Webring from "../../components/Webring.astro";
+import madeWithHands from "../../content/badges/gossips-web.jpeg";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import webringsPreview from "./webrings.png";
+
+const webrings = await getCollection("webrings");
+const badges = await getEntry("badges", "badges");
+
+const title = "Webrings";
+const description =
+  "Webrings let you browse related sites in one big loop—ky.fyi belongs to a few!";
+
+const datePublished = new Date("2024-05-16");
+const dateModified = new Date("2025-04-21 12:35:00-04:00");
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  includeFooter
+  padBottom
+  previewImage={{
+    image: webringsPreview,
+    alt: "A collection of old-school gifs.",
+  }}
+>
+  <PageHeader
+    title={title}
+    description={description}
+    datePublished={datePublished}
+    dateModified={dateModified}
+  />
+  <Center>
+    <section>
+      <div class="webrings">
+        {webrings.map((webring) => <Webring webring={webring} />)}
+      </div>
+    </section>
+  </Center>
+  <section id="badges" class="badge-section">
+    <div class="badges">
+      {
+        badges?.data.map((badge) => (
+          <a href={badge.url} target="_blank">
+            <img src={badge.img.src} alt={badge.alt} style={`height: 31px`} />
+          </a>
+        ))
+      }
+    </div>
+    <small class="credit">
+      88&times;31 buttons from <a
+        href="https://hellnet.work/8831/"
+        rel="external">hellnet.work</a
+      >, <a href="https://yesterweb.org/graphics/buttons" rel="external"
+        >yesterweb.org</a
+      >, <a href="https://cyber.dabamos.de/88x31/index.html" rel="external"
+        >cyber.dabamos.de</a
+      >, <a href="https://lmnt.me/badges/" rel="external">lmnt.me</a>, and other
+      friends.
+    </small>
+    <a href="https://gossipsweb.net/" rel="external">
+      <img
+        src={madeWithHands.src}
+        alt="This website was made with hands."
+        style="height: 43px; border: 1px solid #000"
+      />
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .webrings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+
+  .badge-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-m);
+    align-items: center;
+    text-align: center;
+    padding-block-start: var(--space-3xl);
+    padding-inline: var(--space-xs);
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  .badges {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+
+    img {
+      flex-grow: 0;
+      flex-shrink: 0;
+      image-rendering: pixelated;
+    }
+  }
+
+  .credit {
+    text-wrap: balance;
+  }
+</style>

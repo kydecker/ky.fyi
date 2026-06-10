@@ -6,7 +6,7 @@ interface Props {
   content: string;
   url?: string | null;
   author?: string;
-  timestamp?: Date;
+  timestamp?: string;
   theme: number;
   small?: boolean;
   randomTranslate?: boolean;
@@ -48,7 +48,7 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
     {
       timestamp && (
         <div class="date">
-          <RelativeDate date={timestamp} />
+          <RelativeDate date={new Date(timestamp)} />
         </div>
       )
     }
