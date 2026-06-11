@@ -88,5 +88,6 @@ export default defineConfig({
     "/friends": "/webrings",
     "/resume": "/downloads/ky-decker-resume.pdf",
     "/downloads/eva-decker-resume.pdf": "/downloads/ky-decker-resume.pdf",
+    "/subscribe": "/",
   },
 });
