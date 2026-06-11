@@ -7,6 +7,7 @@ import {
   type SubmitEvent,
   type SubmitEventHandler,
   useEffect,
+  useId,
   useState,
 } from "react";
 
@@ -152,6 +153,7 @@ const getRandomRemark = (remarks: string[]): string => {
 };
 
 export const SubscribeForm = () => {
+  const emailId = useId();
   const [currentRemarkType, setCurrentRemarkType] = useState<RemarkType | null>(
     null,
   );
@@ -306,7 +308,7 @@ export const SubscribeForm = () => {
               className="input"
               autoComplete="email"
               type="email"
-              id="email"
+              id={emailId}
               name="email"
               placeholder="Your email"
               onFocus={handleFocus}
