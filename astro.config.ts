@@ -10,6 +10,7 @@ import cssnano from "cssnano";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import imgAttr from "remark-imgattr";
 import { autolinkConfig } from "./plugins/rehype-autolink-config";
+import { remarkModifiedTime } from "./plugins/remark-modified-time.mjs";
 
 export default defineConfig({
   site: "https://ky.fyi",
@@ -28,6 +29,7 @@ export default defineConfig({
   trailingSlash: "never",
   adapter: cloudflare({
     prerenderEnvironment: "node",
+    imageService: "passthrough",
   }),
   markdown: {
     processor: unified({
@@ -35,7 +37,7 @@ export default defineConfig({
         rehypeHeadingIds,
         [rehypeAutolinkHeadings, autolinkConfig],
       ],
-      remarkPlugins: [imgAttr],
+      remarkPlugins: [imgAttr, remarkModifiedTime],
     }),
   },
   vite: {

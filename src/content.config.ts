@@ -10,7 +10,6 @@ export const collections = {
         title: z.string(),
         description: z.string(),
         datePublished: z.date(),
-        dateModified: z.date().optional(),
         previewImage: z
           .object({
             image: image(),
@@ -28,7 +27,6 @@ export const collections = {
         title: z.string(),
         description: z.string(),
         datePublished: z.date(),
-        dateModified: z.date().optional(),
         headerImage: z
           .object({
             image: image().array(),

@@ -2,7 +2,6 @@
 title: Colophon
 description: Colophon is a designer-y word for “how it’s made”—here’s what powers ky.fyi.
 datePublished: 2023-09-26 03:47:00-04:00
-dateModified: 2026-06-10 03:47:00-04:00
 headerImage:
   image: ["./img600.webp", "./img900.webp", "./img1200.webp"]
   alt: The spines of 12 books, including Visual Explanations, The Display of Quantitative Information, The Geometry of Type, Understanding Comics, Nicely Said, Don't Make Me Think!, Queer by Design, The 99% Invisible City, Interaction of Color, The Elements of Style, Thinking Fast and Slow, and The Death and Life of Great American Cities.
