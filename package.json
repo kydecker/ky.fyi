@@ -39,7 +39,7 @@
     "@nanostores/react": "^1.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.1.6",
+    "astro": "^6.4.6",
     "astro-expressive-code": "^0.43.0",
     "autoprefixer": "^10.5.0",
     "classnames": "^2.5.1",
