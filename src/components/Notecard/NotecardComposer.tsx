@@ -212,9 +212,11 @@ export const NotecardComposer = () => {
         return;
       }
 
-      const data = await res.json().catch(() => ({}));
+      const data = await res
+        .json<{ error?: string }>()
+        .catch(() => ({}) as { error?: string });
       const message =
-        typeof data?.error === "string" ? data.error : "Something went wrong.";
+        typeof data.error === "string" ? data.error : "Something went wrong.";
       setErrorMessage(message);
     } finally {
       setIsSubmitting(false);

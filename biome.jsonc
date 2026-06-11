@@ -10,6 +10,7 @@
       "!**/playwright-report",
       "!**/.vercel",
       "!**/.netlify",
+      "!worker-configuration.d.ts",
       "!**/.vscode",
       "!**/.astro",
       "!**/src/components/Synth/unmute.js"

@@ -1,6 +1,6 @@
+import cloudflare from "@astrojs/cloudflare";
 import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
-import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
@@ -26,7 +26,7 @@ export default defineConfig({
     sitemap(),
   ],
   trailingSlash: "never",
-  adapter: netlify(),
+  adapter: cloudflare(),
   markdown: {
     processor: unified({
       rehypePlugins: [
