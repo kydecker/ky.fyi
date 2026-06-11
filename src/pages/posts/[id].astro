@@ -22,10 +22,12 @@ export async function getStaticPaths() {
   }));
 }
 const { post, prev, next } = Astro.props;
-const { Content } = await render(post);
+const { Content, remarkPluginFrontmatter } = await render(post);
 
 const { data } = post;
-const { title, description, previewImage, datePublished, dateModified } = data;
+const { title, description, previewImage, datePublished } = data;
+
+console.log(remarkPluginFrontmatter);
 ---
 
 <ProseLayout
@@ -33,7 +35,7 @@ const { title, description, previewImage, datePublished, dateModified } = data;
   description={description}
   previewImage={previewImage}
   datePublished={datePublished}
-  dateModified={dateModified}
+  dateModified={remarkPluginFrontmatter.dateModified}
 >
   <Content />
   <div class="pagination" slot="after-prose">
