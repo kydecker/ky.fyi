@@ -27,6 +27,10 @@ export default defineConfig({
     sitemap(),
   ],
   trailingSlash: "never",
+  build: {
+    // Eliminate trailing slashes from Cloudflare
+    format: "file",
+  },
   adapter: cloudflare({
     prerenderEnvironment: "node",
     imageService: "passthrough",
