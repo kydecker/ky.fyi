@@ -240,7 +240,7 @@ export const SubscribeForm = () => {
         } else {
           let errorText: string | undefined;
           try {
-            const body = await response.json();
+            const body = await response.json<{ error?: string }>();
             if (typeof body?.error === "string") errorText = body.error;
           } catch {
             // ignore

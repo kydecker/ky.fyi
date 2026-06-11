@@ -1,20 +1,29 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "esModuleInterop": true,
-    "module": "ES6",
-    "target": "ES6",
-    "typeRoots": ["./src/types", "./node_modules/@types", "./public/scripts"]
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types",
+      "./public/scripts",
+      "./worker-configuration.d.ts"
+    ]
   },
-  "extends": "astro/tsconfigs/strict",
+
   "include": [
     "astro.config.ts",
-    ".eslintrc.js",
     "./src/types/*.d.ts",
     ".astro/types.d.ts",
     "**/*"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    ".wrangler",
+    "dist",
+    "node_modules",
+    "playwright-report",
+    "public",
+    "test-results"
+  ]
 }
