@@ -26,7 +26,9 @@ export default defineConfig({
     sitemap(),
   ],
   trailingSlash: "never",
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    prerenderEnvironment: "node",
+  }),
   markdown: {
     processor: unified({
       rehypePlugins: [
