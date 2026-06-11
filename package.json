@@ -15,7 +15,7 @@
     "check": "astro check && biome check",
     "check:fix": "astro check && biome check --write",
     "test": "playwright test",
-    "html-validate": "pnpm build && pnpm exec html-validate dist/*.html",
+    "html-validate": "pnpm build && pnpm exec html-validate dist/client/**/*.html",
     "check-links": "lychee --config .lychee.toml .",
     "knip": "knip"
   },
