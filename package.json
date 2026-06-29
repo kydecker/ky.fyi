@@ -32,7 +32,7 @@
     "@astrojs/cloudflare": "14.0.0-beta.2",
     "@astrojs/markdown-remark": "^7.2.0",
     "@astrojs/mdx": "7.0.0",
-    "@astrojs/react": "6.0.0-beta.1",
+    "@astrojs/react": "6.0.0",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
     "@libsql/client": "^0.17.4",
