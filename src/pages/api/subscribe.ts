@@ -32,7 +32,7 @@ export const POST = (async ({ request }) => {
 
   let errorMessage: string | undefined;
   try {
-    const body = await response.json();
+    const body = await response.json<{ error?: string }>();
     if (typeof body?.error === "string") errorMessage = body.error;
   } catch {
     // non-JSON error body — fall through to generic message
