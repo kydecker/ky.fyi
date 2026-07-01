@@ -5,8 +5,6 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
-import autoprefixer from "autoprefixer";
-import cssnano from "cssnano";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import imgAttr from "remark-imgattr";
 import { autolinkConfig } from "./plugins/rehype-autolink-config";
@@ -47,11 +45,6 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       exclude: ["fsevents"],
-    },
-    css: {
-      postcss: {
-        plugins: [autoprefixer, cssnano],
-      },
     },
   },
   devToolbar: {
