@@ -236,15 +236,13 @@ export const SubscribeForm = () => {
     fetch("https://buttondown.com/api/emails/embed-subscribe/notesfromky", {
       method: "POST",
       body: data,
+      redirect: "manual",
     })
       .then((response) => {
-        if (response.ok) {
+        if (response.ok || response.type === "opaqueredirect") {
           displayNewRemark("success", { force: true });
           setHasSubmitted(true);
         } else {
-          response.text().then((body) => {
-            console.error("Buttondown error response:", response.status, body);
-          });
           displayNewRemark("error", { force: true });
         }
       })
