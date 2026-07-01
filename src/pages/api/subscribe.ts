@@ -17,15 +17,16 @@ export const POST = (async ({ request }) => {
     });
   }
 
-  const buttondownData = new FormData();
-  buttondownData.set("email", email);
+  const response = await fetch("https://api.buttondown.email/v1/subscribers", {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${import.meta.env.BUTTONDOWN_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
 
-  const response = await fetch(
-    "https://buttondown.email/api/emails/embed-subscribe/notesfromky",
-    { method: "POST", body: buttondownData },
-  );
-
-  if (response.ok) {
+  if (response.status === 201) {
     return new Response(null, { status: 200 });
   }
 
