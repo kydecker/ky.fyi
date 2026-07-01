@@ -54,6 +54,7 @@ const isModifiedSameDay = dayjs(datePublished).isSame(dateModified, "day");
             Planted <RelativeDate date={datePublished} client:load />
             {dateModified && !isModifiedSameDay && (
               <span class="tended">
+                {" "}
                 + tended <RelativeDate date={dateModified} client:load />
               </span>
             )}
