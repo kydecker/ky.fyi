@@ -231,21 +231,21 @@ export const SubscribeForm = () => {
     displayNewRemark("submitting", { force: true });
 
     const data = new FormData(e.target as HTMLFormElement);
+    data.append("embed", "1");
 
-    fetch("/api/subscribe", { method: "POST", body: data })
-      .then(async (response) => {
+    fetch("https://buttondown.com/api/emails/embed-subscribe/notesfromky", {
+      method: "POST",
+      body: data,
+    })
+      .then((response) => {
         if (response.ok) {
           displayNewRemark("success", { force: true });
           setHasSubmitted(true);
         } else {
-          let errorText: string | undefined;
-          try {
-            const body = await response.json<{ error?: string }>();
-            if (typeof body?.error === "string") errorText = body.error;
-          } catch {
-            // ignore
-          }
-          displayNewRemark("error", { force: true, text: errorText });
+          response.text().then((body) => {
+            console.error("Buttondown error response:", response.status, body);
+          });
+          displayNewRemark("error", { force: true });
         }
       })
       .catch((error) => {
