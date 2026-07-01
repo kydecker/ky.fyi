@@ -1,6 +1,5 @@
 import { h } from "hastscript";
-import type { ElementContent } from "node_modules/rehype-autolink-headings/lib";
-import type { Options } from "rehype-autolink-headings";
+import type { Options } from "rehype-autolink-headings/";
 
 const AnchorLinkIcon = h(
   "svg",
@@ -23,6 +22,6 @@ export const autolinkConfig: Options = {
   group: ({ tagName }) =>
     h(`div.heading-wrapper.level-${tagName}`, {
       tabIndex: -1,
-    }) as ElementContent,
-  content: [AnchorLinkIcon as ElementContent],
+    }),
+  content: [AnchorLinkIcon],
 };

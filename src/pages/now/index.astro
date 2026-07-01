@@ -1,8 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import dayjs from "dayjs";
-import { RelativeDate } from "src/components/RelativeDate/RelativeDate";
-import ProseLayout from "src/layouts/ProseLayout.astro";
+import { RelativeDate } from "../../components/RelativeDate/RelativeDate";
+import ProseLayout from "../../layouts/ProseLayout.astro";
 
 const events = await getCollection("now");
 events.sort((a, b) => {
