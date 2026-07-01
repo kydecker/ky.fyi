@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Center from "../components/Center.astro";
 import GuestbookFeed from "../components/Home/GuestbookFeed.astro";
-import WorkList from "../components/Home/WorkList.astro";
+import ProjectGrid from "../components/Home/ProjectGrid.astro";
 import Synth from "../components/Synth/Synth.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -14,18 +14,18 @@ const feed = work
     id: project.id,
     ...project.data,
   }))
-  .concat(
-    posts.map((post) => ({
-      id: `post-${post.id}`,
-      title: post.data.title,
-      description: post.data.description,
-      year: post.data.datePublished.getFullYear(),
-      url: `/posts/${post.id}`,
-      category: post.data.type === "case-study" ? "case study" : "writing",
-      previewImage: post.data.previewImage,
-    })),
-  )
   .sort((a, b) => b.year - a.year);
+
+const writing = posts
+  .sort(
+    (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
+  )
+  .map((post) => ({
+    id: post.id,
+    title: post.data.title,
+    year: post.data.datePublished.getFullYear(),
+    url: `/posts/${post.id}`,
+  }));
 ---
 
 <BaseLayout
@@ -53,7 +53,22 @@ const feed = work
   <section>
     <Center>
       <h2>Projects</h2>
-      <WorkList items={feed} />
+      <ProjectGrid items={feed} />
+    </Center>
+  </section>
+  <section>
+    <Center>
+      <h2>Writing</h2>
+      <ul class="writing-list">
+        {
+          writing.map((post) => (
+            <li>
+              <time class="writing-year">{post.year}</time>
+              <a href={post.url}>{post.title}</a>
+            </li>
+          ))
+        }
+      </ul>
     </Center>
   </section>
   <section>
@@ -183,6 +198,31 @@ const feed = work
     h2 {
       font-size: var(--step-1);
       margin-block-end: var(--space-m);
+    }
+
+    .writing-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-s);
+
+      li {
+        display: grid;
+        grid-template-columns: 4ch 1fr;
+        gap: var(--space-l);
+        align-items: baseline;
+      }
+
+      .writing-year {
+        color: var(--gray-11);
+        font-variant-numeric: tabular-nums;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     }
   </style>
 </BaseLayout>
