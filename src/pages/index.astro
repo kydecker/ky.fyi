@@ -16,16 +16,22 @@ const feed = work
   }))
   .sort((a, b) => b.year - a.year);
 
-const writing = posts
-  .sort(
-    (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
-  )
-  .map((post) => ({
-    id: post.id,
-    title: post.data.title,
-    year: post.data.datePublished.getFullYear(),
-    url: `/posts/${post.id}`,
-  }));
+const writingByYear = Array.from(
+  posts
+    .sort(
+      (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
+    )
+    .reduce((acc, post) => {
+      const year = post.data.datePublished.getFullYear();
+      if (!acc.has(year)) acc.set(year, []);
+      acc.get(year)!.push({
+        id: post.id,
+        title: post.data.title,
+        url: `/posts/${post.id}`,
+      });
+      return acc;
+    }, new Map<number, { id: string; title: string; url: string }[]>()),
+).sort(([a], [b]) => b - a);
 ---
 
 <BaseLayout
@@ -59,16 +65,22 @@ const writing = posts
   <section>
     <Center>
       <h2>Writing</h2>
-      <ul class="writing-list">
+      <div class="writing-list">
         {
-          writing.map((post) => (
-            <li>
-              <time class="writing-year">{post.year}</time>
-              <a href={post.url}>{post.title}</a>
-            </li>
+          writingByYear.map(([year, entries]) => (
+            <div class="writing-group">
+              <time class="writing-year">{year}</time>
+              <ul class="writing-entries">
+                {entries.map((post) => (
+                  <li>
+                    <a href={post.url}>{post.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))
         }
-      </ul>
+      </div>
     </Center>
   </section>
   <section>
@@ -201,23 +213,29 @@ const writing = posts
     }
 
     .writing-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-s);
+    }
+
+    .writing-group {
+      display: grid;
+      grid-template-columns: 4ch 1fr;
+      gap: var(--space-l);
+      align-items: baseline;
+    }
+
+    .writing-year {
+      color: var(--gray-11);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .writing-entries {
       list-style: none;
       padding: 0;
       display: flex;
       flex-direction: column;
       gap: var(--space-s);
-
-      li {
-        display: grid;
-        grid-template-columns: 4ch 1fr;
-        gap: var(--space-l);
-        align-items: baseline;
-      }
-
-      .writing-year {
-        color: var(--gray-11);
-        font-variant-numeric: tabular-nums;
-      }
 
       a {
         color: inherit;
