@@ -32,8 +32,19 @@ export const POST = (async ({ request }) => {
 
   let errorMessage: string | undefined;
   try {
-    const body = await response.json<{ error?: string }>();
-    if (typeof body?.error === "string") errorMessage = body.error;
+    const body = await response.json<Record<string, unknown>>();
+    // Buttondown returns DRF-style errors: { fieldName: ["msg", ...] } or { detail: "msg" }
+    if (typeof body?.detail === "string") {
+      errorMessage = body.detail;
+    } else if (body && typeof body === "object") {
+      for (const value of Object.values(body)) {
+        const msg = Array.isArray(value) ? value[0] : value;
+        if (typeof msg === "string") {
+          errorMessage = msg;
+          break;
+        }
+      }
+    }
   } catch {
     // non-JSON error body — fall through to generic message
   }
