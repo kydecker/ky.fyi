@@ -16,7 +16,6 @@ export const collections = {
             alt: z.string(),
           })
           .optional(),
-        type: z.enum(["post", "case-study"]).default("post"),
       }),
   }),
 
@@ -53,7 +52,6 @@ export const collections = {
         description: z.string().optional(),
         year: z.number(),
         url: z.url(),
-        urlText: z.string().optional(),
         category: z.string(),
         previewImage: z
           .object({
