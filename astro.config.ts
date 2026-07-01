@@ -42,11 +42,6 @@ export default defineConfig({
       remarkPlugins: [imgAttr, remarkModifiedTime],
     }),
   },
-  vite: {
-    optimizeDeps: {
-      exclude: ["fsevents"],
-    },
-  },
   devToolbar: {
     enabled: false,
   },
