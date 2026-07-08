@@ -2,5 +2,10 @@
   "name": "ky-fyi",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-05-10",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    // Serve page.html at /page — no .html extension, no trailing slash.
+    // Redirects /page.html → /page and /index.html → /.
+    "html_handling": "drop-trailing-slash"
+  }
 }
