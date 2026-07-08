@@ -22,7 +22,9 @@
     "check:fix": "astro check && biome check --write",
     "test": "playwright test",
     "check-links": "lychee --config .lychee.toml .",
-    "knip": "knip"
+    "knip": "knip",
+    "deploy": "wrangler deploy",
+    "versions-upload": "wrangler versions upload"
   },
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged"
