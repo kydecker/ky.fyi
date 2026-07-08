@@ -26,7 +26,6 @@ export default defineConfig({
   ],
   trailingSlash: "never",
   build: {
-    // Eliminate trailing slashes from Cloudflare
     format: "file",
   },
   adapter: cloudflare({

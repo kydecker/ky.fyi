@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 
+import { siteInfo } from "../../constants/site-info";
 import { isValidEmail } from "../../helpers/helpers";
 import { Icon } from "../Icon/Icon";
 import { Dialogue } from "./Dialogue/Dialogue";
@@ -37,7 +38,7 @@ interface Remark {
 
 const TRIGGER_SOME_CHARACTERS_DIALOGUE_AT_LENGTH = 4;
 const REMARK_TIMEOUT = 1000;
-const SNIPER_SENDER = "hi@ky.fyi";
+const SNIPER_SENDER = siteInfo.email;
 
 const remarks: Record<RemarkType, Remark> = {
   intro: {

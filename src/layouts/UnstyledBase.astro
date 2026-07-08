@@ -4,6 +4,7 @@ import "../styles/theme.css";
 
 import { Font, getImage } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
+import { siteInfo } from "../constants/site-info";
 import defaultOgImage from "../images/default.png";
 
 interface Props {
@@ -23,7 +24,8 @@ const image = await getImage({
 });
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
+const pageTitle =
+  title === siteInfo.name ? title : `${title} · ${siteInfo.name}`;
 ---
 
 <!doctype html>
@@ -59,7 +61,7 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Dispatches from Ky Decker"
+      title={siteInfo.rssTitle}
       href={new URL("rss.xml", Astro.site)}
     />
     <meta name="description" content={description} />
@@ -68,7 +70,7 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Ky Decker" />
+    <meta property="og:site_name" content={siteInfo.name} />
     <meta property="og:image" content={image.src} />
     <meta
       property="og:image:alt"
@@ -81,7 +83,8 @@ const pageTitle = Astro.url.pathname === "/" ? title : `${title} · Ky Decker`;
     <ClientRouter />
     <script>
       import * as Fathom from "fathom-client";
-      Fathom.load("WKFTECUZ");
+      import { siteInfo } from "../constants/site-info";
+      Fathom.load(siteInfo.fathomId);
     </script>
   </head>
   <body>
