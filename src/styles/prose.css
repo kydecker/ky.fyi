@@ -36,7 +36,6 @@
 .prose h5,
 .prose h6 {
   scroll-margin-top: var(--space-3xl);
-  margin-bottom: var(--space-m);
 }
 
 .prose h1 a,
@@ -84,6 +83,12 @@
 
 .prose :not(hr) + h2:not(:first-child) {
   margin-top: var(--space-2xl);
+}
+
+.prose h2 + p,
+.prose h3 + p,
+.prose h4 + p {
+  margin-top: var(--space-m);
 }
 
 .prose h3 {
@@ -183,6 +188,12 @@
   content: "—";
   color: var(--gray-11);
   margin-inline-end: var(--space-xs);
+}
+
+.prose blockquote.pull {
+  border: none;
+  font-size: var(--step-1);
+  padding-block: var(--space-m);
 }
 
 .prose sup,
