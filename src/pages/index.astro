@@ -16,22 +16,17 @@ const feed = work
   }))
   .sort((a, b) => b.year - a.year);
 
-const writingByYear = Array.from(
-  posts
-    .sort(
-      (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
-    )
-    .reduce((acc, post) => {
-      const year = post.data.datePublished.getFullYear();
-      if (!acc.has(year)) acc.set(year, []);
-      acc.get(year)!.push({
-        id: post.id,
-        title: post.data.title,
-        url: `/posts/${post.id}`,
-      });
-      return acc;
-    }, new Map<number, { id: string; title: string; url: string }[]>()),
-).sort(([a], [b]) => b - a);
+const writing = posts
+  .sort(
+    (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
+  )
+  .map((post) => ({
+    id: post.id,
+    title: post.data.title,
+    description: post.data.description,
+    date: post.data.datePublished,
+    url: `/posts/${post.id}`,
+  }));
 ---
 
 <BaseLayout
@@ -44,9 +39,8 @@ const writingByYear = Array.from(
       <h1 class="visuallyhidden">Ky designs and builds for the web</h1>
       <div class="intro">
         <p>
-          <strong><a href="/about">Ky Decker</a></strong> is a design engineer who
-          likes playing piano and writing CSS. Currently living in NYC with <span
-            class="nowrap"
+          <strong><a href="/about">Ky Decker</a></strong> is a designer and web developer.
+          They live in NYC with <span class="nowrap"
             ><button type="button" data-sam-button>Samwise</button>.</span
           >
         </p>
@@ -65,22 +59,26 @@ const writingByYear = Array.from(
   <section>
     <Center>
       <h2>Writing</h2>
-      <div class="writing-list">
+      <ul class="writing-list">
         {
-          writingByYear.map(([year, entries]) => (
-            <div class="writing-group">
-              <time class="writing-year">{year}</time>
-              <ul class="writing-entries">
-                {entries.map((post) => (
-                  <li>
-                    <a href={post.url}>{post.title}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          writing.map((post) => (
+            <li class="writing-entry">
+              <time class="writing-date" datetime={post.date.toISOString()}>
+                {post.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                })}
+              </time>
+              <div class="writing-body">
+                <h3 class="writing-title">
+                  <a href={post.url}>{post.title}</a>
+                </h3>
+                <p class="writing-description">{post.description}</p>
+              </div>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </Center>
   </section>
   <section>
@@ -151,7 +149,7 @@ const writingByYear = Array.from(
       user-select: none;
 
       p {
-        font-size: var(--step-4);
+        font-size: var(--step-5);
         letter-spacing: var(--letter-spacing-condensed);
         line-height: var(--line-height-tight);
       }
@@ -213,35 +211,42 @@ const writingByYear = Array.from(
     }
 
     .writing-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-s);
-    }
-
-    .writing-group {
-      display: grid;
-      grid-template-columns: 4ch 1fr;
-      gap: var(--space-l);
-      align-items: baseline;
-    }
-
-    .writing-year {
-      color: var(--gray-11);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .writing-entries {
       list-style: none;
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: var(--space-s);
-      text-wrap: pretty;
+      gap: var(--space-m);
+    }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+    .writing-entry {
+      display: grid;
+      grid-template-columns: 7ch 1fr;
+      gap: var(--space-m);
+      align-items: baseline;
+    }
+
+    .writing-date {
+      color: var(--gray-11);
+      font-size: var(--step--1);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .writing-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2xs);
+    }
+
+    .writing-title {
+      font-size: var(--step-0);
+      font-weight: var(--font-weight-normal);
+      text-wrap: pretty;
+    }
+
+    .writing-description {
+      color: var(--gray-11);
+      font-size: var(--step--1);
+      text-wrap: pretty;
     }
   </style>
 </BaseLayout>

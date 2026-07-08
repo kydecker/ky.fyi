@@ -1,31 +1,19 @@
-@import url("@radix-ui/colors/jade.css");
-@import url("@radix-ui/colors/jade-alpha.css");
-@import url("@radix-ui/colors/jade-dark.css");
-@import url("@radix-ui/colors/jade-dark-alpha.css");
 @import url("@radix-ui/colors/gray.css");
 @import url("@radix-ui/colors/gray-alpha.css");
 @import url("@radix-ui/colors/gray-dark.css");
 @import url("@radix-ui/colors/gray-dark-alpha.css");
+@import url("@radix-ui/colors/jade.css");
+@import url("@radix-ui/colors/jade-dark.css");
 @import url("@radix-ui/colors/blue.css");
-@import url("@radix-ui/colors/blue-alpha.css");
 @import url("@radix-ui/colors/blue-dark.css");
-@import url("@radix-ui/colors/blue-dark-alpha.css");
-@import url("@radix-ui/colors/green.css");
-@import url("@radix-ui/colors/green-alpha.css");
-@import url("@radix-ui/colors/green-dark.css");
-@import url("@radix-ui/colors/green-dark-alpha.css");
 @import url("@radix-ui/colors/amber.css");
 @import url("@radix-ui/colors/amber-alpha.css");
 @import url("@radix-ui/colors/amber-dark.css");
 @import url("@radix-ui/colors/amber-dark-alpha.css");
 @import url("@radix-ui/colors/purple.css");
-@import url("@radix-ui/colors/purple-alpha.css");
 @import url("@radix-ui/colors/purple-dark.css");
-@import url("@radix-ui/colors/purple-dark-alpha.css");
 @import url("@radix-ui/colors/pink.css");
-@import url("@radix-ui/colors/pink-alpha.css");
 @import url("@radix-ui/colors/pink-dark.css");
-@import url("@radix-ui/colors/pink-dark-alpha.css");
 @import url("@radix-ui/colors/red.css");
 @import url("@radix-ui/colors/red-alpha.css");
 @import url("@radix-ui/colors/red-dark.css");
@@ -34,15 +22,17 @@
 @import url("@radix-ui/colors/black-alpha.css");
 
 :root {
-  /* @link https://utopia.fyi/type/calculator?c=320,16,1.125,720,21,1.25,6,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-  --step--1: clamp(0.8889rem, 0.88rem + 0.0444vi, 0.9rem);
-  --step-0: clamp(1rem, 0.9rem + 0.5vi, 1.125rem);
-  --step-1: clamp(1.125rem, 0.9rem + 1.125vi, 1.4063rem);
-  --step-2: clamp(1.2656rem, 0.8719rem + 1.9688vi, 1.7578rem);
-  --step-3: clamp(1.4238rem, 0.8051rem + 3.0938vi, 2.1973rem);
-  --step-4: clamp(1.6018rem, 0.686rem + 4.5791vi, 2.7466rem);
-  --step-5: clamp(1.802rem, 0.4971rem + 6.5248vi, 3.4332rem);
-  --step-6: clamp(2.0273rem, 0.2159rem + 9.057vi, 4.2915rem);
+  /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,22,1.25,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --step--2: clamp(0.7813rem, 0.7409rem + 0.1795vw, 0.88rem);
+  --step--1: clamp(0.9375rem, 0.871rem + 0.2955vw, 1.1rem);
+  --step-0: clamp(1.125rem, 1.0227rem + 0.4545vw, 1.375rem);
+  --step-1: clamp(1.35rem, 1.1991rem + 0.6705vw, 1.7188rem);
+  --step-2: clamp(1.62rem, 1.4038rem + 0.9608vw, 2.1484rem);
+  --step-3: clamp(1.944rem, 1.6406rem + 1.3483vw, 2.6855rem);
+  --step-4: clamp(2.3328rem, 1.9138rem + 1.8621vw, 3.3569rem);
+  --step-5: clamp(2.7994rem, 2.2279rem + 2.5396vw, 4.1962rem);
+  --step-6: clamp(3.3592rem, 2.5877rem + 3.429vw, 5.2452rem);
+  --step-7: clamp(4.0311rem, 2.9979rem + 4.5917vw, 6.5565rem);
 
   /* @link https://utopia.fyi/space/calculator?c=320,8,1.2,1240,12,1.333,6,2,&s=0.75|0.5,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
   --space-2xs: clamp(0.25rem, 0.2065rem + 0.2174vw, 0.375rem);
@@ -57,12 +47,12 @@
   /* Line heights */
   --line-height-single: 1;
   --line-height-display: 1.1;
-  --line-height-tight: 1.3;
+  --line-height-tight: 1.2;
   --line-height-snug: 1.4;
   --line-height-body: 1.5;
 
   /* Letter spacing */
-  --letter-spacing-condensed: -0.005em;
+  --letter-spacing-condensed: -0.015em;
   --letter-spacing-normal: 0;
   --letter-spacing-loose: 0.01em;
 
@@ -77,6 +67,11 @@
   --font-weight-normal: 380;
   --font-weight-medium: 500;
   --font-weight-bold: 600;
+
+  /* System fonts */
+  --font-system:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   /* Shadows */
   --shadow-color: 0deg 0% 0%;
