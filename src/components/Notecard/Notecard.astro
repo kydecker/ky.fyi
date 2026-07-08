@@ -57,6 +57,7 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
   .notecard {
     aspect-ratio: 4 / 3;
     font-family: var(--font-mono);
+    font-size: var(--step--1);
     padding: 5.5ch;
     color: #111;
     display: flex;
@@ -67,7 +68,6 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
     background-repeat: no-repeat;
     background-position: center;
     transform: translateX(var(--translateX)) rotate(var(--rotation));
-    font-size: 0.8em;
 
     &.loading {
       animation: loading 0.8s infinite ease alternate;
