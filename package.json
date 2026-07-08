@@ -6,8 +6,14 @@
   "engines": {
     "node": ">=24.14.0"
   },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.10.0",
+      "onFail": "download"
+    }
+  },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "dev": "astro dev",
     "build": "wrangler types && astro check && astro build",
     "build:only": "astro build",
@@ -16,7 +22,9 @@
     "check:fix": "astro check && biome check --write",
     "test": "playwright test",
     "check-links": "lychee --config .lychee.toml .",
-    "knip": "knip"
+    "knip": "knip",
+    "deploy": "wrangler deploy",
+    "versions-upload": "wrangler versions upload"
   },
   "simple-git-hooks": {
     "pre-commit": "./node_modules/.bin/nano-staged"
@@ -73,7 +81,6 @@
     "simple-git-hooks": "^2.13.1",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@11.7.0",
   "bugs": {
     "url": "https://github.com/kydecker/ky.fyi/issues"
   },
