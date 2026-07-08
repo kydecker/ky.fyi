@@ -4,6 +4,7 @@ import Center from "../components/Center.astro";
 import GuestbookFeed from "../components/Home/GuestbookFeed.astro";
 import ProjectGrid from "../components/Home/ProjectGrid.astro";
 import Synth from "../components/Synth/Synth.astro";
+import { siteInfo } from "../constants/site-info";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const work = await getCollection("work");
@@ -30,8 +31,8 @@ const writing = posts
 ---
 
 <BaseLayout
-  title="Ky Decker"
-  description="Ky is a designer and web developer based in New York City."
+  title={siteInfo.name}
+  description={siteInfo.description}
   includeFooter
 >
   <section class="home">

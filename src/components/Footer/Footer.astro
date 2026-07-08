@@ -1,4 +1,5 @@
 ---
+import { siteInfo } from "../../constants/site-info";
 import Center from "../Center.astro";
 import { SubscribeForm } from "../Subscribe/SubscribeForm";
 ---
@@ -13,26 +14,9 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
         <a href="/colophon" data-fathom="footer-link">Colophon</a>
       </div>
       <div class="links">
-        <a
-          href="https://www.are.na/ky-decker/"
-          target="_blank"
-          data-fathom="footer-link">Are.na</a
-        >
-        <a
-          href="https://bsky.app/profile/ky.fyi"
-          target="_blank"
-          data-fathom="footer-link">Bluesky</a
-        >
-        <a
-          href="https://github.com/kydecker"
-          target="_blank"
-          data-fathom="footer-link">GitHub</a
-        >
-        <a
-          href="https://linkedin.com/in/kyfyi"
-          target="_blank"
-          data-fathom="footer-link">LinkedIn</a
-        >
+        {siteInfo.socials.map((social) => (
+          <a href={social.href} target="_blank" data-fathom="footer-link">{social.name}</a>
+        ))}
       </div>
       <div class="banner">
         <span class="emoji">🇵🇸</span>
