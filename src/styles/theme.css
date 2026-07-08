@@ -2,10 +2,18 @@
 @import url("@radix-ui/colors/gray-alpha.css");
 @import url("@radix-ui/colors/gray-dark.css");
 @import url("@radix-ui/colors/gray-dark-alpha.css");
+@import url("@radix-ui/colors/jade.css");
+@import url("@radix-ui/colors/jade-dark.css");
+@import url("@radix-ui/colors/blue.css");
+@import url("@radix-ui/colors/blue-dark.css");
 @import url("@radix-ui/colors/amber.css");
 @import url("@radix-ui/colors/amber-alpha.css");
 @import url("@radix-ui/colors/amber-dark.css");
 @import url("@radix-ui/colors/amber-dark-alpha.css");
+@import url("@radix-ui/colors/purple.css");
+@import url("@radix-ui/colors/purple-dark.css");
+@import url("@radix-ui/colors/pink.css");
+@import url("@radix-ui/colors/pink-dark.css");
 @import url("@radix-ui/colors/red.css");
 @import url("@radix-ui/colors/red-alpha.css");
 @import url("@radix-ui/colors/red-dark.css");
@@ -59,6 +67,11 @@
   --font-weight-normal: 380;
   --font-weight-medium: 500;
   --font-weight-bold: 600;
+
+  /* System fonts */
+  --font-system:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   /* Shadows */
   --shadow-color: 0deg 0% 0%;
