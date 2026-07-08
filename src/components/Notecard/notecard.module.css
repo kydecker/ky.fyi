@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  font-size: 0.8em;
 }
 
 .background {
@@ -32,7 +33,6 @@
 .url {
   background: transparent;
   padding-inline: 1ch;
-  font-size: var(--step-0);
   display: block;
   resize: none;
   border: none;

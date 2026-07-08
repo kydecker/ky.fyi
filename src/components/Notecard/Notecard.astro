@@ -8,7 +8,6 @@ interface Props {
   author?: string;
   timestamp?: string;
   theme: number;
-  small?: boolean;
   randomTranslate?: boolean;
   loading?: boolean;
 }
@@ -19,7 +18,6 @@ const {
   author,
   timestamp,
   theme,
-  small = false,
   randomTranslate = false,
   loading = false,
 } = Astro.props;
@@ -29,7 +27,7 @@ const translateX = randomTranslate ? `${Math.random() * 24 - 12}px` : 0;
 const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
 ---
 
-<div class:list={["notecard", { small, loading }]}>
+<div class:list={["notecard", { loading }]}>
   <pre class="content">{content}</pre>
   <div class="credit">
     {
@@ -69,10 +67,7 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
     background-repeat: no-repeat;
     background-position: center;
     transform: translateX(var(--translateX)) rotate(var(--rotation));
-
-    &.small {
-      font-size: 0.8em;
-    }
+    font-size: 0.8em;
 
     &.loading {
       animation: loading 0.8s infinite ease alternate;
