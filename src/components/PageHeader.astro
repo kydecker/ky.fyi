@@ -100,10 +100,15 @@ const isModifiedSameDay = dayjs(datePublished).isSame(dateModified, "day");
   }
 
   .icon {
-    align-self: center;
+    align-self: flex-start;
+    margin-top: 0.05em;
   }
 
   .tended {
     color: var(--gray-11);
+
+    @media (width < 600px) {
+      display: block;
+    }
   }
 </style>
