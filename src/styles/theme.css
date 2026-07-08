@@ -59,12 +59,12 @@
   /* Line heights */
   --line-height-single: 1;
   --line-height-display: 1.1;
-  --line-height-tight: 1.3;
+  --line-height-tight: 1.2;
   --line-height-snug: 1.4;
   --line-height-body: 1.5;
 
   /* Letter spacing */
-  --letter-spacing-condensed: -0.005em;
+  --letter-spacing-condensed: -0.015em;
   --letter-spacing-normal: 0;
   --letter-spacing-loose: 0.01em;
 
