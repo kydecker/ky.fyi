@@ -73,8 +73,12 @@ const { items } = Astro.props;
     padding-block-end: var(--space-xs);
 
     &:focus-visible {
-      outline: var(--gray-12) solid 2px;
-      outline-offset: 3px;
+      outline: none;
+
+      .project-thumbnail {
+        outline: var(--gray-12) solid 2px;
+        outline-offset: 4px;
+      }
     }
   }
 

@@ -326,7 +326,7 @@
 }
 
 .prose aside {
-  background-color: var(--gray-2);
+  background-color: var(--gray-3);
   border: 1px solid var(--gray-6);
   padding: var(--space-xl);
   margin-block: var(--space-xl);
