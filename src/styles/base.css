@@ -111,10 +111,6 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-.nowrap {
-  white-space: nowrap;
-}
-
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
