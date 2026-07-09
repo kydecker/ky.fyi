@@ -19,6 +19,8 @@ export default defineConfig({
       styleOverrides: {
         codeFontFamily:
           "'MonoLisa', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        codeFontSize: "0.85em",
+        uiFontSize: "0.9em",
       },
     }),
     mdx(),
