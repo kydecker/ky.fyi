@@ -40,9 +40,9 @@ const writing = posts
       <h1 class="visuallyhidden">Ky designs and builds for the web</h1>
       <div class="intro">
         <p>
-          <strong><a href="/about">Ky Decker</a>&nbsp;</strong>{" "}
+          <strong><a href="/about">Ky Decker</a></strong>{" "}
           designs <abbr title="world-wide websites">www</abbr> and writes <abbr
-            title="cascading style sheets">CSS</abbr
+            title="Cascading Style Sheets">CSS</abbr
           > in <abbr title="New York City">NYC</abbr> with{" "}
           <button type="button" data-sam-button>Samwise</button>
         </p>
@@ -100,9 +100,11 @@ const writing = posts
     }
 
     function setupAbbr() {
-      document.querySelectorAll<HTMLElement>(".intro abbr[title]").forEach((abbr) => {
-        abbr.addEventListener("click", () => abbr.replaceWith(abbr.title));
-      });
+      document
+        .querySelectorAll<HTMLElement>(".intro abbr[title]")
+        .forEach((abbr) => {
+          abbr.addEventListener("click", () => abbr.replaceWith(abbr.title));
+        });
     }
 
     setupSam();
