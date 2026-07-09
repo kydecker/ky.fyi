@@ -335,7 +335,7 @@
     margin-top: 0;
   }
 
-  @media (width < 720px) {
+  @media (width < 620px) {
     width: 100%;
     grid-column: 1 / -1;
     border-inline: none;
