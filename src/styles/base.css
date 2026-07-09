@@ -10,7 +10,7 @@ html {
 
 body {
   color: var(--gray-12);
-  background-color: var(--gray-1);
+  background-color: var(--gray-2);
   display: flex;
   min-height: 100%;
   position: relative;
