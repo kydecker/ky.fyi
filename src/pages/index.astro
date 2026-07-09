@@ -100,7 +100,7 @@ const writing = posts
     }
 
     function setupAbbr() {
-      document.querySelectorAll(".intro abbr[title]").forEach((abbr) => {
+      document.querySelectorAll<HTMLElement>(".intro abbr[title]").forEach((abbr) => {
         abbr.addEventListener("click", () => abbr.replaceWith(abbr.title));
       });
     }
