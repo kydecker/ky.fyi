@@ -325,7 +325,7 @@
   }
 }
 
-.prose aside {
+.prose > aside {
   background-color: var(--gray-3);
   border: 1px solid var(--gray-6);
   padding: var(--space-xl);
@@ -333,6 +333,12 @@
 
   *:first-child {
     margin-top: 0;
+  }
+
+  @media (width < 620px) {
+    width: 100%;
+    grid-column: 1 / -1;
+    border-inline: none;
   }
 }
 
