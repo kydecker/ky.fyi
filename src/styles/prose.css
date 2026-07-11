@@ -1,17 +1,19 @@
 .prose {
-  --content-max-width: 800px;
+  --gutter: var(--space-xl);
+  --content-max: 800px;
+  --content: min(var(--content-max), 100% - var(--gutter) * 2);
+  /* 1.35rem = default inline padding for Expressive Code blocks; align code with prose */
+  --breakout: minmax(0, 1.35rem);
+  --full: minmax(var(--gutter), 1fr);
   --image-max-width: 1200px;
 
   display: grid;
   grid-template-columns:
-    [full-width-start]
-    1fr
-    [content-start]
-    min(var(--content-max-width), 100% - (var(--space-xl) * 2))
-    [content-end]
-    1fr
-    [full-width-end];
-  grid-column-gap: var(--space-xl);
+    [full-start] var(--full)
+    [breakout-start] var(--breakout)
+    [content-start] var(--content) [content-end]
+    var(--breakout) [breakout-end]
+    var(--full) [full-end];
   text-wrap: pretty;
 }
 
@@ -22,7 +24,7 @@
 
 .prose .full-bleed {
   width: 100%;
-  grid-column: full-width;
+  grid-column: full;
   padding-inline: 0;
 }
 
@@ -157,6 +159,7 @@
 .prose .expressive-code {
   border-radius: var(--radius-xs);
   margin-block: var(--space-l);
+  grid-column: breakout;
 }
 
 .prose .expressive-code .frame {
@@ -220,7 +223,7 @@
   margin-block-start: var(--space-2xl);
   margin-inline: auto;
   width: 100%;
-  grid-column: full-width;
+  grid-column: full;
 }
 
 .prose > figure + *:not(h2) {
@@ -295,7 +298,7 @@
 .prose figcaption {
   font-size: var(--step--1);
   margin-block-start: var(--space-s);
-  max-inline-size: min(var(--content-max-width), 100% - (var(--space-xl) * 2));
+  max-inline-size: var(--content);
   margin-inline: auto;
   display: flex;
   position: relative;
@@ -345,7 +348,7 @@
 
   @media (width < 620px) {
     width: 100%;
-    grid-column: full-width;
+    grid-column: full;
     border-inline: none;
   }
 }
