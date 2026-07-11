@@ -1,5 +1,3 @@
-@import url("./colors.css");
-
 :root {
   /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,22,1.25,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
   --step--2: clamp(0.7813rem, 0.7409rem + 0.1795vw, 0.88rem);
