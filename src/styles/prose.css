@@ -51,38 +51,23 @@
   scroll-margin-top: var(--space-3xl);
 }
 
-.prose h1 a,
 .prose h2 a,
 .prose h3 a,
 .prose h4 a,
 .prose h5 a,
 .prose h6 a {
-  color: var(--gray-9);
-  display: inline-block;
-  margin-inline-start: 0.25em;
-  position: relative;
+  text-decoration-color: transparent;
+  text-decoration-skip-ink: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .prose h1 a:hover,
   .prose h2 a:hover,
   .prose h3 a:hover,
   .prose h4 a:hover,
   .prose h5 a:hover,
   .prose h6 a:hover {
-    color: var(--gray-12);
+    text-decoration-color: var(--gray-7);
   }
-}
-
-.prose h1 a svg,
-.prose h2 a svg,
-.prose h3 a svg,
-.prose h4 a svg,
-.prose h5 a svg,
-.prose h6 a svg {
-  width: 0.75em;
-  height: 0.75em;
-  margin-bottom: -0.05em;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -95,7 +80,7 @@
 }
 
 .prose :not(hr) + h2:not(:first-child) {
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-3xl);
 }
 
 .prose h2 + p,
@@ -325,7 +310,7 @@
   grid-column: popout;
   margin-block: var(--space-xl);
 
-  *:first-child,
+  &:first-child,
   + aside {
     margin-top: 0;
   }
