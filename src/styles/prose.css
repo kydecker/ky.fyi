@@ -325,7 +325,8 @@
   grid-column: popout;
   margin-block: var(--space-xl);
 
-  *:first-child {
+  *:first-child,
+  + aside {
     margin-top: 0;
   }
 
@@ -333,6 +334,10 @@
     width: 100%;
     grid-column: full;
   }
+}
+
+.prose > hr + aside {
+  margin-top: 0;
 }
 
 .bluesky-embed {

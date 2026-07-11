@@ -11,7 +11,7 @@ test("has title", async ({ page }) => {
 test("changes theme", async ({ page }) => {
   const themeToggle = page.locator("[data-theme-toggle]");
   await themeToggle.click();
-  await expect(page.locator("body")).toHaveClass("dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await themeToggle.click();
-  await expect(page.locator("body")).not.toHaveClass("dark");
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", "dark");
 });
