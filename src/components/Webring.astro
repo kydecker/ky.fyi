@@ -12,7 +12,7 @@ const { title, description, url, prev, next, color } = data;
 
 <div
   class="webring"
-  style={`--webring-bg: var(--${color}-3); --webring-text: var(--${color}-12); --webring-hover: var(--${color}-4); --webring-border: var(--${color}-5)`}
+  style={`--webring-bg: var(--${color}-3); --webring-text: var(--${color}-12); --webring-hover: var(--${color}-4);`}
 >
   <a class="main" href={url} rel="external">
     <h2>{title}</h2>
@@ -56,15 +56,14 @@ const { title, description, url, prev, next, color } = data;
   .webring {
     display: flex;
     flex-wrap: nowrap;
-    background: var(--webring-bg);
     color: var(--webring-text);
-    border-radius: var(--radius-m);
-    overflow: hidden;
+    gap: 2px;
 
     .main {
       flex: 1;
       text-align: center;
       padding: var(--space-m);
+      background: var(--webring-bg);
 
       h2 {
         margin: 0;
@@ -86,12 +85,18 @@ const { title, description, url, prev, next, color } = data;
     a {
       text-align: center;
       text-decoration: none;
+      background: var(--webring-bg);
 
       @media (hover: hover) {
         &:hover {
           background: var(--webring-hover);
           font-weight: inherit;
         }
+      }
+
+      &:focus-visible {
+        background: var(--webring-hover);
+        z-index: 1;
       }
     }
 
@@ -106,11 +111,13 @@ const { title, description, url, prev, next, color } = data;
 
     .prev {
       order: -1;
-      border-right: 1px solid var(--webring-border);
+      border-top-left-radius: var(--radius-m);
+      border-bottom-left-radius: var(--radius-m);
     }
 
     .next {
-      border-left: 1px solid var(--webring-border);
+      border-top-right-radius: var(--radius-m);
+      border-bottom-right-radius: var(--radius-m);
     }
   }
 </style>
