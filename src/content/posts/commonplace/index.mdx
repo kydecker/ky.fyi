@@ -84,7 +84,7 @@ import aster from "./aster.png";
 
 [Cityblock](https://www.cityblock.com/) is a health company which got its start within Google's [Sidewalk Labs](https://www.sidewalklabs.com/). Teams of clinicians and other health professionals provide in-community care to people on Medicare and Medicaid to improve health for an often-neglected population.
 
-<figure>
+<figure class="feature">
   <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/796683739?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" title="Cityblock Member Stories: Andre"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
   <figcaption>
     **Andre, a Cityblock member, tells his story.** Via{" "}
@@ -94,13 +94,13 @@ import aster from "./aster.png";
 
 To support care teams and the members they serve, Cityblock builds and maintains a tool called **Commons**. I joined Cityblock in February 2019 as a Product Designer and recognized a need for a more systematic approach to design. Over the following two years, I built and expanded a design system in Figma and React. I named it **Commonplace**.
 
-## The Challenge
+## The challenge
 
 Cityblock was less than two years old, but Commons already offered a sprawling set of features, including: tracking member status, charting member acuity, coordinating member outreach, storing and editing core demographics, viewing health history, scheduling events, managing tasks for individuals and teams, creating and administering health assessments with automated scoring, texting members... all that, and more planned.
 
 All of these features converged in an interface that looked like this:
 
-<figure>
+<figure class="popout">
   ![The Cityblock dashboard. There are many different styles, colors, and
   fonts.](./initial.png)(quality:100)
   <figcaption>
@@ -116,11 +116,11 @@ Although there were some underlying commonalities and shared language throughout
 
 A lack of systemization was leading to longer development times, more time spent on undifferentiated work, more bugs in the product, and a user experience that was inconsistent and confusing. These problems would only worsen as Cityblock grew.
 
-## Mapping the Territory
+## Mapping the territory
 
 Together with Cityblock's Director of Design, [Neves](https://www.nevesrodrigues.com/), we catalogued the available views. I conducted a product audit, clicking through and taking screenshots of every view, dialog, drawer, and dropdown within Commons. The images were then organized into folders for future reference.
 
-<figure>
+<figure class="popout">
   <div class="video-wrapper">
     <video
       autoplay
@@ -144,7 +144,7 @@ The product audit helped us understand the current state of Commons, and it ushe
 
 Following the product audit, we created an [interface inventory](https://bradfrost.com/blog/post/interface-inventory/), collecting all variations and permutations of each component and displaying a collage of those permutations on a large poster board.
 
-<figure>
+<figure class="popout">
   ![A black foam board with several sheets of paper pinned to it. Each sheet of
   paper displays a component name and a collection of variations on that
   component observed in the product.](./inventory.png)
@@ -157,7 +157,7 @@ Following the product audit, we created an [interface inventory](https://bradfro
 
 This inventory allowed us to more easily spot inconsistencies and discuss how best to resolve them across the system.
 
-## Laying Foundations
+## Laying foundations
 
 Once the interface inventory was complete, we focused on design foundations—typography, color, and spacing. All components rest on top of these three primitives, and we wanted to get the essentials right.
 
@@ -167,7 +167,7 @@ Care teams at Cityblock are given small Chromebooks to take with them around the
 
 As we laid out a typographic scale and compared different typefaces, we made sure to test text on the Chromebook's low-DPI display in a variety of real-world, less-than-ideal lighting conditions, in order to ensure that Commons was legible in every setting.
 
-<figure>
+<figure class="popout">
   ![A screen within Commons](./low-contrast-typography.png)(quality:100)
   <figcaption>
     **Low-contrast typography within Commons.** Many views contained small,
@@ -178,7 +178,7 @@ As we laid out a typographic scale and compared different typefaces, we made sur
 
 With Cityblock's brand designer, [Minji](https://www.linkedin.com/in/minji-lee-ba045518/), we tested various typefaces for the product before landing on [Graphik](https://commercialtype.com/catalog/graphik) for its legibility and understated friendliness. All text colors within the new design system would adhere to [WCAG AA](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum) or [AAA](https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced) contrast ratios.
 
-<figure>
+<figure class="feature">
   ![The Commonplace typographic scale, using the font,
   Graphik.](./typography.png)(quality:100)
   <figcaption>
@@ -197,7 +197,7 @@ When considering colors in Commons, we prioritized pure function, accessibility 
 
 I also examined the use of color in film to portray two separate settings—the hospital and the home.
 
-<figure>
+<figure class="feature">
   <div class="two-up">
     ![A collage of various hospital settings portrayed in film and
     TV.](./hospital-palette.png)(quality:100)
@@ -222,7 +222,7 @@ This led to guiding principles:
 
 And the resulting palette, defined as matching Figma styles and CSS variables:
 
-<figure>
+<figure class="feature">
   ![The Commonplace color palette with matching variables in
   CSS.](./colors.png)(quality:100)
   <figcaption>
@@ -237,13 +237,13 @@ And the resulting palette, defined as matching Figma styles and CSS variables:
 
 We agreed to use an 8 pixel grid for all components, and we agreed on specific fixed widths for sidebars while leaving the rest of the app responsive to scale with the browser.
 
-## Building Components
+## Building components
 
 Once foundations were in place, primitives were set up both in Figma and as CSS Variables in the codebase, and we were able to quickly and easily replace all existing hex codes with new color variables, replace existing padding, margin, widths, and heights with the new spacing scale, and swap out the typography.
 
 Then began the long and steady process of building and replacing components one-by-one. Create a new `Button`. Test it. Swap out all existing buttons and delete all existing styles. Merge in the changes. Pick a new component, rinse and repeat.
 
-<figure>
+<figure class="feature">
   ![Components displayed in Figma and in code.](./components.png)(quality:100)
   <figcaption>
     **Commonplace components.** Each component in the codebase included unit
@@ -263,7 +263,7 @@ By January 2020, most views within Commons used Commonplace components. **Respon
 
 Despite the addition of new components, several thousand lines of code had been deleted since the start of the project due to the reusability and modular nature of the design system—a meaningful reduction in complexity and technical debt.
 
-<figure>
+<figure class="feature">
   <BeforeAfter
     before={{
       src: actionPlanBefore,
@@ -281,7 +281,7 @@ Despite the addition of new components, several thousand lines of code had been 
   </figcaption>
 </figure>
 
-<figure>
+<figure class="feature">
   <BeforeAfter
     before={{
       src: memberTableBefore,

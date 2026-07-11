@@ -1,21 +1,34 @@
 .prose {
-  display: grid;
-  grid-template-columns: 1fr min(800px, calc(100% - var(--space-xl) * 2)) 1fr;
-  grid-column-gap: var(--space-xl);
-  text-wrap: pretty;
+  --gutter: var(--space-xl);
+  --content-max: 860px;
+  --content: min(var(--content-max), 100% - var(--gutter) * 2);
+  --popout: minmax(0, var(--gutter));
+  --feature: minmax(0, 12rem);
+  --full: minmax(var(--gutter), 1fr);
 
-  --image-max-width: 1200px;
+  /* Override default Expressive Code inline padding */
+  --ec-codePadInl: var(--gutter);
+  --ec-codePadBlk: 1.25rem;
+
+  text-wrap: pretty;
+}
+
+.prose,
+.prose > figure {
+  display: grid;
+  grid-template-columns:
+    [full-start] var(--full)
+    [feature-start] var(--feature)
+    [popout-start] var(--popout)
+    [content-start] var(--content) [content-end]
+    var(--popout) [popout-end]
+    var(--feature) [feature-end]
+    var(--full) [full-end];
 }
 
 .prose > *,
-.prose .no-bleed {
-  grid-column: 2;
-}
-
-.prose .full-bleed {
-  width: 100%;
-  grid-column: 1 / -1;
-  padding-inline: 0;
+.prose > figure > * {
+  grid-column: content;
 }
 
 .prose a {
@@ -136,7 +149,7 @@
 .prose ul li::before {
   font-family: var(--font-sans);
   content: "◆";
-  transform: scale(0.6);
+  transform: scale(0.5);
   transform-origin: left;
 }
 
@@ -147,8 +160,12 @@
 }
 
 .prose .expressive-code {
-  border-radius: var(--radius-xs);
   margin-block: var(--space-l);
+  grid-column: popout;
+
+  @media (width < 860px) {
+    grid-column: full;
+  }
 }
 
 .prose .expressive-code .frame {
@@ -210,9 +227,7 @@
 
 .prose > figure {
   margin-block-start: var(--space-2xl);
-  margin-inline: auto;
-  width: 100%;
-  grid-column: 1 / -1;
+  grid-column: full;
 }
 
 .prose > figure + *:not(h2) {
@@ -227,7 +242,6 @@
 
 .prose .two-up > * {
   flex: 1;
-  max-width: calc((var(--image-max-width) - var(--space-m)) / 2);
 }
 
 .prose figure img {
@@ -237,64 +251,44 @@
 .prose figure img,
 .prose figure video,
 .prose figure .two-up {
-  width: 100%;
-  max-width: var(--image-max-width);
+  max-inline-size: 100%;
   margin-inline: auto;
-  border-radius: var(--radius-xs);
 }
 
-/* Hacky way to target the image container without an extra div */
-.prose figure > p,
-.prose .two-up > p,
-.prose .video-wrapper {
-  margin-inline: auto;
-  max-width: var(--image-max-width);
-  overflow: hidden;
-  position: relative;
-}
+.prose figure.popout > *:not(figcaption) {
+  grid-column: popout;
 
-.prose figure > p::after,
-.prose .two-up > p::after,
-.prose .video-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 0.5px solid var(--gray-a6);
-  border-radius: var(--radius-xs);
-  pointer-events: none;
-}
-
-@media (width <= 1200px) {
-  .prose figure:not(.no-bleed) img,
-  .prose figure:not(.no-bleed) video,
-  .prose figure:not(.no-bleed) .video-wrapper {
-    border-radius: 0;
+  @media (width < 860px) {
+    grid-column: full;
   }
+}
 
-  .prose .two-up > p::after,
-  .prose figure:not(.no-bleed) > p::after,
-  .prose figure:not(.no-bleed) .video-wrapper::after {
-    border-radius: 0;
+.prose figure.feature > *:not(figcaption) {
+  grid-column: feature;
+
+  @media (width < 860px) {
+    grid-column: full;
   }
+}
 
-  .prose figure:not(.no-bleed) > p::after,
-  .prose figure:not(.no-bleed) .video-wrapper::after {
-    border-right: none;
-    border-left: none;
+.prose figure.full > *:not(figcaption) {
+  grid-column: full;
+}
+
+.prose figure.inset > *:not(figcaption) {
+  background-color: var(--gray-3);
+  padding: var(--gutter);
+
+  @media (width < 860px) {
+    grid-column: full;
   }
 }
 
 .prose figcaption {
   font-size: var(--step--1);
   margin-block-start: var(--space-s);
-  max-inline-size: min(800px, calc(100% - var(--space-xl) * 2));
-  margin-inline: auto;
+  grid-column: content;
   display: flex;
-  position: relative;
-}
-
-.prose .no-bleed figcaption {
-  max-inline-size: 100%;
 }
 
 .prose .two-col {
@@ -327,8 +321,8 @@
 
 .prose > aside {
   background-color: var(--gray-3);
-  border: 1px solid var(--gray-6);
-  padding: var(--space-xl);
+  padding: var(--gutter);
+  grid-column: popout;
   margin-block: var(--space-xl);
 
   *:first-child {
@@ -337,8 +331,7 @@
 
   @media (width < 620px) {
     width: 100%;
-    grid-column: 1 / -1;
-    border-inline: none;
+    grid-column: full;
   }
 }
 

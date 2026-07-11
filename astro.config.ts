@@ -17,6 +17,7 @@ export default defineConfig({
     react(),
     expressiveCode({
       styleOverrides: {
+        borderRadius: "0",
         codeFontFamily:
           "'MonoLisa', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
         codeFontSize: "0.85em",
