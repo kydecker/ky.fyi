@@ -511,7 +511,7 @@ import SynthScreen from "./SynthScreen.astro";
     }
   }
 
-  :global(.dark) .synth {
+  :global([data-theme="dark"]) .synth {
     --synth-whitekey: var(--gray-12);
     --synth-whitekey-pressed: white;
     --synth-blackkey: var(--gray-1);

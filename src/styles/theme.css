@@ -1,26 +1,3 @@
-@import url("@radix-ui/colors/gray.css");
-@import url("@radix-ui/colors/gray-alpha.css");
-@import url("@radix-ui/colors/gray-dark.css");
-@import url("@radix-ui/colors/gray-dark-alpha.css");
-@import url("@radix-ui/colors/jade.css");
-@import url("@radix-ui/colors/jade-dark.css");
-@import url("@radix-ui/colors/blue.css");
-@import url("@radix-ui/colors/blue-dark.css");
-@import url("@radix-ui/colors/amber.css");
-@import url("@radix-ui/colors/amber-alpha.css");
-@import url("@radix-ui/colors/amber-dark.css");
-@import url("@radix-ui/colors/amber-dark-alpha.css");
-@import url("@radix-ui/colors/purple.css");
-@import url("@radix-ui/colors/purple-dark.css");
-@import url("@radix-ui/colors/pink.css");
-@import url("@radix-ui/colors/pink-dark.css");
-@import url("@radix-ui/colors/red.css");
-@import url("@radix-ui/colors/red-alpha.css");
-@import url("@radix-ui/colors/red-dark.css");
-@import url("@radix-ui/colors/red-dark-alpha.css");
-@import url("@radix-ui/colors/white-alpha.css");
-@import url("@radix-ui/colors/black-alpha.css");
-
 :root {
   /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,22,1.25,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
   --step--2: clamp(0.7813rem, 0.7409rem + 0.1795vw, 0.88rem);
@@ -48,8 +25,7 @@
   --line-height-single: 1;
   --line-height-display: 1.1;
   --line-height-tight: 1.2;
-  --line-height-snug: 1.4;
-  --line-height-body: 1.5;
+  --line-height-body: 1.48;
 
   /* Letter spacing */
   --letter-spacing-condensed: -0.0175em;
@@ -95,6 +71,6 @@
     -0.1px 68.4px 66.7px -3.5px hsl(var(--shadow-color) / 8%);
 }
 
-.dark {
+[data-theme="dark"] {
   --font-weight-normal: 360;
 }

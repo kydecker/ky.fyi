@@ -69,7 +69,6 @@
     "@axe-core/playwright": "^4.12.1",
     "@biomejs/biome": "^2.5.2",
     "@playwright/test": "^1.61.1",
-    "@radix-ui/colors": "^3.0.0",
     "@types/howler": "^2.2.13",
     "@types/node": "^26.1.0",
     "dotenv": "^17.4.2",
