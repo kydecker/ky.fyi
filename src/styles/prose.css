@@ -2,8 +2,7 @@
   --gutter: var(--space-xl);
   --content-max: 860px;
   --content: min(var(--content-max), 100% - var(--gutter) * 2);
-  /* 1.35rem = default inline padding for Expressive Code blocks; align code with prose */
-  --popout: minmax(0, 1.35rem);
+  --popout: minmax(0, var(--gutter));
   --feature: minmax(0, 12rem);
   --full: minmax(var(--gutter), 1fr);
 
@@ -315,8 +314,8 @@
 
 .prose > aside {
   background-color: var(--gray-3);
-  border: 1px solid var(--gray-6);
-  padding: var(--space-xl);
+  padding: var(--gutter);
+  grid-column: popout;
   margin-block: var(--space-xl);
 
   *:first-child {
@@ -326,7 +325,6 @@
   @media (width < 620px) {
     width: 100%;
     grid-column: full;
-    border-inline: none;
   }
 }
 
