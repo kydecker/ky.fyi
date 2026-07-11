@@ -4,10 +4,14 @@
   --content: min(var(--content-max), 100% - var(--gutter) * 2);
   /* 1.35rem = default inline padding for Expressive Code blocks; align code with prose */
   --popout: minmax(0, 1.35rem);
-  --feature: minmax(0, 5rem);
+  --feature: minmax(0, 12rem);
   --full: minmax(var(--gutter), 1fr);
-  --image-max: 1200px;
 
+  text-wrap: pretty;
+}
+
+.prose,
+.prose > figure {
   display: grid;
   grid-template-columns:
     [full-start] var(--full)
@@ -17,18 +21,11 @@
     var(--popout) [popout-end]
     var(--feature) [feature-end]
     var(--full) [full-end];
-  text-wrap: pretty;
 }
 
 .prose > *,
-.prose .no-bleed {
+.prose > figure > * {
   grid-column: content;
-}
-
-.prose .full-bleed {
-  width: 100%;
-  grid-column: full;
-  padding-inline: 0;
 }
 
 .prose a {
@@ -224,8 +221,6 @@
 
 .prose > figure {
   margin-block-start: var(--space-2xl);
-  margin-inline: auto;
-  width: 100%;
   grid-column: full;
 }
 
@@ -241,7 +236,6 @@
 
 .prose .two-up > * {
   flex: 1;
-  max-inline-size: calc((var(--image-max) - var(--space-m)) / 2);
 }
 
 .prose figure img {
@@ -251,32 +245,44 @@
 .prose figure img,
 .prose figure video,
 .prose figure .two-up {
-  width: 100%;
-  max-inline-size: var(--image-max);
+  max-inline-size: 100%;
   margin-inline: auto;
 }
 
-/* Hacky way to target the image container without an extra div */
-.prose figure > p,
-.prose .two-up > p,
-.prose .video-wrapper {
-  margin-inline: auto;
-  max-inline-size: var(--image-max-width);
-  overflow: hidden;
-  position: relative;
+.prose figure.popout > *:not(figcaption) {
+  grid-column: popout;
+
+  @media (width < 860px) {
+    grid-column: full;
+  }
+}
+
+.prose figure.feature > *:not(figcaption) {
+  grid-column: feature;
+
+  @media (width < 860px) {
+    grid-column: full;
+  }
+}
+
+.prose figure.full > *:not(figcaption) {
+  grid-column: full;
+}
+
+.prose figure.inset > *:not(figcaption) {
+  background-color: var(--gray-3);
+  padding: var(--gutter);
+
+  @media (width < 860px) {
+    grid-column: full;
+  }
 }
 
 .prose figcaption {
   font-size: var(--step--1);
   margin-block-start: var(--space-s);
-  max-inline-size: var(--content);
-  margin-inline: auto;
+  grid-column: content;
   display: flex;
-  position: relative;
-}
-
-.prose .no-bleed figcaption {
-  max-inline-size: 100%;
 }
 
 .prose .two-col {

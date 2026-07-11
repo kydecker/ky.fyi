@@ -49,7 +49,7 @@ I began compiling Paul's songs into a playlist, and then I added more of my own.
 
 As my covers playlist grew, so did the tedium of managing it in Spotify. I kept all covers alphabetized (by hand), and I maintained two separate playlists—one for both [covers and originals](https://open.spotify.com/playlist/5YQ4AyxQ6DeDxKJgSryAU2?si=68e701a76c854e5c), and another for [covers only](https://open.spotify.com/playlist/50iUGmY3cSUETCHGfUgf6a?si=f078e27420334399).
 
-<figure>
+<figure class="popout">
   <div class="video-wrapper">
     <video
       autoplay
@@ -78,9 +78,9 @@ This personal project was my first time working directly on the backend. Thankfu
 
 I experimented with alternative data structures and landed on a two table model: one table for `songs`, and one table for `covers`, which links two `song` rows together along with extra metadata about their relation.
 
-<figure class="no-bleed" style="max-width: 600px">
+<figure class="inset">
   ![A visualization of the database schema for
-  Genderswap.fm.](./schema.png)(quality:100)
+  Genderswap.fm.](./schema.png)(quality:100,width:600)
   <figcaption>
     **Database schema.** This is the shape of the data for Genderswap.fm.
   </figcaption>
@@ -94,7 +94,7 @@ For the design, I knew I wanted to allow users to browse by pairs of songs shown
 
 From there, users could tap in to view the details of a cover, and listen to the original and the cover side-by-side, with notes about their differences.
 
-<figure>
+<figure class="popout">
   <div class="two-up">
     ![Detail page and form field sketches.](./sketch-1.png)
 
@@ -110,7 +110,7 @@ From there, users could tap in to view the details of a cover, and listen to the
 
 To communicate the way these covers remix sound, reinterpret lyrics, and reconfigure meaning, I established a visual motif to thread its way through the app: two objects, overlapping and askew. Sharing space, but different.
 
-<figure>
+<figure class="popout">
   ![A grid of albums and covers displayed on
   Genderswap.fm](./album-grid.png)(quality:100)
   <figcaption>
@@ -122,7 +122,7 @@ To communicate the way these covers remix sound, reinterpret lyrics, and reconfi
 
 Typography is set in [Labil Grotesk](https://www.kometa.xyz/typefaces/labil-grotesk/), a queer font which topples over itself, unable to rest upright, mirroring the off-kilter elements elsewhere in the app.
 
-<figure class="no-bleed">
+<figure class="popout">
   ![Header typography for a detail page within the app. The text reads: Sonata
   No. 8 in C Minor, Op. 13 “Pathétique”: II. Adagio cantabile. Jun Fukamachi
   covering Ludwig van Beethoven](./typography.png)(quality:100)
@@ -138,8 +138,8 @@ While the topsy-turvy contextual alternates were enabled for page-level headings
 
 As with all my work, I looked for opportunities to introduce small but meaningful details.
 
-<div class="two-col">
-  <figure class="no-bleed">
+<div class="two-col popout">
+  <figure>
     <div class="video-wrapper">
       <video
         autoplay
@@ -157,7 +157,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       like "sadder" or "more danceable", and you can search and filter by tag.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     ![A collection of three browser URL boxes with associated titles. The URLs
     are nicely formatted with hyphens and human readable text. The titles are
     formatted like "Cat Power's cover of Sea Of Love by Phil Phillips & The
@@ -167,7 +167,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       accommodate diacritics and non-Latin characters.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     !["Girls Just Wanna Have Fun" covered as "Girls Just Wanna Have
     Some"](./covered-as.png)(quality:100)
     <figcaption>
@@ -175,7 +175,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       the original.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     ![The user has selected ABBA's Dancing Queen from ABBA Gold. A banner says
     there's an earlier release, and prompts the user to choose the album
     Arrival, which was released 32 years
@@ -186,7 +186,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       prompt you to update your submission.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     ![A text message with a preview of the album art and page
     title.](./og-image.png)(quality:100)
     <figcaption>
@@ -196,7 +196,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       art, and tags.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     ![A list of titles displaying remaster dates and other non-title info
     scratched out by a red marker.](./just-titles.png)(quality:100)
     <figcaption>
@@ -205,7 +205,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       title.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     <div class="video-wrapper">
       <video
         autoplay
@@ -222,7 +222,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       **Celebrate contribution.** Confetti erupts after each new submission. 🎉
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     !["An input with the label "Your first name (optional)". The input is
     prefilled with the name "Eva".](./saved-name.png)(quality:100)
     <figcaption>
@@ -230,7 +230,7 @@ As with all my work, I looked for opportunities to introduce small but meaningfu
       pre-filled for future submissions on the same device.
     </figcaption>
   </figure>
-  <figure class="no-bleed">
+  <figure>
     <div class="video-wrapper">
       <video
         autoplay
@@ -258,10 +258,10 @@ I didn't have any massive ambitions for this app—it was mostly a way for me to
 
 After finishing the first version of the app, I emailed it to Andrea Lawlor, sharing how _Paul Takes the Form_ had inspired me. A few days later, I received this reply:
 
-<figure class="no-bleed" style="max-width: 585px">
+<figure class="inset">
   !["Andrea Lawlor email to me, 2:45PM: Whoa this is THE COOLEST thing I have
   EVER SEEN IN MY LIFE. Thank you!
-  Wow!"](./andrea-lawlor-email.jpg)(quality:100)
+  Wow!"](./andrea-lawlor-email.jpg)(quality:100,width:585)
   <figcaption>
     **[Andrea Lawlor](https://www.anderlawlor.com/)'s reply.** You heard it
     here, folks. The coolest thing ever.
