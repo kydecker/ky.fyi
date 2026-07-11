@@ -160,9 +160,12 @@
 }
 
 .prose .expressive-code {
-  border-radius: var(--radius-xs);
   margin-block: var(--space-l);
   grid-column: popout;
+
+  @media (width < 860px) {
+    grid-column: full;
+  }
 }
 
 .prose .expressive-code .frame {
