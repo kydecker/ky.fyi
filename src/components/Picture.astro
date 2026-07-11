@@ -39,7 +39,7 @@ const { img, imgAlt } = Astro.props;
     width: 100%;
   }
 
-  :global(.dark) picture {
+  :global([data-theme="dark"]) picture {
     mix-blend-mode: screen;
   }
 </style>

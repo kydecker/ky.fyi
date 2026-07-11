@@ -18,11 +18,16 @@ export default defineConfig({
     expressiveCode({
       styleOverrides: {
         borderRadius: "0",
+        borderWidth: "1px",
         codeFontFamily:
           "'MonoLisa', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
         codeFontSize: "0.85em",
         uiFontSize: "0.9em",
       },
+      themes: ["github-light", "github-dark"],
+      themeCssSelector: (theme) =>
+        theme.name.includes("dark") ? '[data-theme="dark"]' : false,
+      useDarkModeMediaQuery: false,
     }),
     mdx(),
     sitemap(),

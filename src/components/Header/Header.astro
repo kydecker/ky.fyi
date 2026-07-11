@@ -45,28 +45,27 @@ const navigation = [
 
 <script>
   import * as Fathom from "fathom-client";
-  import { gray, grayDark } from "@radix-ui/colors";
 
   type Theme = "light" | "dark";
 
   function getActiveTheme(): Theme {
-    return document.body.classList.contains("dark") ? "dark" : "light";
+    return document.documentElement.getAttribute("data-theme") === "dark"
+      ? "dark"
+      : "light";
   }
 
-  function setActiveTheme(theme: Theme, document = window.document) {
-    theme === "light"
-      ? document.body.classList.remove("dark")
-      : document.body.classList.add("dark");
+  function setActiveTheme(theme: Theme, doc = window.document) {
+    doc.documentElement.setAttribute("data-theme", theme);
 
     // Update localStorage
     window.localStorage.setItem("theme", theme);
 
     // Update meta theme
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const metaTheme = doc.querySelector('meta[name="theme-color"]');
     if (metaTheme !== null)
       metaTheme.setAttribute(
         "content",
-        theme === "dark" ? grayDark.gray1 : gray.gray1,
+        theme === "dark" ? "#191919" : "#f9f9f9",
       );
   }
 
@@ -87,7 +86,6 @@ const navigation = [
   setupToggle();
 
   document.addEventListener("astro:before-swap", (ev) => {
-    // Run after view transitions
     setupToggle(ev.newDocument);
     setActiveTheme(getActiveTheme(), ev.newDocument);
   });
@@ -179,11 +177,11 @@ const navigation = [
     }
   }
 
-  :global(body:not(.dark) .moon) {
+  :global(html:not([data-theme="dark"]) .moon) {
     transform: rotate(60deg);
   }
 
-  :global(.dark .sun) {
+  :global([data-theme="dark"] .sun) {
     transform: rotate(-60deg);
   }
 </style>
