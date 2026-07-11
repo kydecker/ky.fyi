@@ -1,6 +1,13 @@
 .prose {
   display: grid;
-  grid-template-columns: 1fr min(800px, calc(100% - var(--space-xl) * 2)) 1fr;
+  grid-template-columns:
+    [full-width-start]
+    1fr
+    [content-start]
+    min(800px, calc(100% - var(--space-xl) * 2))
+    [content-end]
+    1fr
+    [full-width-end];
   grid-column-gap: var(--space-xl);
   text-wrap: pretty;
 
@@ -9,12 +16,12 @@
 
 .prose > *,
 .prose .no-bleed {
-  grid-column: 2;
+  grid-column: content;
 }
 
 .prose .full-bleed {
   width: 100%;
-  grid-column: 1 / -1;
+  grid-column: full-width;
   padding-inline: 0;
 }
 
@@ -212,7 +219,7 @@
   margin-block-start: var(--space-2xl);
   margin-inline: auto;
   width: 100%;
-  grid-column: 1 / -1;
+  grid-column: full-width;
 }
 
 .prose > figure + *:not(h2) {
@@ -337,7 +344,7 @@
 
   @media (width < 620px) {
     width: 100%;
-    grid-column: 1 / -1;
+    grid-column: full-width;
     border-inline: none;
   }
 }
