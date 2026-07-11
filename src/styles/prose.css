@@ -6,6 +6,10 @@
   --feature: minmax(0, 12rem);
   --full: minmax(var(--gutter), 1fr);
 
+  /* Override default Expressive Code inline padding */
+  --ec-codePadInl: var(--gutter);
+  --ec-codePadBlk: 1.25rem;
+
   text-wrap: pretty;
 }
 

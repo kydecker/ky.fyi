@@ -34,8 +34,8 @@ Our interfaces used to be more textured. During the heydey of [skeuomorphism](ht
 
 In 2013, Apple released iOS 7, featuring a redesigned user interface which, under Jony Ive, fully embraced flat design, bringing a swift death to the iPhone's skeuomorphism. The vast majority of digital spaces soon followed suit.
 
-<figure>
-  <div class="two-up popout">
+<figure class="popout">
+  <div class="two-up">
     ![The home screen of iOS 6.](./ios6.png)
 
     ![The home screen of iOS 7.](./ios7.png)
@@ -99,11 +99,13 @@ We can use the `ch` unit in CSS to define the maximum width of the text. The `ch
 
 We want to allow users to draw ASCII art and other fun things, too. To do that, we need to preserve whitespace for entries and prevent long lines of unbroken text from overflowing the container.
 
-```css ins={3-4}
+```css ins={4,6}
 .notecard .content {
   width: 28ch;
-  white-space: pre-wrap; // Preserve whitespace
-  overflow-wrap: break-word; // Break long lines of text
+  /* Preserve whitespace */
+  white-space: pre-wrap; 
+  /* Break long lines of text */
+  overflow-wrap: break-word; 
 }
 ```
 
