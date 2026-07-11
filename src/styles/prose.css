@@ -1,17 +1,18 @@
 .prose {
+  --content-max-width: 800px;
+  --image-max-width: 1200px;
+
   display: grid;
   grid-template-columns:
     [full-width-start]
     1fr
     [content-start]
-    min(800px, calc(100% - var(--space-xl) * 2))
+    min(var(--content-max-width), 100% - (var(--space-xl) * 2))
     [content-end]
     1fr
     [full-width-end];
   grid-column-gap: var(--space-xl);
   text-wrap: pretty;
-
-  --image-max-width: 1200px;
 }
 
 .prose > *,
@@ -294,7 +295,7 @@
 .prose figcaption {
   font-size: var(--step--1);
   margin-block-start: var(--space-s);
-  max-inline-size: min(800px, calc(100% - var(--space-xl) * 2));
+  max-inline-size: min(var(--content-max-width), 100% - (var(--space-xl) * 2));
   margin-inline: auto;
   display: flex;
   position: relative;
