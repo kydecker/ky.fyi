@@ -1,18 +1,21 @@
 .prose {
   --gutter: var(--space-xl);
-  --content-max: 800px;
+  --content-max: 860px;
   --content: min(var(--content-max), 100% - var(--gutter) * 2);
   /* 1.35rem = default inline padding for Expressive Code blocks; align code with prose */
-  --breakout: minmax(0, 1.35rem);
+  --popout: minmax(0, 1.35rem);
+  --feature: minmax(0, 5rem);
   --full: minmax(var(--gutter), 1fr);
-  --image-max-width: 1200px;
+  --image-max: 1200px;
 
   display: grid;
   grid-template-columns:
     [full-start] var(--full)
-    [breakout-start] var(--breakout)
+    [feature-start] var(--feature)
+    [popout-start] var(--popout)
     [content-start] var(--content) [content-end]
-    var(--breakout) [breakout-end]
+    var(--popout) [popout-end]
+    var(--feature) [feature-end]
     var(--full) [full-end];
   text-wrap: pretty;
 }
@@ -146,7 +149,7 @@
 .prose ul li::before {
   font-family: var(--font-sans);
   content: "◆";
-  transform: scale(0.6);
+  transform: scale(0.5);
   transform-origin: left;
 }
 
@@ -159,7 +162,7 @@
 .prose .expressive-code {
   border-radius: var(--radius-xs);
   margin-block: var(--space-l);
-  grid-column: breakout;
+  grid-column: popout;
 }
 
 .prose .expressive-code .frame {
@@ -238,7 +241,7 @@
 
 .prose .two-up > * {
   flex: 1;
-  max-width: calc((var(--image-max-width) - var(--space-m)) / 2);
+  max-inline-size: calc((var(--image-max) - var(--space-m)) / 2);
 }
 
 .prose figure img {
@@ -249,9 +252,8 @@
 .prose figure video,
 .prose figure .two-up {
   width: 100%;
-  max-width: var(--image-max-width);
+  max-inline-size: var(--image-max);
   margin-inline: auto;
-  border-radius: var(--radius-xs);
 }
 
 /* Hacky way to target the image container without an extra div */
@@ -259,40 +261,9 @@
 .prose .two-up > p,
 .prose .video-wrapper {
   margin-inline: auto;
-  max-width: var(--image-max-width);
+  max-inline-size: var(--image-max-width);
   overflow: hidden;
   position: relative;
-}
-
-.prose figure > p::after,
-.prose .two-up > p::after,
-.prose .video-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 0.5px solid var(--gray-a6);
-  border-radius: var(--radius-xs);
-  pointer-events: none;
-}
-
-@media (width <= 1200px) {
-  .prose figure:not(.no-bleed) img,
-  .prose figure:not(.no-bleed) video,
-  .prose figure:not(.no-bleed) .video-wrapper {
-    border-radius: 0;
-  }
-
-  .prose .two-up > p::after,
-  .prose figure:not(.no-bleed) > p::after,
-  .prose figure:not(.no-bleed) .video-wrapper::after {
-    border-radius: 0;
-  }
-
-  .prose figure:not(.no-bleed) > p::after,
-  .prose figure:not(.no-bleed) .video-wrapper::after {
-    border-right: none;
-    border-left: none;
-  }
 }
 
 .prose figcaption {
