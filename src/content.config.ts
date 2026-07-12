@@ -94,4 +94,14 @@ export const collections = {
         date: z.date(),
       }),
   }),
+
+  walks: defineCollection({
+    loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/walks" }),
+    schema: () =>
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        urls: z.array(z.url()),
+      }),
+  }),
 };

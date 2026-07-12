@@ -1,0 +1,66 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const walks = await getCollection("walks");
+  return walks.map((walk) => ({ params: { id: walk.id } }));
+}
+
+const { id } = Astro.params;
+const walk = await getEntry("walks", id);
+
+if (!walk) return Astro.redirect("/404");
+
+const { Content } = await render(walk);
+const { title, description, urls } = walk.data;
+---
+
+<BaseLayout title={title} description={description} includeHeader={false}>
+  <main class="walk">
+    <header>
+      <h1>{title}</h1>
+      <p class="description">{description}</p>
+    </header>
+    <Content />
+    <button id="start">Open {urls.length} tabs</button>
+  </main>
+</BaseLayout>
+
+<script define:vars={{ urls }} is:inline>
+  document.getElementById("start").addEventListener("click", () => {
+    [...urls].reverse().forEach((url, i) => window.open(url, `walk-${i}`));
+  });
+</script>
+
+<style>
+  .walk {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-block-size: 100%;
+    inline-size: min(860px, 100% - var(--space-xl) * 2);
+    margin-inline: auto;
+    flex: 1;
+    gap: var(--space-xl);
+  }
+
+  h1 {
+    font-size: var(--step-6);
+  }
+
+  .description {
+    font-size: var(--step-2);
+  }
+
+  button {
+    cursor: pointer;
+    background: var(--gray-12);
+    color: var(--gray-1);
+    border: none;
+    padding: var(--space-xs) var(--space-m);
+    border-radius: var(--space-s);
+    font-weight: var(--font-weight-bold);
+  }
+</style>
