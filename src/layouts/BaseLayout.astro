@@ -12,6 +12,7 @@ import UnstyledBase from "./UnstyledBase.astro";
 interface Props {
   title: string;
   description: string;
+  includeHeader?: boolean;
   includeFooter?: boolean;
   padTop?: boolean;
   padBottom?: boolean;
@@ -21,8 +22,15 @@ interface Props {
   };
 }
 
-const { title, description, includeFooter, padTop, padBottom, previewImage } =
-  Astro.props;
+const {
+  title,
+  description,
+  includeHeader = true,
+  includeFooter,
+  padTop,
+  padBottom,
+  previewImage,
+} = Astro.props;
 
 const forwards: TransitionAnimationPair = {
   old: {
@@ -68,7 +76,7 @@ const viewTransition = {
   previewImage={previewImage}
 >
   <script is:inline src="/scripts/preloadTheme.js"></script>
-  <Header />
+  {includeHeader && <Header />}
   <main
     class:list={["main", { padTop }, { padBottom }]}
     transition:animate={viewTransition}
