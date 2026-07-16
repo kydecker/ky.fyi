@@ -1,0 +1,7 @@
+title: Astro LilyPond
+year: 2026
+url: https://lilypond.ky.fyi
+category: integration
+previewImage:
+  image: ./lilypond.png
+  alt: Astro LilyPond - Text to SVG music notation for Astro
