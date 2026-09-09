@@ -45,7 +45,7 @@ import namchi from "./namchi.jpeg";
 
 In June 2024, I joined [Scribe](https://scribe.com) as its first (and only) Design Engineer. Scribe's VP of Design, [Tony Gines](https://www.tonygines.com/), had hired me to take the existing design system and improve its consistency, polish, and accessibility.
 
-Scribe is a tool—commonly used through a [browser extension](https://scribe.com/install/install-extension)—which allows recording clicks and keystrokes to automatically generate step-by-step guides. It's commonly used for creating things like product tutorials and standard operating procedures (SOPs), and is used by over 600,000 businesses, including [94% of the Fortune 500](https://scribe.com/customers).
+Scribe is a tool—commonly used through a [browser extension](https://scribe.com/install/install-extension)—which allows users to record clicks and keystrokes to automatically generate step-by-step guides. It's commonly used for creating things like product tutorials and standard operating procedures (SOPs), and is used by over 600,000 businesses, including [94% of the Fortune 500](https://scribe.com/customers).
 
 ### The problem
 
@@ -56,11 +56,11 @@ Scribe's design system, called Stylus, was beginning to show cracks. The system 
 - **Inconsistent component APIs** and a lack of strategy around tokens caused inconsistencies that affected the user experience and damaged trust.
 - **Accessibility issues**—like low-contrast text, missing focus rings, and unclickable checkbox labels—prevented certain users from accessing Scribe altogether.
 
-I had built [previous design systems](/posts/commonplace) and I knew how to address these problems. But I wanted to go a step further and quantify how much the design system improved over time. I wanted to foster a practice of regularly assessing the state of the design system, soliciting feedback and critique from every user.
+I had built [previous design systems](/posts/commonplace) and I knew how to address these problems. But I wanted to go a step further and quantify how much the design system improved over time. I wanted to foster a practice of regularly assessing the state of the design system, soliciting feedback and critique from every team member.
 
 ## Taking a pulse: design system surveys
 
-The month I joined, I wrote and sent a survey sent to every engineer, designer, and product manager. I would administer and synthesize this same survey every six months during my tenure.
+The month I joined, I wrote and sent a survey to every engineer, designer, and product manager. I would administer and synthesize this same survey every six months during my tenure.
 
 In the survey, I asked participants to rate six statements (like "Stylus documentation helps answer most questions that arise.") on a 5-point [Likert scale](https://en.wikipedia.org/wiki/Likert_scale), plus rate overall quality on a scale of ten. Low ratings prompted open-ended feedback that fed directly into design system priorities.
 
@@ -112,7 +112,7 @@ The share of people using existing components for most new features increased by
 
 <RatingDistributionChart class="float right" category={categoryById.naming} />
 
-11% said names were more understandable, compared to the start. I worked to extract and **reuse shared prop types** and **extend (rather than redeclare) native HTML props**, and **establish global naming patterns** like prefixing boolean props with `is`, `has`, or `should`.
+Naming clarity increased by 11% as I worked to extract and **reuse shared prop types**, **extend (rather than redeclare) native HTML props**, and **establish global naming patterns** like prefixing boolean props with `is`, `has`, or `should`.
 
 > "Thanks for constant improvements to an already excellently defined design system"
 
@@ -148,7 +148,7 @@ I led writing and publishing **public, reader-friendly docs** using [Starlight](
 
 <RatingDistributionChart class="float right" category={categoryById.aiding_collaboration} />
 
-Sentiments around collaboration improved by about 20% owing to **reduced discrepencies between Figma and code**, and a culture of **encouraging new contributions** to the design system from folks across all teams.
+Sentiments around collaboration improved by about 20% owing to **reduced discrepancies between Figma and code**, and a culture of **encouraging new contributions** to the design system from folks across all teams.
 
 > "Adoption and product / design alignment are quite strong here at scribe and its made using the library super easy. Keep it up!"
 
@@ -164,9 +164,9 @@ Sentiments around collaboration improved by about 20% owing to **reduced discrep
 
 <RatingDistributionChart class="float right" category={overallRating} min={5} />
 
-Survey feedback is important, but it skews toward developer experience over end user experience. To counter this, I made sure to **supplement internal surveys with user-centeric metrics**, like performance testing with [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/), accessibility testing with [Playwright](https://playwright.dev), and [axe-core](https://github.com/dequelabs/axe-core) and visual regression testing with [Chromatic](https://www.chromatic.com).
+Survey feedback is important, but it skews toward developer experience over end user experience. To counter this, I made sure to **supplement internal surveys with user-centric metrics**, like performance testing with [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/), accessibility testing with [Playwright](https://playwright.dev), and [axe-core](https://github.com/dequelabs/axe-core) and visual regression testing with [Chromatic](https://www.chromatic.com).
 
-I supplemented the sentiment-driven survey data with quantitative data from [Omlet](https://omlet.dev), a tool which runs static analysis on a codebase to determine how many times a component is used, how many times a prop is used, and chart coverage over time. Thanks to insights from Omlet and a lot of deleted code, **component coverage increased from 37% to 52% over 6 months**.
+I supplemented the sentiment-driven survey data with quantitative data from [Omlet](https://omlet.dev), a tool which runs static analysis on a codebase to determine how many times a component is used, how many times a prop is used, and how coverage changes over time. Thanks to insights from Omlet and a lot of deleted code, **component coverage increased from 37% to 52% over 6 months**.
 
 > "Keep crushing it! So appreciate your work"
 

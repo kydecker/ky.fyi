@@ -91,7 +91,7 @@
 }
 
 .prose h3 {
-  margin-top: var(--space-xl);
+  margin-top: var(--space-2xl);
 }
 
 .prose p + p {
