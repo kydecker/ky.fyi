@@ -40,11 +40,18 @@ const { timeline, roles, tech, website, repo, collaborators } = Astro.props;
   {collaborators && (
     <ProjectInfoBlock title="Collaborators">
       <ul>
-        {collaborators.map((collaborator) =>
-          // Condense whitespace
-          // prettier-ignore
-          <li><a class="collaborator" href={collaborator.url} target="_blank"><Image src={collaborator.img} alt={`A photo of ${collaborator.name}`} class="avatar" />{collaborator.name}</a></li>,
-        )}
+        {collaborators.map((collaborator) => (
+          <li>
+            <a class="collaborator" href={collaborator.url} target="_blank">
+              <Image
+                src={collaborator.img}
+                alt={`A photo of ${collaborator.name}`}
+                class="avatar"
+              />
+              {collaborator.name}
+            </a>
+          </li>
+        ))}
       </ul>
     </ProjectInfoBlock>
   )}
