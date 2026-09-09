@@ -17,11 +17,3 @@ test("includes correct social links", async ({ page }) => {
     "https://linkedin.com/in/kyfyi",
   );
 });
-
-test("opens social links in new tab", async ({ page }) => {
-  const githubLink = page.getByRole("link", { name: "Github" });
-  const linkedInLink = page.getByRole("link", { name: "LinkedIn" });
-
-  await expect(githubLink).toHaveAttribute("target", "_blank");
-  await expect(linkedInLink).toHaveAttribute("target", "_blank");
-});

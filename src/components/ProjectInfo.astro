@@ -42,7 +42,7 @@ const { timeline, roles, tech, website, repo, collaborators } = Astro.props;
       <ul>
         {collaborators.map((collaborator) => (
           <li>
-            <a class="collaborator" href={collaborator.url} target="_blank">
+            <a class="collaborator" href={collaborator.url}>
               <Image
                 src={collaborator.img}
                 alt={`A photo of ${collaborator.name}`}
@@ -68,9 +68,7 @@ const { timeline, roles, tech, website, repo, collaborators } = Astro.props;
     <ProjectInfoBlock title="Website">
       <ul>
         <li>
-          <a href={website} target="_blank">
-            {website.split("//")[1]}
-          </a>
+          <a href={website}>{website.split("//")[1]}</a>
         </li>
       </ul>
     </ProjectInfoBlock>
@@ -79,9 +77,7 @@ const { timeline, roles, tech, website, repo, collaborators } = Astro.props;
     <ProjectInfoBlock title="Source">
       <ul>
         <li>
-          <a href={`https://github.com/${repo}`} target="_blank">
-            View on GitHub
-          </a>
+          <a href={`https://github.com/${repo}`}>View on GitHub</a>
         </li>
       </ul>
     </ProjectInfoBlock>

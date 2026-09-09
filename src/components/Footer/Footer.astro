@@ -8,27 +8,33 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
   <Center>
     <div class="content">
       <div class="links">
-        <a href="/guestbook" data-fathom="footer-link">Guestbook</a>
-        <a href="/webrings" data-fathom="footer-link">Webrings</a>
-        <a href="/resume" data-fathom="footer-link">Resume</a>
-        <a href="/colophon" data-fathom="footer-link">Colophon</a>
+        <a href="/guestbook" data-fathom="footer-link">
+          Guestbook
+        </a>
+        <a href="/webrings" data-fathom="footer-link">
+          Webrings
+        </a>
+        <a href="/resume" data-fathom="footer-link">
+          Resume
+        </a>
+        <a href="/colophon" data-fathom="footer-link">
+          Colophon
+        </a>
       </div>
       <div class="links">
-        {
-          siteInfo.socials.map((social) => (
-            <a href={social.href} target="_blank" data-fathom="footer-link">
-              {social.name}
-            </a>
-          ))
-        }
+        {siteInfo.socials.map((social) => (
+          <a href={social.href} data-fathom="footer-link">
+            {social.name}
+          </a>
+        ))}
       </div>
       <div class="banner">
         <span class="emoji">🇵🇸</span>
         <a
           href="https://www.jewishvoiceforpeace.org/"
-          target="_blank"
           data-fathom="footer-link"
-          >Freedom for Palestine.
+        >
+          Freedom for Palestine.
         </a>
       </div>
       <div class="subscribe">
