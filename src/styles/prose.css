@@ -231,15 +231,15 @@
   flex: 1;
 }
 
-.prose figure img {
-  background: var(--gray-4);
-}
-
 .prose figure img,
 .prose figure video,
 .prose figure .two-up {
   max-inline-size: 100%;
   margin-inline: auto;
+}
+
+.prose figure:not(.inset) img {
+  background: var(--gray-4);
 }
 
 .prose figure.popout > *:not(figcaption),
