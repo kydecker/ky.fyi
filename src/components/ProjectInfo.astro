@@ -23,74 +23,65 @@ const { timeline, roles, tech, website, repo, collaborators } = Astro.props;
 ---
 
 <dl class="project-info">
-  {
-    timeline && (
-      <ProjectInfoBlock title="Timeline">
-        {timeline.start}&hairsp;&ndash;&hairsp;{timeline.end}
-      </ProjectInfoBlock>
-    )
-  }
-  {
-    roles && (
-      <ProjectInfoBlock title="My Role">
-        <ul>
-          {roles.map((role) => (
-            <li>{role}</li>
-          ))}
-        </ul>
-      </ProjectInfoBlock>
-    )
-  }
-  {
-    collaborators && (
-      <ProjectInfoBlock title="Collaborators">
-        <ul>
-          {collaborators.map((collaborator) =>
-            // Condense whitespace
-            // prettier-ignore
-            <li><a class="collaborator" href={collaborator.url} target="_blank"><Image src={collaborator.img} alt={`A photo of ${collaborator.name}`} class="avatar" />{collaborator.name}</a></li>,
-          )}
-        </ul>
-      </ProjectInfoBlock>
-    )
-  }
-  {
-    tech && (
-      <ProjectInfoBlock title="Tech">
-        <ul>
-          {tech.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
-      </ProjectInfoBlock>
-    )
-  }
-  {
-    website && (
-      <ProjectInfoBlock title="Website">
-        <ul>
+  {timeline && (
+    <ProjectInfoBlock title="Timeline">
+      {timeline.start}&hairsp;&ndash;&hairsp;{timeline.end}
+    </ProjectInfoBlock>
+  )}
+  {roles && (
+    <ProjectInfoBlock title="My Role">
+      <ul>
+        {roles.map((role) => (
+          <li>{role}</li>
+        ))}
+      </ul>
+    </ProjectInfoBlock>
+  )}
+  {collaborators && (
+    <ProjectInfoBlock title="Collaborators">
+      <ul>
+        {collaborators.map((collaborator) => (
           <li>
-            <a href={website} target="_blank">
-              {website.split("//")[1]}
+            <a class="collaborator" href={collaborator.url}>
+              <Image
+                src={collaborator.img}
+                alt={`A photo of ${collaborator.name}`}
+                class="avatar"
+              />
+              {collaborator.name}
             </a>
           </li>
-        </ul>
-      </ProjectInfoBlock>
-    )
-  }
-  {
-    repo && (
-      <ProjectInfoBlock title="Source">
-        <ul>
-          <li>
-            <a href={`https://github.com/${repo}`} target="_blank">
-              View on GitHub
-            </a>
-          </li>
-        </ul>
-      </ProjectInfoBlock>
-    )
-  }
+        ))}
+      </ul>
+    </ProjectInfoBlock>
+  )}
+  {tech && (
+    <ProjectInfoBlock title="Tech">
+      <ul>
+        {tech.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </ProjectInfoBlock>
+  )}
+  {website && (
+    <ProjectInfoBlock title="Website">
+      <ul>
+        <li>
+          <a href={website}>{website.split("//")[1]}</a>
+        </li>
+      </ul>
+    </ProjectInfoBlock>
+  )}
+  {repo && (
+    <ProjectInfoBlock title="Source">
+      <ul>
+        <li>
+          <a href={`https://github.com/${repo}`}>View on GitHub</a>
+        </li>
+      </ul>
+    </ProjectInfoBlock>
+  )}
 </dl>
 
 <style>
@@ -102,6 +93,10 @@ const { timeline, roles, tech, website, repo, collaborators } = Astro.props;
     grid-column: popout;
     gap: var(--space-m);
     font-size: var(--step--1);
+
+    @media (width < 860px) {
+      grid-column: full;
+    }
 
     ul,
     li {

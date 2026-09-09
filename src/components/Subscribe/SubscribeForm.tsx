@@ -341,12 +341,7 @@ export const SubscribeForm = () => {
             </button>
           </div>
         ) : sniperData ? (
-          <a
-            href={sniperData.url}
-            className="sniperLink"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={sniperData.url} className="sniperLink" rel="noreferrer">
             <div className="sniperLogo">
               <img src={sniperData.image} alt={sniperData.provider_pretty} />
             </div>

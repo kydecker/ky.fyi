@@ -37,34 +37,42 @@ const dateModified = new Date("2025-04-21 12:35:00-04:00");
   <Center>
     <section>
       <div class="webrings">
-        {webrings.map((webring) => <Webring webring={webring} />)}
+        {webrings.map((webring) => (
+          <Webring webring={webring} />
+        ))}
       </div>
     </section>
   </Center>
   <section id="badges" class="badge-section">
     <div class="badges">
-      {
-        badges?.data.map((badge) =>
-          badge.url ? (
-            <a href={badge.url} target="_blank">
-              <img src={badge.img.src} alt={badge.alt} style={`height: 31px`} />
-            </a>
-          ) : (
+      {badges?.data.map((badge) =>
+        badge.url ? (
+          <a href={badge.url}>
             <img src={badge.img.src} alt={badge.alt} style={`height: 31px`} />
-          ),
-        )
-      }
+          </a>
+        ) : (
+          <img src={badge.img.src} alt={badge.alt} style={`height: 31px`} />
+        ),
+      )}
     </div>
     <small class="credit">
-      88&times;31 buttons from <a
-        href="https://hellnet.work/8831/"
-        rel="external">hellnet.work</a
-      >, <a href="https://yesterweb.org/graphics/buttons" rel="external"
-        >yesterweb.org</a
-      >, <a href="https://cyber.dabamos.de/88x31/index.html" rel="external"
-        >cyber.dabamos.de</a
-      >, <a href="https://lmnt.me/badges/" rel="external">lmnt.me</a>, and other
-      friends.
+      88&times;31 buttons from{" "}
+      <a href="https://hellnet.work/8831/" rel="external">
+        hellnet.work
+      </a>
+      ,{" "}
+      <a href="https://yesterweb.org/graphics/buttons" rel="external">
+        yesterweb.org
+      </a>
+      ,{" "}
+      <a href="https://cyber.dabamos.de/88x31/index.html" rel="external">
+        cyber.dabamos.de
+      </a>
+      ,{" "}
+      <a href="https://lmnt.me/badges/" rel="external">
+        lmnt.me
+      </a>
+      , and other friends.
     </small>
     <a href="https://gossipsweb.net/" rel="external">
       <img
