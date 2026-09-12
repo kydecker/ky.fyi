@@ -29,10 +29,17 @@ export async function getStaticPaths() {
     }));
 }
 const { post, prev, next } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await render(post);
+const { Content } = await render(post);
 
 const { data } = post;
-const { title, description, previewImage, projectInfo, datePublished } = data;
+const {
+  title,
+  description,
+  previewImage,
+  projectInfo,
+  datePublished,
+  dateModified,
+} = data;
 
 const headingComponents = { h2: H2, h3: H3, h4: H4, h5: H5, h6: H6 };
 ---
@@ -42,7 +49,7 @@ const headingComponents = { h2: H2, h3: H3, h4: H4, h5: H5, h6: H6 };
   description={description}
   previewImage={previewImage}
   datePublished={datePublished}
-  dateModified={remarkPluginFrontmatter.dateModified}
+  dateModified={dateModified}
 >
   {projectInfo && <ProjectInfo {...projectInfo} />}
   <Content components={headingComponents} />
