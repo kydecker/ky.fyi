@@ -5,41 +5,26 @@ datePublished: 2026-09-08 08:00:00-04:00
 previewImage:
   image: ./data-driven.png
   alt: A collection of charts showing trends over time for a design system.
+projectInfo:
+  collaborators:
+    - name: Tony Gines
+      url: https://www.tonygines.com
+      img: ./tony.jpeg
+    - name: Emily Moreton
+      url: https://moreton.org
+      img: ./emily.jpeg
+    - name: Nam-Chi Van
+      url: https://www.linkedin.com/in/namchivan/
+      img: ./namchi.jpeg
+  timeline:
+    start: June 2024
+    end: April 2026
+  tech: ["React", "Tailwind", "Storybook", "Astro", "Starlight", "Omlet", "Figma"]
+  roles: ["Strategy", "Research", "Design", "Engineering"]
 ---
 
-import ProjectInfo from "../../../components/ProjectInfo.astro";
 import RatingDistributionChart from "./RatingDistributionChart.astro";
 import { categoryById, overallRating } from "./survey-data";
-
-import tony from "./tony.jpeg";
-import emily from "./emily.jpeg";
-import namchi from "./namchi.jpeg";
-
-<ProjectInfo
-  collaborators={[
-    {
-      name: "Tony Gines",
-      url: "https://www.tonygines.com",
-      img: tony,
-    },
-    {
-      name: "Emily Moreton",
-      url: "https://moreton.org",
-      img: emily,
-    },
-    {
-      name: "Nam-Chi Van",
-      url: "https://www.linkedin.com/in/namchivan/",
-      img: namchi,
-    }
-  ]}
-  timeline={{
-    start: "June 2024",
-    end: "April 2026",
-  }}
-  tech={["React", "Tailwind", "Storybook", "Astro", "Starlight", "Omlet", "Figma"]}
-  roles={["Strategy", "Research", "Design", "Engineering"]}
-/>
 
 ## Background
 

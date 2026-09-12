@@ -9,28 +9,19 @@ previewImage:
   image: manhattan-municipal-building.jpg
   alt: A low-angle shot of the Manhattan Municipal Building.
 url: /projects/boundaries-map
+projectInfo:
+  collaborators:
+    - name: Zhi Keng He
+      url: https://github.com/zhik
+      img: ./zhi.jpeg
+  timeline:
+    start: July 2022
+    end: August 2022
+  tech: ["Mapbox", "Svelte", "Tailwind"]
+  roles: ["Research", "Product Design", "Engineering"]
+  repo: betanyc/nyc-boundaries
+  website: https://boundaries.beta.nyc
 ---
-
-import ProjectInfo from "../../../components/ProjectInfo.astro";
-import zhi from "./zhi.jpeg";
-
-<ProjectInfo
-  collaborators={[
-    {
-      name: "Zhi Keng He",
-      url: "https://github.com/zhik",
-      img: zhi,
-    },
-  ]}
-  timeline={{
-    start: "July 2022",
-    end: "August 2022",
-  }}
-  tech={["Mapbox", "Svelte", "Tailwind"]}
-  roles={["Research", "Product Design", "Engineering"]}
-  repo="betanyc/nyc-boundaries"
-  website="https://boundaries.beta.nyc"
-/>
 
 ## Background
 
