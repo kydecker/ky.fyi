@@ -7,7 +7,6 @@ import { defineConfig, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import lilypond from "astro-lilypond";
 import imgAttr from "remark-imgattr";
-import { remarkModifiedTime } from "./plugins/remark-modified-time.mjs";
 
 export default defineConfig({
   site: "https://ky.fyi",
@@ -43,7 +42,7 @@ export default defineConfig({
   markdown: {
     processor: unified({
       rehypePlugins: [rehypeHeadingIds],
-      remarkPlugins: [imgAttr, remarkModifiedTime],
+      remarkPlugins: [imgAttr],
     }),
   },
   devToolbar: {
