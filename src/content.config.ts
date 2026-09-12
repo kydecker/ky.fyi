@@ -17,6 +17,29 @@ export const collections = {
             alt: z.string(),
           })
           .optional(),
+        projectInfo: z
+          .object({
+            timeline: z
+              .object({
+                start: z.string(),
+                end: z.string(),
+              })
+              .optional(),
+            roles: z.array(z.string()).optional(),
+            tech: z.array(z.string()).optional(),
+            website: z.url().optional(),
+            repo: z.string().optional(),
+            collaborators: z
+              .array(
+                z.object({
+                  name: z.string(),
+                  img: image(),
+                  url: z.url(),
+                }),
+              )
+              .optional(),
+          })
+          .optional(),
       }),
   }),
 

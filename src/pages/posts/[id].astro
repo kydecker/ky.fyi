@@ -1,6 +1,11 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-
+import H2 from "../../components/Headings/H2.astro";
+import H3 from "../../components/Headings/H3.astro";
+import H4 from "../../components/Headings/H4.astro";
+import H5 from "../../components/Headings/H5.astro";
+import H6 from "../../components/Headings/H6.astro";
+import ProjectInfo from "../../components/ProjectInfo.astro";
 import ProseLayout from "../../layouts/ProseLayout.astro";
 
 export interface Props {
@@ -27,7 +32,9 @@ const { post, prev, next } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 
 const { data } = post;
-const { title, description, previewImage, datePublished } = data;
+const { title, description, previewImage, projectInfo, datePublished } = data;
+
+const headingComponents = { h2: H2, h3: H3, h4: H4, h5: H5, h6: H6 };
 ---
 
 <ProseLayout
@@ -37,7 +44,8 @@ const { title, description, previewImage, datePublished } = data;
   datePublished={datePublished}
   dateModified={remarkPluginFrontmatter.dateModified}
 >
-  <Content />
+  {projectInfo && <ProjectInfo {...projectInfo} />}
+  <Content components={headingComponents} />
   <div class="pagination" slot="after-prose">
     {prev && (
       <a href={prev.id} class="prev">
