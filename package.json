@@ -58,7 +58,7 @@
     "linkedom": "^0.18.13",
     "motion": "^13.2.0",
     "nanoid": "^6.0.1",
-    "nanostores": "^1.5.2",
+    "nanostores": "^1.5.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "remark-imgattr": "^1.1.1",
