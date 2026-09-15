@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
-    "@biomejs/biome": "^2.5.11",
+    "@biomejs/biome": "^2.5.13",
     "@playwright/test": "^1.62.1",
     "@types/howler": "^2.2.13",
     "@types/node": "^26.4.0",
