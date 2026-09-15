@@ -42,7 +42,7 @@
     "@astrojs/react": "6.0.5",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@libsql/client": "^0.17.4",
+    "@libsql/client": "^0.18.0",
     "@nanostores/react": "^1.1.0",
     "@observablehq/plot": "^0.6.17",
     "@types/react": "^19.2.18",
