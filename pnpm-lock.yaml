@@ -232,8 +232,8 @@ importers:
         specifier: ^0.18.0
         version: 0.18.0
       '@nanostores/react':
-        specifier: ^1.1.0
-        version: 1.1.0(nanostores@1.5.3)(react@19.3.0)
+        specifier: ^2.0.1
+        version: 2.0.1(nanostores@1.5.3)(react@19.3.0)
       '@observablehq/plot':
         specifier: ^0.6.17
         version: 0.6.17
@@ -1677,9 +1677,9 @@ packages:
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
 
-  '@nanostores/react@1.1.0':
-    resolution: {integrity: sha512-MbH35fjhcf7LAubYX5vhOChYUfTLzNLqH/mBGLVsHkcvjy0F8crO1WQwdmQ2xKbAmtpalDa2zBt3Hlg5kqr8iw==}
-    engines: {node: ^20.0.0 || >=22.0.0}
+  '@nanostores/react@2.0.1':
+    resolution: {integrity: sha512-txbZTd+7/hnO7FhtF8Pmr+cu0ThdCuCnOyEEh0DsEM2Hp9PfOa5EY4uj3wpZpypSzp5BuqDgf2AxVAKoUIWOFQ==}
+    engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
     peerDependencies:
       nanostores: ^1.2.0
       react: '>=18.0.0'
@@ -5374,7 +5374,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nanostores/react@1.1.0(nanostores@1.5.3)(react@19.3.0)':
+  '@nanostores/react@2.0.1(nanostores@1.5.3)(react@19.3.0)':
     dependencies:
       nanostores: 1.5.3
       react: 19.3.0
