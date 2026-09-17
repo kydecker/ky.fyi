@@ -37,19 +37,16 @@ const writing = posts
 >
   <section class="home">
     <Center>
-      <h1 class="visuallyhidden">Ky designs and builds for the web</h1>
-      <div class="intro">
+      <!-- <h1 class="visuallyhidden">Ky designs and builds for the web</h1> -->
+      <h1 class="intro">
         <p>
-          <strong>
-            <a href="/about">Ky Decker</a>
-          </strong>{" "}
-          makes worldwide websites with{" "}
+          <a href="/about">Ky Decker</a> makes worldwide websites with{" "}
           <button type="button" data-sam-button>
             Samwise
           </button>{" "}
           in NYC
         </p>
-      </div>
+      </h1>
       <div class="synth">
         <Synth />
       </div>
@@ -137,16 +134,6 @@ const writing = posts
       display: flex;
       flex-direction: column;
       gap: var(--space-3xl);
-    }
-
-    @keyframes rotate {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
     }
 
     .intro {
