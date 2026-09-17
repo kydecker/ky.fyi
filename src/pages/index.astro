@@ -37,7 +37,6 @@ const writing = posts
 >
   <section class="home">
     <Center>
-      <!-- <h1 class="visuallyhidden">Ky designs and builds for the web</h1> -->
       <h1 class="intro">
         <p>
           <a href="/about">Ky Decker</a> makes worldwide websites in NYC with{" "}
@@ -88,160 +87,149 @@ const writing = posts
     </Center>
     <GuestbookFeed />
   </section>
+</BaseLayout>
 
-  <script>
-    import * as Fathom from "fathom-client";
-    import { addSam } from "../stores/sam";
+<script>
+  import * as Fathom from "fathom-client";
+  import { addSam } from "../stores/sam";
 
-    function setupSam() {
-      const samButton = document.querySelector("[data-sam-button]");
-      samButton?.addEventListener("click", () => addSam());
-    }
+  function setupSam() {
+    const samButton = document.querySelector("[data-sam-button]");
+    samButton?.addEventListener("click", () => addSam());
+  }
 
+  setupSam();
+
+  document.addEventListener("astro:after-swap", () => {
     setupSam();
+  });
 
-    document.addEventListener("astro:after-swap", () => {
-      setupSam();
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelector("[data-sam-button]")
+      ?.addEventListener("click", () => {
+        Fathom.trackEvent("stickers: add sam");
+      });
+
+    document.querySelector("[data-sam-shoo]")?.addEventListener("click", () => {
+      Fathom.trackEvent("stickers: shoo sam");
     });
+  });
+</script>
 
-    document.addEventListener("astro:page-load", () => {
-      document
-        .querySelector("[data-sam-button]")
-        ?.addEventListener("click", () => {
-          Fathom.trackEvent("stickers: add sam");
-        });
+<style>
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
 
-      document
-        .querySelector("[data-sam-shoo]")
-        ?.addEventListener("click", () => {
-          Fathom.trackEvent("stickers: shoo sam");
-        });
-    });
-  </script>
-  <style>
-    .visuallyhidden {
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      height: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
+  .intro {
+    padding-block: var(--space-2xl);
+    user-select: none;
+
+    p {
+      font-size: var(--step-4);
+      letter-spacing: var(--letter-spacing-condensed);
+      line-height: var(--line-height-tight);
+      padding-block-end: var(--space-l);
+      font-weight: var(--font-weight-medium);
+      text-align: center;
+      text-wrap: balance;
     }
 
-    .home {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3xl);
-    }
+    a,
+    button {
+      background: unset;
+      border: unset;
+      margin: unset;
+      line-height: unset;
+      display: unset;
+      padding: unset;
+      cursor: pointer;
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--gray-8);
+      text-underline-offset: max(0.1em, 2.5px);
+      transition:
+        text-decoration-color 0.2s ease-in-out,
+        font-weight 0.2s ease-in-out;
 
-    .intro {
-      padding-block: var(--space-2xl);
-      user-select: none;
-
-      p {
-        font-size: var(--step-4);
-        letter-spacing: var(--letter-spacing-condensed);
-        line-height: var(--line-height-tight);
-        padding-block-end: var(--space-l);
-        font-weight: var(--font-weight-medium);
-        text-align: center;
-        text-wrap: balance;
-      }
-
-      a,
-      button {
-        background: unset;
-        border: unset;
-        margin: unset;
-        line-height: unset;
-        display: unset;
-        padding: unset;
-        cursor: pointer;
-        color: inherit;
-        text-decoration: underline;
-        text-decoration-color: var(--gray-8);
-        text-underline-offset: max(0.1em, 2.5px);
-        transition:
-          text-decoration-color 0.2s ease-in-out,
-          font-weight 0.2s ease-in-out;
-
-        @media (hover: hover) and (pointer: fine) {
-          &:hover {
-            font-weight: var(--font-weight-extrabold);
-            text-decoration-color: var(--gray-11);
-          }
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          font-weight: var(--font-weight-extrabold);
+          text-decoration-color: var(--gray-11);
         }
       }
     }
+  }
 
-    .synth {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  .synth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-      @media (width > 640px) {
-        background: var(--gray-3);
-        border-radius: var(--radius-m);
-        padding: var(--space-xl) var(--space-l);
-      }
+    @media (width > 640px) {
+      background: var(--gray-3);
+      border-radius: var(--radius-m);
+      padding: var(--space-xl) var(--space-l);
     }
+  }
 
-    [data-sam-button] {
-      cursor: pointer;
+  [data-sam-button] {
+    cursor: pointer;
 
-      &:active {
-        transform: scale(0.95);
-      }
+    &:active {
+      transform: scale(0.95);
     }
+  }
 
-    section {
-      width: 100%;
-      padding-block-end: var(--space-3xl);
-    }
+  section {
+    width: 100%;
+    padding-block-end: var(--space-3xl);
+  }
 
-    h2 {
-      font-size: var(--step-1);
-      margin-block-end: var(--space-m);
-    }
+  h2 {
+    font-size: var(--step-1);
+    margin-block-end: var(--space-m);
+  }
 
-    .writing-list {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-m);
-    }
+  .writing-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
 
-    .writing-entry {
-      display: grid;
-      grid-template-columns: 7ch 1fr;
-      gap: var(--space-m);
-      align-items: baseline;
-    }
+  .writing-entry {
+    display: grid;
+    grid-template-columns: 7ch 1fr;
+    gap: var(--space-m);
+    align-items: baseline;
+  }
 
-    .writing-date {
-      color: var(--gray-11);
-      font-size: var(--step--1);
-      font-variant-numeric: tabular-nums;
-    }
+  .writing-date {
+    color: var(--gray-11);
+    font-size: var(--step--1);
+    font-variant-numeric: tabular-nums;
+  }
 
-    .writing-body {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2xs);
-    }
+  .writing-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
 
-    .writing-title {
-      font-size: var(--step-0);
-      font-weight: var(--font-weight-normal);
-      text-wrap: pretty;
-    }
+  .writing-title {
+    font-size: var(--step-0);
+    font-weight: var(--font-weight-normal);
+    text-wrap: pretty;
+  }
 
-    .writing-description {
-      color: var(--gray-11);
-      font-size: var(--step--1);
-      text-wrap: pretty;
-    }
-  </style>
-</BaseLayout>
+  .writing-description {
+    color: var(--gray-11);
+    font-size: var(--step--1);
+    text-wrap: pretty;
+  }
+</style>
