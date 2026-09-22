@@ -14,16 +14,6 @@ export const siteInfo = {
   email: "hi@ky.fyi",
   socials: {
     email: { name: "Email", href: "mailto:hi@ky.fyi", icon: "mail" },
-    arena: {
-      name: "Are.na",
-      href: "https://www.are.na/ky-decker/",
-      icon: "arena",
-    },
-    glass: {
-      name: "Glass",
-      href: "https://glass.photo/kydecker",
-      icon: "glass",
-    },
     github: {
       name: "GitHub",
       href: "https://github.com/kydecker",
@@ -33,6 +23,21 @@ export const siteInfo = {
       name: "LinkedIn",
       href: "https://linkedin.com/in/kyfyi",
       icon: "linkedin",
+    },
+    bluesky: {
+      name: "Bluesky",
+      href: "https://bsky.app/profile/ky.fyi",
+      icon: "bluesky",
+    },
+    glass: {
+      name: "Glass",
+      href: "https://glass.photo/kydecker",
+      icon: "glass",
+    },
+    arena: {
+      name: "Are.na",
+      href: "https://www.are.na/ky-decker/",
+      icon: "arena",
     },
     rss: { name: "RSS", href: "/rss.xml", icon: "rss" },
   } satisfies Record<string, SocialLink>,
