@@ -355,6 +355,11 @@
 .prose {
   details {
     margin-block-start: var(--space-m);
+
+    p {
+      text-indent: 0;
+      margin-block-start: var(--space-m);
+    }
   }
 
   summary {
