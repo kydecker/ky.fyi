@@ -15,7 +15,7 @@ import Logo from "./Logo.astro";
       <div class="links">
         <button type="button" data-theme-toggle aria-label="Toggle theme">
           <Icon icon="sun" size="24" variant="line" className="sun" />
-          <Icon icon="moon" size="24" variant="line" className="moon" />
+          <Icon icon="moon" size="24" variant="filled" className="moon" />
         </button>
       </div>
     </nav>
@@ -52,11 +52,58 @@ import Logo from "./Logo.astro";
     let toggleButton = document.querySelector("[data-theme-toggle]");
 
     toggleButton &&
-      toggleButton.addEventListener("click", () => handleToggleTheme());
+      toggleButton.addEventListener("click", () => {
+        // Only animate the icons once the user has toggled the theme, not on page load
+        toggleButton.classList.add("animate");
+        handleToggleTheme(toggleButton);
+      });
   }
 
-  function handleToggleTheme() {
-    setActiveTheme(getActiveTheme() === "light" ? "dark" : "light");
+  // iOS Safari paints a solid bar behind its toolbars during view transitions.
+  // iPadOS reports a Mac user agent, so check for touch support too
+  function isIOS() {
+    return (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1)
+    );
+  }
+
+  function handleToggleTheme(origin: Element) {
+    const nextTheme = getActiveTheme() === "light" ? "dark" : "light";
+
+    if (
+      typeof document.startViewTransition !== "function" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      isIOS()
+    ) {
+      setActiveTheme(nextTheme);
+    } else {
+      // Reveal the new theme as a circle growing out from the toggle button,
+      // large enough to reach the farthest corner of the viewport
+      const { left, top, width, height } = origin.getBoundingClientRect();
+      const x = left + width / 2;
+      const y = top + height / 2;
+      const radius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y),
+      );
+
+      const root = document.documentElement;
+      root.style.setProperty("--theme-ripple-x", `${x}px`);
+      root.style.setProperty("--theme-ripple-y", `${y}px`);
+      root.style.setProperty("--theme-ripple-radius", `${radius}px`);
+      root.setAttribute("data-theme-transition", "");
+
+      const transition = document.startViewTransition(() =>
+        setActiveTheme(nextTheme),
+      );
+      transition.finished.finally(() => {
+        root.removeAttribute("data-theme-transition");
+        root.style.removeProperty("--theme-ripple-x");
+        root.style.removeProperty("--theme-ripple-y");
+        root.style.removeProperty("--theme-ripple-radius");
+      });
+    }
 
     Fathom.trackEvent("nav: toggle theme");
   }
@@ -106,21 +153,6 @@ import Logo from "./Logo.astro";
       padding: var(--space-xs) var(--space-s);
       border: none;
       cursor: pointer;
-      transition: font-weight 0.2s ease-in-out;
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          font-weight: var(--font-weight-bold);
-        }
-
-        &:active {
-          transition: none;
-        }
-      }
-
-      &.active {
-        font-weight: var(--font-weight-bold);
-      }
     }
 
     h1 {
@@ -128,7 +160,6 @@ import Logo from "./Logo.astro";
       margin: 0;
 
       a {
-        font-weight: var(--font-weight-bold);
         padding-inline: 0;
       }
     }
@@ -137,7 +168,6 @@ import Logo from "./Logo.astro";
   .links {
     display: flex;
     align-items: center;
-    gap: var(--space-2xs);
     margin-inline-end: calc(-1 * var(--space-s));
 
     button[data-theme-toggle] {
@@ -152,19 +182,74 @@ import Logo from "./Logo.astro";
 
       .icon {
         transform-origin: 50% 200%;
-        transition:
-          transform 0.4s ease-out,
-          opacity 0.2s ease-in-out;
         position: absolute;
       }
     }
   }
 
-  :global(html:not([data-theme="dark"]) .moon) {
-    transform: rotate(60deg);
-  }
-
+  /* The inactive icon waits on the left, ready to rotate in clockwise */
+  :global(html:not([data-theme="dark"]) .moon),
   :global([data-theme="dark"] .sun) {
     transform: rotate(-60deg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html:not([data-theme="dark"]) .animate .sun),
+    :global([data-theme="dark"] .animate .moon) {
+      animation: rotate-in 0.4s ease-out;
+    }
+
+    :global(html:not([data-theme="dark"]) .animate .moon),
+    :global([data-theme="dark"] .animate .sun) {
+      animation: rotate-out 0.4s ease-out;
+    }
+  }
+
+  :global(html[data-theme-transition]) {
+    view-transition-name: root !important;
+  }
+
+  :global(html[data-theme-transition] *) {
+    view-transition-name: none !important;
+  }
+
+  :global(html[data-theme-transition]::view-transition-old(root)),
+  :global(html[data-theme-transition]::view-transition-new(root)) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  :global(html[data-theme-transition]::view-transition-new(root)) {
+    animation: theme-ripple 0.5s ease-in-out;
+  }
+
+  @keyframes theme-ripple {
+    from {
+      clip-path: circle(0 at var(--theme-ripple-x) var(--theme-ripple-y));
+    }
+    to {
+      clip-path: circle(
+        var(--theme-ripple-radius) at var(--theme-ripple-x)
+          var(--theme-ripple-y)
+      );
+    }
+  }
+
+  @keyframes rotate-in {
+    from {
+      transform: rotate(-60deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes rotate-out {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(60deg);
+    }
   }
 </style>
