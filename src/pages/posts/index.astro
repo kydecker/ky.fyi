@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import Center from "../../components/Center.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import PostLink from "../../components/PostLink.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Writing";
+const description =
+  "Case studies, tutorials, reflections, and other writing on design and tech.";
+
+const posts = await getCollection("posts");
+
+const writing = posts.sort(
+  (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
+);
+---
+
+<BaseLayout title={title} description={description} includeFooter>
+  <PageHeader title={title} description={description} />
+  <Center>
+    <ul class="writing">
+      {writing.map((post) => (
+        <li>
+          <PostLink post={post} />
+        </li>
+      ))}
+    </ul>
+  </Center>
+</BaseLayout>
+
+<style>
+  .writing {
+    list-style: none;
+    padding: 0;
+    padding-block-end: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+</style>

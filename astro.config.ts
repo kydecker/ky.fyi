@@ -87,5 +87,6 @@ export default defineConfig({
     "/cv": "/resume",
     "/downloads/eva-decker-resume.pdf": "/downloads/ky-decker-resume.pdf",
     "/subscribe": "/",
+    "/writing": "/posts",
   },
 });

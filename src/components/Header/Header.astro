@@ -12,8 +12,8 @@ const navigation = [
     url: "/about",
   },
   {
-    label: "Now",
-    url: "/now",
+    label: "Writing",
+    url: "/posts",
   },
 ];
 ---
@@ -21,19 +21,21 @@ const navigation = [
 <header>
   <Center>
     <nav id="nav">
-      <h1><a href="/"><Logo /></a></h1>
+      <h1>
+        <a href="/">
+          <Logo />
+        </a>
+      </h1>
       <div class="links">
-        {
-          navigation.map((item) => (
-            <a
-              href={item.url}
-              data-fathom="nav-link"
-              class={topLevelPath === item.url.split("/")[1] ? "active" : ""}
-            >
-              {item.label}
-            </a>
-          ))
-        }
+        {navigation.map((item) => (
+          <a
+            href={item.url}
+            data-fathom="nav-link"
+            class={topLevelPath === item.url.split("/")[1] ? "active" : ""}
+          >
+            {item.label}
+          </a>
+        ))}
         <button type="button" data-theme-toggle aria-label="Toggle theme">
           <Icon icon="sun" size="20" variant="line" className="sun" />
           <Icon icon="moon" size="20" variant="line" className="moon" />
