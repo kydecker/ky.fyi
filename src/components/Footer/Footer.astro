@@ -22,7 +22,7 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
         </a>
       </div>
       <div class="links">
-        {siteInfo.socials.map((social) => (
+        {Object.values(siteInfo.socials).map((social) => (
           <a href={social.href} data-fathom="footer-link">
             {social.name}
           </a>

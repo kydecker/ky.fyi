@@ -1,0 +1,97 @@
+---
+interface Props {
+  id: string;
+  summary: string;
+}
+
+const { id, summary } = Astro.props;
+---
+
+<persistent-details data-id={id}>
+  <details>
+    <summary>{summary}</summary>
+    <slot />
+  </details>
+</persistent-details>
+
+<script>
+  class PersistentDetails extends HTMLElement {
+    connectedCallback() {
+      const details = this.querySelector("details");
+      const id = this.dataset.id;
+      if (!details || !id) return;
+
+      const key = `details:${id}`;
+      const stored = localStorage.getItem(key);
+      if (stored === "open") details.open = true;
+      if (stored === "closed") details.open = false;
+
+      details.addEventListener("toggle", () => {
+        localStorage.setItem(key, details.open ? "open" : "closed");
+      });
+    }
+  }
+
+  if (!customElements.get("persistent-details")) {
+    customElements.define("persistent-details", PersistentDetails);
+  }
+</script>
+
+<style>
+  summary {
+    display: inline-flex;
+    list-style: none;
+    cursor: pointer;
+    padding-inline-start: var(--space-l);
+    position: relative;
+    transition:
+      color 0.15s ease-out,
+      font-weight 0.15s ease-out;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      background-color: var(--gray-8);
+      position: absolute;
+      left: 0;
+      top: 33%;
+      clip-path: polygon(0 0, 86.6% 50%, 0 100%);
+      width: var(--space-s);
+      height: var(--space-s);
+      scale: 1.15;
+      transition:
+        rotate 0.15s ease-out,
+        background-color 0.15s ease-out;
+      flex-shrink: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--gray-12);
+        font-weight: var(--font-weight-bold);
+
+        &::before {
+          background-color: var(--gray-11);
+        }
+      }
+    }
+  }
+
+  details[open] > summary::before {
+    rotate: 90deg;
+  }
+
+  details::details-content {
+    padding-inline-start: var(--space-l);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  details[open]::details-content {
+    padding-block-start: var(--space-s);
+  }
+</style>

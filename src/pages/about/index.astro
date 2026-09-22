@@ -1,0 +1,119 @@
+---
+import Center from "../../components/Center.astro";
+import Details from "../../components/Details.astro";
+import { siteInfo } from "../../constants/site-info";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "About Ky";
+const description = "Pushing pixels (non-derogatory).";
+---
+
+<BaseLayout title={title} description={description} includeFooter>
+  <Center>
+    <div class="about">
+      <h1>My name is Ky Decker.</h1>
+      <Details id="design" summary="I design and build digital interfaces.">
+        <Details
+          id="web-design-systems"
+          summary="Mostly for the web, and often involving design systems."
+        >
+          <p>
+            I enjoy organizing messy data into understandable forms and I enjoy
+            acting as a sort of digital janitor. I like when I end a day with
+            more lines of code deleted than added, even when features increase.
+            Sometimes I <a href="/posts">write</a> about things I've built.
+            Posts are available via <a href={siteInfo.socials.rss.href}>RSS</a>.
+          </p>
+        </Details>
+        <Details id="career" summary="I've been doing this for over a decade.">
+          <Details
+            id="namesake"
+            summary="I currently lead design and development at Namesake."
+          >
+            <p>
+              <a href="https://namesake.fyi">Namesake</a> is a non-profit I
+              co-founded to assist trans people in the US with legal name
+              changes. We create open source tools that have helped thousands of
+              people update their legal name and gender marker.
+            </p>
+          </Details>
+          <Details
+            id="previous-jobs"
+            summary="Before that, I worked at Scribe, Cityblock, and Dropbox, among others."
+          >
+            <p>
+              I learned a lot from working at each of these places.{" "}
+              <a href="/resume">View my resume</a> for the full history. I've
+              also written case studies about my{" "}
+              <a href="/posts/data-driven">
+                data-driven approach to design system management at Scribe
+              </a>{" "}
+              and{" "}
+              <a href="/posts/commonplace">
+                how I helped build Cityblock's design system
+              </a>
+              .
+            </p>
+          </Details>
+          <Details
+            id="previous-jobs"
+            summary="I started off my career writing CSS for a Nintendo fan forum."
+          >
+            <p>
+              I would write styles into a textarea in the backend of vBulletin.
+              No formatting or linting. I don't even think it had syntax
+              highlighting. It was tedious and horrible and I loved it. The fact
+              that I could right click and "view source" on any webpage felt
+              like such a superpower. I still like writing CSS!
+            </p>
+          </Details>
+        </Details>
+      </Details>
+      <Details id="location" summary="I live in New York City.">
+        <Details id="hometown" summary="I'm from the South.">
+          <p>
+            I was born in Florida and grew up in North Carolina. I attended UNC
+            Greensboro and have a degree in Music and Computer Science.
+          </p>
+        </Details>
+        <Details
+          id="hobbies"
+          summary="I like arranging music and taking photos of birds."
+        >
+          <p>
+            I've published a few solo piano{" "}
+            <a href="/arrangements">arrangements</a> that I created using
+            LilyPond, a text-based music engraving language. To get away from
+            screens, I like looking at birds. I share my photography on{" "}
+            <a href="https://glass.photo/kydecker">Glass</a>.
+          </p>
+        </Details>
+      </Details>
+      <Details id="contact" summary="I'm online; say hello.">
+        <p>
+          You can find me on <a href={siteInfo.socials.arena.href}>Are.na</a>,{" "}
+          <a href={siteInfo.socials.github.href}>GitHub</a>, and{" "}
+          <small>(shudder)</small>{" "}
+          <a href={siteInfo.socials.linkedin.href}>LinkedIn</a>. I may not reply
+          immediately, but my inbox is always open—email{" "}
+          <a href="mailto:hi@ky.fyi">hi@ky.fyi</a>. Don't forget to sign the{" "}
+          <a href="/guestbook">guestbook</a> before you go.
+        </p>
+      </Details>
+    </div>
+  </Center>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-m);
+  }
+
+  .about {
+    padding-block: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+</style>
