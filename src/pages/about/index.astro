@@ -1,0 +1,127 @@
+---
+import Details from "../../components/Details.astro";
+import { siteInfo } from "../../constants/site-info";
+import ProseLayout from "../../layouts/ProseLayout.astro";
+
+const title = "About";
+const description = "Pushing pixels (non-derogatory).";
+---
+
+<ProseLayout title={title} description={description}>
+  <strong>My name is Ky Decker.</strong>
+  <Details id="design" summary="I design and build digital interfaces.">
+    <Details
+      id="web-design-systems"
+      summary="Mostly for the web, and often involving design systems."
+    >
+      <p>
+        I like making tidy work of messes, deleting code, and building software
+        that looks and functions well. Working on design systems combines all of
+        these in a way I find satisfying. I find inspiration from{" "}
+        <a href="https://bell.bz">Andy Bell</a>,{" "}
+        <a href="https://ericwbailey.website">Eric Bailey</a>,{" "}
+        <a href="https://arielsalminen.com">Ariel Salminen</a>,{" "}
+        <a href="https://www.sarasoueidan.com">Sara Soueidan</a>,{" "}
+        <a href="https://bradfrost.com">Brad Frost</a>, and{" "}
+        <a href="https://aresluna.org">Marcin Wichary</a>, among many others
+        (some of whom you can find via the <a href="/webrings">webrings</a> on
+        this site). I occasionally <a href="/posts">write</a> about things I've
+        built. Posts are available via{" "}
+        <a href={siteInfo.socials.rss.href}>RSS</a>.
+      </p>
+    </Details>
+    <Details id="career" summary="I've been doing this for over a decade.">
+      <Details
+        id="namesake"
+        summary="I currently lead design and development at Namesake."
+      >
+        <p>
+          <a href="https://namesake.fyi">Namesake</a> is a non-profit I
+          co-founded to assist trans people in the US with legal name changes.
+          We create{" "}
+          <a href="https://github.com/namesakefyi/namesake">
+            open source tools
+          </a>{" "}
+          that have helped thousands of people update their legal name and
+          gender marker. I'm proud of the work we do at Namesake. If you have
+          the capacity, you can{" "}
+          <a href="https://namesake.fyi/donate">donate to support our work</a>.
+        </p>
+      </Details>
+      <Details
+        id="previous-jobs"
+        summary="Before that, I worked at Scribe, Cityblock, and Dropbox, among others."
+      >
+        <p>
+          I've worked under the title of "Product Designer", "UX Engineer", and
+          more recently, "Design Engineer". The names and the tools have changed
+          over time, but the things I do have mostly remained constant:
+          exploring a problem, evaluating solutions, and then working to build
+          something (which, in turn, informs even more design decisions). This
+          is a long-winded way of saying I enjoy doing a little bit of
+          everything. For my full work history, you can{" "}
+          <a href="/resume">view my resume</a>.
+        </p>
+      </Details>
+      <Details
+        id="previous-jobs"
+        summary="I started my career by designing themes for a Nintendo fan forum."
+      >
+        <p>
+          I've been designing and coding for the web since around 2007, when my
+          favorite website—NSider, Nintendo's official forum—shut down without
+          warning. As NSider's userbase scattered to the winds, I joined a fan
+          forum. I wanted the forum to look nicer, so I spent evenings after
+          school designing assets in Photoshop and learning how to write CSS.
+          This was still before modern layout utilities like flexbox. It was
+          tedious, and I loved it.
+        </p>
+        <p>
+          I owe my career to the fact that the web, unlike most other platforms,
+          allows anyone to right click and "view source". The ability to peek
+          under the hood and tinker with styles still feels like a superpower.
+        </p>
+      </Details>
+    </Details>
+  </Details>
+  <Details id="location" summary="I live in New York City.">
+    <Details
+      id="hometown"
+      summary="I've been in NYC since 2017. I'm originally from the South."
+    >
+      <p>
+        I was born in Florida and grew up in North Carolina. I attended UNC
+        Greensboro and have a Bachelor of Arts in Music with a minor in Computer
+        Science.
+      </p>
+      <p>
+        I now live in Ridgewood, Queens, with my partner, my cat, my piano, a
+        handful of synthesizers, two dozen houseplants, my bike, and (proudly,
+        since 2015) no car. (I'd like to live the rest of my life in places
+        where I can bike, walk, and take a train wherever I need to go.)
+      </p>
+    </Details>
+    <Details
+      id="hobbies"
+      summary="I like arranging music and taking photos of birds."
+    >
+      <p>
+        I've published a few solo piano <a href="/arrangements">arrangements</a>{" "}
+        that I created using LilyPond, a text-based music engraving language. To
+        get away from screens, I like looking at birds. I share my photography
+        on <a href="https://glass.photo/kydecker">Glass</a>.
+      </p>
+    </Details>
+  </Details>
+  <Details id="contact" summary="I'm online; say hello.">
+    <p>
+      You can find me on <a href={siteInfo.socials.arena.href}>Are.na</a>,{" "}
+      <a href={siteInfo.socials.github.href}>GitHub</a>, and{" "}
+      <small>(shudder)</small>{" "}
+      <a href={siteInfo.socials.linkedin.href}>LinkedIn</a>. You can email me at{" "}
+      <a href="mailto:hi@ky.fyi">hi@ky.fyi</a>—I may not reply immediately, but
+      my inbox is always open. Thanks for visiting and clicking in. Don't forget
+      to sign the <a href="/guestbook">guestbook</a> before you go.
+    </p>
+  </Details>
+</ProseLayout>

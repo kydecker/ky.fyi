@@ -1,0 +1,38 @@
+---
+interface Props {
+  id: string;
+  summary: string;
+}
+
+const { id, summary } = Astro.props;
+---
+
+<persistent-details data-id={id}>
+  <details>
+    <summary>{summary}</summary>
+    <slot />
+  </details>
+</persistent-details>
+
+<script>
+  class PersistentDetails extends HTMLElement {
+    connectedCallback() {
+      const details = this.querySelector("details");
+      const id = this.dataset.id;
+      if (!details || !id) return;
+
+      const key = `details:${id}`;
+      const stored = localStorage.getItem(key);
+      if (stored === "open") details.open = true;
+      if (stored === "closed") details.open = false;
+
+      details.addEventListener("toggle", () => {
+        localStorage.setItem(key, details.open ? "open" : "closed");
+      });
+    }
+  }
+
+  if (!customElements.get("persistent-details")) {
+    customElements.define("persistent-details", PersistentDetails);
+  }
+</script>

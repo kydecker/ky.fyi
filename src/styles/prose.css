@@ -352,10 +352,68 @@
   margin-top: 0;
 }
 
-.bluesky-embed {
-  color-scheme: light;
-  overflow: hidden;
-  margin-inline: auto;
-  /* biome-ignore lint/complexity/noImportantStyles: Necessary to override existing styles */
-  margin-block: var(--space-xl) !important;
+.prose {
+  details {
+    margin-block-start: var(--space-m);
+
+    p {
+      text-indent: 0;
+      margin-block-start: var(--space-m);
+    }
+  }
+
+  summary {
+    display: inline-flex;
+    list-style: none;
+    cursor: pointer;
+    padding-inline-start: var(--space-l);
+    position: relative;
+    transition:
+      color 0.15s ease-out,
+      font-weight 0.15s ease-out;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      background-color: var(--gray-8);
+      position: absolute;
+      left: 0;
+      top: 0.25lh;
+      clip-path: polygon(0 0, 86.6% 50%, 0 100%);
+      width: 0.5lh;
+      height: 0.5lh;
+      scale: 0.75;
+      transition:
+        rotate 0.15s ease-out,
+        background-color 0.15s ease-out;
+      flex-shrink: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--gray-12);
+        font-weight: var(--font-weight-bold);
+
+        &::before {
+          background-color: var(--gray-11);
+        }
+      }
+    }
+  }
+
+  details[open] > summary {
+    color: var(--gray-12);
+    font-weight: var(--font-weight-bold);
+  }
+
+  details[open] > summary::before {
+    rotate: 90deg;
+  }
+
+  details::details-content {
+    padding-inline-start: var(--space-l);
+  }
 }
