@@ -3,12 +3,12 @@ import { getCollection } from "astro:content";
 import Center from "../components/Center.astro";
 import GuestbookFeed from "../components/Home/GuestbookFeed.astro";
 import ProjectGrid from "../components/Home/ProjectGrid.astro";
+import PostLink from "../components/PostLink.astro";
 import Synth from "../components/Synth/Synth.astro";
 import { siteInfo } from "../constants/site-info";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const work = await getCollection("work");
-const posts = await getCollection("posts");
 
 const feed = work
   .map((project) => ({
@@ -17,17 +17,11 @@ const feed = work
   }))
   .sort((a, b) => b.year - a.year);
 
-const writing = posts
-  .sort(
-    (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
-  )
-  .map((post) => ({
-    id: post.id,
-    title: post.data.title,
-    description: post.data.description,
-    date: post.data.datePublished,
-    url: `/posts/${post.id}`,
-  }));
+const posts = await getCollection("posts");
+
+const latestPost = posts.sort(
+  (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
+)[0];
 ---
 
 <BaseLayout
@@ -58,25 +52,10 @@ const writing = posts
   </section>
   <section>
     <Center>
-      <h2>Writing</h2>
-      <ul class="writing-list">
-        {writing.map((post) => (
-          <li class="writing-entry">
-            <time class="writing-date" datetime={post.date.toISOString()}>
-              {post.date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-              })}
-            </time>
-            <div class="writing-body">
-              <h3 class="writing-title">
-                <a href={post.url}>{post.title}</a>
-              </h3>
-              <p class="writing-description">{post.description}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <h2>
+        Latest <a href="/posts">writing</a>
+      </h2>
+      <PostLink post={latestPost} />
     </Center>
   </section>
   <section>
@@ -192,44 +171,5 @@ const writing = posts
   h2 {
     font-size: var(--step-1);
     margin-block-end: var(--space-m);
-  }
-
-  .writing-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-m);
-  }
-
-  .writing-entry {
-    display: grid;
-    grid-template-columns: 7ch 1fr;
-    gap: var(--space-m);
-    align-items: baseline;
-  }
-
-  .writing-date {
-    color: var(--gray-11);
-    font-size: var(--step--1);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .writing-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xs);
-  }
-
-  .writing-title {
-    font-size: var(--step-0);
-    font-weight: var(--font-weight-normal);
-    text-wrap: pretty;
-  }
-
-  .writing-description {
-    color: var(--gray-11);
-    font-size: var(--step--1);
-    text-wrap: pretty;
   }
 </style>

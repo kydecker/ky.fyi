@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+---
+
+<div class="post">
+  {post.data.previewImage && (
+    <a
+      href={`/posts/${post.id}`}
+      class="post-image"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <Image
+        src={post.data.previewImage.image}
+        alt={post.data.previewImage.alt}
+      />
+    </a>
+  )}
+  <div class="post-body">
+    <div class="post-eyebrow">
+      <span>{post.data.category}</span>
+      <time datetime={post.data.datePublished.toISOString()}>
+        {post.data.datePublished.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}
+      </time>
+    </div>
+    <h2 class="post-title">
+      <a href={`/posts/${post.id}`}>{post.data.title}</a>
+    </h2>
+    <p>{post.data.description}</p>
+  </div>
+</div>
+
+<style>
+  .post {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-l);
+  }
+
+  .post-image {
+    display: block;
+  }
+
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    text-wrap: pretty;
+  }
+
+  .post-title {
+    font-size: var(--step-1);
+  }
+
+  .post-eyebrow {
+    font-size: var(--step--1);
+    color: var(--gray-11);
+
+    time {
+      font-variant-numeric: tabular-nums;
+      &::before {
+        content: " · ";
+        color: var(--gray-8);
+      }
+    }
+  }
+</style>
