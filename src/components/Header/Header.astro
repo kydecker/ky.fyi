@@ -14,8 +14,8 @@ import Logo from "./Logo.astro";
       </h1>
       <div class="links">
         <button type="button" data-theme-toggle aria-label="Toggle theme">
-          <Icon icon="sun" size="24" variant="line" className="sun" />
-          <Icon icon="moon" size="24" variant="line" className="moon" />
+          <Icon icon="sun" size="24" variant="filled" className="sun" />
+          <Icon icon="moon" size="24" variant="filled" className="moon" />
         </button>
       </div>
     </nav>
@@ -143,21 +143,6 @@ import Logo from "./Logo.astro";
       padding: var(--space-xs) var(--space-s);
       border: none;
       cursor: pointer;
-      transition: font-weight 0.2s ease-in-out;
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          font-weight: var(--font-weight-bold);
-        }
-
-        &:active {
-          transition: none;
-        }
-      }
-
-      &.active {
-        font-weight: var(--font-weight-bold);
-      }
     }
 
     h1 {
@@ -165,7 +150,6 @@ import Logo from "./Logo.astro";
       margin: 0;
 
       a {
-        font-weight: var(--font-weight-bold);
         padding-inline: 0;
       }
     }
@@ -174,7 +158,6 @@ import Logo from "./Logo.astro";
   .links {
     display: flex;
     align-items: center;
-    gap: var(--space-2xs);
     margin-inline-end: calc(-1 * var(--space-s));
 
     button[data-theme-toggle] {
