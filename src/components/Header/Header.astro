@@ -199,18 +199,12 @@ import Logo from "./Logo.astro";
       animation: rotate-in 0.4s ease-out;
     }
 
-    /* Without a fill mode, the outgoing icon jumps back to its resting
-    position on the left once the animation ends */
     :global(html:not([data-theme="dark"]) .animate .moon),
     :global([data-theme="dark"] .animate .sun) {
       animation: rotate-out 0.4s ease-out;
     }
   }
 
-  /* Capture the whole page as one snapshot during the theme transition. <html>
-  normally gets an Astro-generated view-transition-name (from
-  transition:animate="none"), and elements like <main> get their own, which
-  would keep them from being revealed along with everything else */
   :global(html[data-theme-transition]) {
     view-transition-name: root !important;
   }
