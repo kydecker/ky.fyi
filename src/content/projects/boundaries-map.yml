@@ -1,7 +1,7 @@
 title: NYC Boundaries Map
 year: 2022
 url: https://boundaries.beta.nyc
-category: open data
+category: Open Data
 previewImage:
   image: ./boundaries-map.png
   alt: An interface displays two overlapping polygons on a map of New York City.

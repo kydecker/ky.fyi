@@ -90,17 +90,18 @@ const { item } = Astro.props;
 
   .project-title {
     font-size: inherit;
-    font-weight: inherit;
     line-height: inherit;
     flex: 1;
     min-width: 0;
   }
 
   .project-meta {
-    display: flex;
-    gap: var(--space-xs);
     flex-shrink: 0;
     font-weight: var(--font-weight-normal);
+
+    @media (width < 640px) {
+      order: -1;
+    }
   }
 
   .project-category,
@@ -108,5 +109,10 @@ const { item } = Astro.props;
     color: var(--gray-11);
     font-size: var(--step--1);
     font-variant-numeric: tabular-nums;
+  }
+
+  .project-year::before {
+    content: " · ";
+    color: var(--gray-8);
   }
 </style>

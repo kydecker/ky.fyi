@@ -36,7 +36,11 @@ const { layout, count, label = "more" } = Astro.props;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--expandable-gap) var(--space-l);
 
-    @media (width < 400px) {
+    > * {
+      min-width: 0;
+    }
+
+    @media (width < 640px) {
       grid-template-columns: 1fr;
     }
   }

@@ -3,7 +3,7 @@ import { getGuestbookEntries } from "../../db/queries/select";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
 
-const LIMIT = 5;
+export const LIMIT = 5;
 
 const guestbook = await getGuestbookEntries(0, LIMIT);
 ---
