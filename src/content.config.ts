@@ -68,10 +68,10 @@ export const collections = {
       }),
   }),
 
-  work: defineCollection({
+  projects: defineCollection({
     loader: glob({
       pattern: "**/[^_]*.yml",
-      base: "./src/content/work",
+      base: "./src/content/projects",
     }),
     schema: ({ image }) =>
       z.object({
@@ -80,6 +80,7 @@ export const collections = {
         year: z.number(),
         url: z.url(),
         category: z.string(),
+        featured: z.boolean().optional(),
         previewImage: z
           .object({
             image: image(),

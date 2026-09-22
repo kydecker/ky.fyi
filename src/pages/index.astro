@@ -3,25 +3,27 @@ import { getCollection } from "astro:content";
 import Center from "../components/Center.astro";
 import GuestbookFeed from "../components/Home/GuestbookFeed.astro";
 import ProjectGrid from "../components/Home/ProjectGrid.astro";
-import PostLink from "../components/PostLink.astro";
+import PostList from "../components/PostList.astro";
 import Synth from "../components/Synth/Synth.astro";
 import { siteInfo } from "../constants/site-info";
+import { sortFeaturedFirst } from "../helpers";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const work = await getCollection("work");
+const PROJECTS_CUTOFF = 4;
+const WRITING_CUTOFF = 2;
 
-const feed = work
+const projects = await getCollection("projects");
+const sortedProjects = projects
   .map((project) => ({
     id: project.id,
     ...project.data,
   }))
-  .sort((a, b) => b.year - a.year);
+  .sort(sortFeaturedFirst);
 
 const posts = await getCollection("posts");
-
-const latestPost = posts.sort(
+const sortedPosts = posts.sort(
   (a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime(),
-)[0];
+);
 ---
 
 <BaseLayout
@@ -33,7 +35,8 @@ const latestPost = posts.sort(
     <Center>
       <h1 class="intro">
         <p>
-          <a href="/about">Ky Decker</a> makes worldwide websites in NYC with{" "}
+          <a href="/about">Ky Decker</a> designs and builds interfaces in NYC
+          with{" "}
           <button type="button" data-sam-button>
             Samwise
           </button>
@@ -46,23 +49,19 @@ const latestPost = posts.sort(
   </section>
   <section>
     <Center>
-      <h2>Projects</h2>
-      <ProjectGrid items={feed} />
+      <h2>Things I've made</h2>
+      <ProjectGrid items={sortedProjects} cutoff={PROJECTS_CUTOFF} />
     </Center>
   </section>
   <section>
     <Center>
-      <h2>
-        Latest <a href="/posts">writing</a>
-      </h2>
-      <PostLink post={latestPost} />
+      <h2>Latest writing</h2>
+      <PostList posts={sortedPosts} cutoff={WRITING_CUTOFF} />
     </Center>
   </section>
   <section>
     <Center>
-      <h2>
-        From the <a href="/guestbook">guestbook</a>
-      </h2>
+      <h2>From the guestbook</h2>
     </Center>
     <GuestbookFeed />
   </section>
@@ -113,7 +112,6 @@ const latestPost = posts.sort(
       line-height: var(--line-height-tight);
       padding-block-end: var(--space-l);
       font-weight: var(--font-weight-medium);
-      text-align: center;
       text-wrap: balance;
     }
 
@@ -150,7 +148,6 @@ const latestPost = posts.sort(
 
     @media (width > 640px) {
       background: var(--gray-3);
-      border-radius: var(--radius-m);
       padding: var(--space-xl) var(--space-l);
     }
   }
@@ -169,7 +166,7 @@ const latestPost = posts.sort(
   }
 
   h2 {
-    font-size: var(--step-1);
-    margin-block-end: var(--space-m);
+    font-size: var(--step-2);
+    margin-block-end: var(--space-l);
   }
 </style>

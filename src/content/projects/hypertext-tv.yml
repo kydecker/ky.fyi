@@ -2,6 +2,7 @@ title: Hypertext TV
 year: 2025
 url: https://hypertext.tv
 category: explorable
+featured: true
 previewImage:
   image: ./hypertext-tv.png
   alt: The Hypertext TV logo, HTTV for short.

@@ -9,13 +9,11 @@ import GuestbookItems from "./GuestbookItems.astro";
 <Carousel>
   <GuestbookItems server:defer>
     <Fragment slot="fallback">
-      {
-        Array.from({ length: 8 }).map(() => (
-          <CarouselItem>
-            <Notecard content="" theme={1} small loading />
-          </CarouselItem>
-        ))
-      }
+      {Array.from({ length: 5 }).map(() => (
+        <CarouselItem>
+          <Notecard content="" theme={1} small loading />
+        </CarouselItem>
+      ))}
     </Fragment>
   </GuestbookItems>
   <CarouselButton url="/guestbook">See all messages</CarouselButton>

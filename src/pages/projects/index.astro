@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import Center from "../../components/Center.astro";
+import ProjectGrid from "../../components/Home/ProjectGrid.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { sortFeaturedFirst } from "../../helpers";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Projects";
+const description = "Websites, tools, and other things I've made.";
+
+const projects = await getCollection("projects");
+
+const feed = projects
+  .map((project) => ({
+    id: project.id,
+    ...project.data,
+  }))
+  .sort(sortFeaturedFirst);
+---
+
+<BaseLayout title={title} description={description} includeFooter padBottom>
+  <PageHeader title={title} description={description} />
+  <Center>
+    <ProjectGrid items={feed} />
+  </Center>
+</BaseLayout>

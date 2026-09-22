@@ -1,0 +1,103 @@
+---
+import { Icon } from "./Icon/Icon";
+
+interface Props {
+  layout: "grid" | "list";
+  count: number;
+  label?: string;
+}
+
+const { layout, count, label = "more" } = Astro.props;
+---
+
+<ul class:list={["expandable-items", layout]}>
+  <slot name="visible" />
+</ul>
+{count > 0 && (
+  <details class="expandable">
+    <summary class="expandable-trigger">
+      {count} {label} <Icon icon="arrowDown" size="20" />
+    </summary>
+    <ul class:list={["expandable-items", layout]}>
+      <slot />
+    </ul>
+  </details>
+)}
+
+<style>
+  .expandable-items {
+    list-style: none;
+    padding: 0;
+  }
+
+  .expandable-items.grid {
+    --expandable-gap: var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--expandable-gap) var(--space-l);
+
+    @media (width < 400px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .expandable-items.list {
+    --expandable-gap: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--expandable-gap);
+  }
+
+  .expandable {
+    margin-block-start: var(--space-m);
+  }
+
+  .expandable > .expandable-items {
+    margin-block-start: var(--expandable-gap);
+  }
+
+  .expandable-trigger {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--gray-11);
+    text-decoration: none;
+    transition: color 0.15s ease-out;
+
+    &:focus-visible {
+      outline: var(--gray-12) solid 2px;
+      outline-offset: 3px;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--gray-12);
+      }
+    }
+  }
+
+  .expandable[open] .expandable-trigger {
+    display: none;
+  }
+</style>
+
+<style is:global>
+  @media (prefers-reduced-motion: no-preference) {
+    .expandable[open] .expandable-items > * {
+      animation: expandable-item-in 0.4s ease-out backwards;
+      animation-delay: calc((sibling-index() - 1) * 60ms);
+    }
+  }
+
+  @keyframes expandable-item-in {
+    from {
+      opacity: 0;
+      translate: 0 8px;
+    }
+  }
+</style>

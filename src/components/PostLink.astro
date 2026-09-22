@@ -7,6 +7,8 @@ interface Props {
 }
 
 const { post } = Astro.props;
+
+const displayDate = post.data.datePublished.getFullYear();
 ---
 
 <div class="post">
@@ -27,11 +29,7 @@ const { post } = Astro.props;
     <div class="post-eyebrow">
       <span>{post.data.category}</span>
       <time datetime={post.data.datePublished.toISOString()}>
-        {post.data.datePublished.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
+        {displayDate}
       </time>
     </div>
     <h2 class="post-title">

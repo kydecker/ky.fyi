@@ -1,1 +1,1 @@
-export { getRandomValueBetween } from "./helpers";
+export { getRandomValueBetween, sortFeaturedFirst } from "./helpers";
