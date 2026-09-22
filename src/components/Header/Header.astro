@@ -14,7 +14,7 @@ import Logo from "./Logo.astro";
       </h1>
       <div class="links">
         <button type="button" data-theme-toggle aria-label="Toggle theme">
-          <Icon icon="sun" size="24" variant="filled" className="sun" />
+          <Icon icon="sun" size="24" variant="line" className="sun" />
           <Icon icon="moon" size="24" variant="filled" className="moon" />
         </button>
       </div>
@@ -59,12 +59,22 @@ import Logo from "./Logo.astro";
       });
   }
 
+  // iOS Safari paints a solid bar behind its toolbars during view transitions.
+  // iPadOS reports a Mac user agent, so check for touch support too
+  function isIOS() {
+    return (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1)
+    );
+  }
+
   function handleToggleTheme(origin: Element) {
     const nextTheme = getActiveTheme() === "light" ? "dark" : "light";
 
     if (
       typeof document.startViewTransition !== "function" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      isIOS()
     ) {
       setActiveTheme(nextTheme);
     } else {
