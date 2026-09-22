@@ -3,35 +3,33 @@ import { getCollection } from "astro:content";
 import { Score } from "astro-lilypond";
 import ProseLayout from "../../layouts/ProseLayout.astro";
 
-const title = "Arrangements";
-const description = "Play these notes at a piano to make okay sounds.";
+const title = "Sheet Music";
+const description = "Play these notes at a piano.";
 
 const scores = await getCollection("scores");
 ---
 
 <ProseLayout title={title} description={description}>
   <p>
-    Below are some piano arrangements I've written. All music was typeset using <a
-      href="https://lilypond.org">LilyPond</a
-    >, a text-based music engraving language. Scores are displayed here using <a
-      href="https://lilypond.ky.fyi">astro-lilypond</a
-    >, an open source Astro integration I built.
+    Below are some piano arrangements I've composed. All music was typeset using{" "}
+    <a href="https://lilypond.org">LilyPond</a>, a text-based music engraving
+    language. Scores are displayed here using{" "}
+    <a href="https://lilypond.ky.fyi">astro-lilypond</a>, an open source Astro
+    integration I built.
   </p>
   <section class="arrangements-grid">
-    {
-      scores.map((score) => (
-        <a href={`/arrangements/${score.id}`} class="arrangement">
-          <Score content={score.data} pageLimit={1} />
-          <div>
-            <h2>
-              {score.data.meta.title}
-              {score.data.meta.subtitle && ` (${score.data.meta.subtitle})`}
-            </h2>
-            <span>Composed by {score.data.meta.composer}</span>
-          </div>
-        </a>
-      ))
-    }
+    {scores.map((score) => (
+      <a href={`/arrangements/${score.id}`} class="arrangement">
+        <Score content={score.data} pageLimit={1} />
+        <div>
+          <h2>
+            {score.data.meta.title}
+            {score.data.meta.subtitle && ` (${score.data.meta.subtitle})`}
+          </h2>
+          <span>Composed by {score.data.meta.composer}</span>
+        </div>
+      </a>
+    ))}
   </section>
 </ProseLayout>
 

@@ -79,7 +79,6 @@ export default defineConfig({
   ],
   redirects: {
     "/garden": "/",
-    "/projects": "/",
     "/projects/genderswap": "/posts/genderswap",
     "/projects/boundaries-map": "/posts/boundaries-map",
     "/projects/commonplace": "/posts/commonplace",

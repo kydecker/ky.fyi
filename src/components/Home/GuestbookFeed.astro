@@ -1,22 +1,24 @@
 ---
+import { getGuestbookCount } from "../../db/queries/select";
 import Carousel from "../Carousel.astro";
 import CarouselButton from "../CarouselButton.astro";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
-import GuestbookItems from "./GuestbookItems.astro";
+import GuestbookItems, { LIMIT } from "./GuestbookItems.astro";
+
+const result = await getGuestbookCount();
+const moreCount = Math.max((result?.count ?? 0) - LIMIT, 0);
 ---
 
 <Carousel>
   <GuestbookItems server:defer>
     <Fragment slot="fallback">
-      {
-        Array.from({ length: 8 }).map(() => (
-          <CarouselItem>
-            <Notecard content="" theme={1} small loading />
-          </CarouselItem>
-        ))
-      }
+      {Array.from({ length: 5 }).map(() => (
+        <CarouselItem>
+          <Notecard content="" theme={1} small loading />
+        </CarouselItem>
+      ))}
     </Fragment>
   </GuestbookItems>
-  <CarouselButton url="/guestbook">See all messages</CarouselButton>
+  <CarouselButton url="/guestbook">{moreCount} more messages</CarouselButton>
 </Carousel>

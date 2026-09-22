@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Expandable from "./Expandable.astro";
+import PostLink from "./PostLink.astro";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+  cutoff?: number;
+}
+
+const { posts, cutoff } = Astro.props;
+const visible = cutoff ? posts.slice(0, cutoff) : posts;
+const hidden = cutoff ? posts.slice(cutoff) : [];
+---
+
+<Expandable layout="list" count={hidden.length}>
+  <Fragment slot="visible">
+    {
+      visible.map((post) => (
+        <li>
+          <PostLink post={post} />
+        </li>
+      ))
+    }
+  </Fragment>
+  {
+    hidden.map((post) => (
+      <li>
+        <PostLink post={post} />
+      </li>
+    ))
+  }
+</Expandable>

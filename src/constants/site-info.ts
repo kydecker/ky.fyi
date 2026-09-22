@@ -1,6 +1,9 @@
+import type { SocialIconName } from "../components/Footer/SocialIcon.astro";
+
 export type SocialLink = {
   name: string;
   href: string;
+  icon: SocialIconName;
 };
 
 export const siteInfo = {
@@ -10,9 +13,32 @@ export const siteInfo = {
   fathomId: "WKFTECUZ",
   email: "hi@ky.fyi",
   socials: {
-    arena: { name: "Are.na", href: "https://www.are.na/ky-decker/" },
-    github: { name: "GitHub", href: "https://github.com/kydecker" },
-    linkedin: { name: "LinkedIn", href: "https://linkedin.com/in/kyfyi" },
-    rss: { name: "RSS", href: "/rss.xml" },
+    email: { name: "Email", href: "mailto:hi@ky.fyi", icon: "mail" },
+    github: {
+      name: "GitHub",
+      href: "https://github.com/kydecker",
+      icon: "github",
+    },
+    linkedin: {
+      name: "LinkedIn",
+      href: "https://linkedin.com/in/kyfyi",
+      icon: "linkedin",
+    },
+    bluesky: {
+      name: "Bluesky",
+      href: "https://bsky.app/profile/ky.fyi",
+      icon: "bluesky",
+    },
+    glass: {
+      name: "Glass",
+      href: "https://glass.photo/kydecker",
+      icon: "glass",
+    },
+    arena: {
+      name: "Are.na",
+      href: "https://www.are.na/ky-decker/",
+      icon: "arena",
+    },
+    rss: { name: "RSS", href: "/rss.xml", icon: "rss" },
   } satisfies Record<string, SocialLink>,
 } as const;

@@ -3,22 +3,20 @@ import { getGuestbookEntries } from "../../db/queries/select";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
 
-const LIMIT = 8;
+export const LIMIT = 5;
 
 const guestbook = await getGuestbookEntries(0, LIMIT);
 ---
 
-{
-  guestbook.map(({ author, url, content, timestamp, theme }) => (
-    <CarouselItem>
-      <Notecard
-        author={author}
-        url={url}
-        content={content}
-        timestamp={timestamp}
-        theme={theme}
-        small
-      />
-    </CarouselItem>
-  ))
-}
+{guestbook.map(({ author, url, content, timestamp, theme }) => (
+  <CarouselItem>
+    <Notecard
+      author={author}
+      url={url}
+      content={content}
+      timestamp={timestamp}
+      theme={theme}
+      small
+    />
+  </CarouselItem>
+))}
