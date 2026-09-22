@@ -2,11 +2,26 @@
 import { siteInfo } from "../../constants/site-info";
 import Center from "../Center.astro";
 import { SubscribeForm } from "../Subscribe/SubscribeForm";
+import SocialIcon from "./SocialIcon.astro";
 ---
 
 <footer>
   <Center>
     <div class="content">
+      <div class="links">
+        <a href="/about" data-fathom="footer-link">
+          About
+        </a>
+        <a href="/projects" data-fathom="footer-link">
+          Projects
+        </a>
+        <a href="/posts" data-fathom="footer-link">
+          Writing
+        </a>
+        <a href="/arrangements" data-fathom="footer-link">
+          Sheet Music
+        </a>
+      </div>
       <div class="links">
         <a href="/guestbook" data-fathom="footer-link">
           Guestbook
@@ -21,15 +36,18 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
           Colophon
         </a>
       </div>
-      <div class="links">
+      <div class="socials">
         {Object.values(siteInfo.socials).map((social) => (
-          <a href={social.href} data-fathom="footer-link">
-            {social.name}
+          <a
+            href={social.href}
+            data-fathom="footer-link"
+            aria-label={social.name}
+          >
+            <SocialIcon icon={social.icon} />
           </a>
         ))}
       </div>
       <div class="banner">
-        <span class="emoji">🇵🇸</span>
         <a
           href="https://www.jewishvoiceforpeace.org/"
           data-fathom="footer-link"
@@ -54,11 +72,18 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
 
   .content {
     display: grid;
-    grid-template: "links1 links2 form" 1fr "banner banner form" auto / 0.5fr 0.5fr 2fr;
+    grid-template:
+      "links1 links2 form" 1fr
+      "socials socials form" auto
+      "banner banner form" auto / 0.5fr 0.5fr 2fr;
     gap: var(--space-m) var(--space-xl);
 
     @media (width < 650px) {
-      grid-template: "form form" "links1 links2" "banner banner" / 1fr 1fr;
+      grid-template:
+        "form form"
+        "links1 links2"
+        "socials socials"
+        "banner banner" / 1fr 1fr;
       gap: var(--space-xl);
     }
   }
@@ -79,6 +104,10 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
     a {
       display: inline-block;
       padding-block: var(--link-padding-block);
+
+      &:not(:hover) {
+        text-decoration-color: transparent;
+      }
     }
 
     &:first-child {
@@ -87,6 +116,36 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
 
     &:last-child {
       grid-area: links2;
+    }
+  }
+
+  .socials {
+    grid-area: socials;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gray-10);
+    margin-inline: -8px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      padding: 8px;
+      border-radius: 50%;
+      transition: color 0.15s ease-out;
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: var(--gray-12);
+        }
+      }
+
+      &:focus-visible {
+        color: var(--gray-12);
+      }
     }
   }
 
@@ -106,10 +165,6 @@ import { SubscribeForm } from "../Subscribe/SubscribeForm";
           color: var(--gray-12);
         }
       }
-    }
-
-    .emoji {
-      transform: scale(1.3) translateY(0.01em);
     }
   }
 
