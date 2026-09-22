@@ -35,8 +35,7 @@ const sortedPosts = posts.sort(
     <Center>
       <h1 class="intro">
         <p>
-          <a href="/about">Ky Decker</a> designs and builds interfaces in NYC
-          with{" "}
+          <a href="/about">Ky Decker</a> designs interfaces in NYC with{" "}
           <button type="button" data-sam-button>
             Samwise
           </button>
@@ -113,6 +112,10 @@ const sortedPosts = posts.sort(
       padding-block-end: var(--space-l);
       font-weight: var(--font-weight-medium);
       text-wrap: balance;
+
+      @media (width > 630px) {
+        text-align: center;
+      }
     }
 
     a,
