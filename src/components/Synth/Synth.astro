@@ -9,16 +9,7 @@ import SynthScreen from "./SynthScreen.astro";
   const NOTEHEAD_PREFIX = "note-";
 
   type WhiteKey =
-    | "C3"
-    | "D3"
-    | "E3"
-    | "F3"
-    | "G3"
-    | "A3"
-    | "B3"
-    | "C4"
-    | "D4"
-    | "E4";
+    "C3" | "D3" | "E3" | "F3" | "G3" | "A3" | "B3" | "C4" | "D4" | "E4";
 
   type BlackKey =
     | "Csharp3"
@@ -484,17 +475,17 @@ import SynthScreen from "./SynthScreen.astro";
     width: 100%;
     max-width: 540px;
 
-    --synth-whitekey: var(--gray-1);
-    --synth-whitekey-pressed: var(--gray-2);
+    --synth-whitekey: white;
+    --synth-whitekey-pressed: var(--red-4);
     --synth-blackkey: var(--gray-12);
-    --synth-blackkey-pressed: var(--gray-11);
-    --synth-base: var(--gray-1);
+    --synth-blackkey-pressed: var(--red-12);
+    --synth-base: var(--red-9);
     --synth-stroke: var(--gray-12);
-    --synth-lcd-bg: var(--gray-4);
-    --synth-lcd-light: var(--gray-2);
-    --synth-lcd-medium: var(--gray-11);
-    --synth-lcd-dark: var(--gray-12);
-    --synth-keyletter: var(--gray-12);
+    --synth-lcd-bg: var(--red-5);
+    --synth-lcd-light: var(--red-2);
+    --synth-lcd-medium: var(--red-11);
+    --synth-lcd-dark: var(--red-12);
+    --synth-keyletter: var(--red-12);
 
     svg {
       overflow: visible;
@@ -509,19 +500,25 @@ import SynthScreen from "./SynthScreen.astro";
     &:focus-within {
       outline: none;
     }
+
+    &:focus-visible {
+      border-radius: 24px;
+      outline: 3px solid var(--gray-12);
+      outline-offset: 6px;
+    }
   }
 
   :global([data-theme="dark"]) .synth {
-    --synth-whitekey: var(--gray-12);
-    --synth-whitekey-pressed: white;
-    --synth-blackkey: var(--gray-1);
-    --synth-blackkey-pressed: var(--gray-4);
-    --synth-base: var(--gray-12);
-    --synth-stroke: var(--gray-1);
-    --synth-lcd-bg: var(--gray-12);
+    --synth-whitekey: white;
+    --synth-whitekey-pressed: var(--red-12);
+    --synth-blackkey: var(--red-1);
+    --synth-blackkey-pressed: var(--red-4);
+    --synth-base: var(--red-9);
+    --synth-stroke: var(--red-1);
+    --synth-lcd-bg: var(--red-12);
     --synth-lcd-light: white;
-    --synth-lcd-medium: var(--gray-9);
-    --synth-lcd-dark: var(--gray-3);
-    --synth-keyletter: var(--gray-4);
+    --synth-lcd-medium: var(--red-9);
+    --synth-lcd-dark: var(--red-5);
+    --synth-keyletter: var(--red-4);
   }
 </style>
