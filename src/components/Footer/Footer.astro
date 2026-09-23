@@ -1,90 +1,113 @@
 ---
 import { siteInfo } from "../../constants/site-info";
-import Center from "../Center.astro";
 import { SubscribeForm } from "../Subscribe/SubscribeForm";
 import SocialIcon from "./SocialIcon.astro";
+
+const buildDate = new Date();
+const lastUpdated = buildDate.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
 ---
 
 <footer>
-  <Center>
-    <div class="content">
-      <div class="links">
-        <a href="/about" data-fathom="footer-link">
-          About
-        </a>
-        <a href="/projects" data-fathom="footer-link">
-          Projects
-        </a>
-        <a href="/posts" data-fathom="footer-link">
-          Writing
-        </a>
-        <a href="/arrangements" data-fathom="footer-link">
-          Sheet Music
-        </a>
-      </div>
-      <div class="links">
-        <a href="/guestbook" data-fathom="footer-link">
-          Guestbook
-        </a>
-        <a href="/webrings" data-fathom="footer-link">
-          Webrings
-        </a>
-        <a href="/resume" data-fathom="footer-link">
-          Resume
-        </a>
-        <a href="/colophon" data-fathom="footer-link">
-          Colophon
-        </a>
-      </div>
-      <div class="socials">
-        {Object.values(siteInfo.socials).map((social) => (
-          <a
-            href={social.href}
-            data-fathom="footer-link"
-            aria-label={social.name}
-          >
-            <SocialIcon icon={social.icon} />
-          </a>
-        ))}
-      </div>
-      <div class="banner">
+  <div class="links">
+    <a href="/" data-fathom="footer-link">
+      Home
+    </a>
+    <a href="/about" data-fathom="footer-link">
+      About
+    </a>
+    <a href="/projects" data-fathom="footer-link">
+      Projects
+    </a>
+    <a href="/posts" data-fathom="footer-link">
+      Writing
+    </a>
+    <a href="/arrangements" data-fathom="footer-link">
+      Sheet Music
+    </a>
+  </div>
+  <div class="links">
+    <a href="/now" data-fathom="footer-link">
+      Now
+    </a>
+    <a href="/guestbook" data-fathom="footer-link">
+      Guestbook
+    </a>
+    <a href="/webrings" data-fathom="footer-link">
+      Webrings
+    </a>
+    <a href="/resume" data-fathom="footer-link">
+      Resume
+    </a>
+    <a href="/colophon" data-fathom="footer-link">
+      Colophon
+    </a>
+  </div>
+  <ul class="socials">
+    {Object.values(siteInfo.socials).map((social) => (
+      <li>
         <a
-          href="https://www.jewishvoiceforpeace.org/"
+          href={social.href}
           data-fathom="footer-link"
+          aria-label={social.name}
         >
-          Free Palestine.
+          <SocialIcon icon={social.icon} />
         </a>
-      </div>
-      <div class="subscribe">
-        <SubscribeForm client:visible />
-      </div>
-    </div>
-  </Center>
+      </li>
+    ))}
+  </ul>
+  <div class="subscribe">
+    <SubscribeForm client:visible />
+  </div>
+  <div class="banner">
+    &copy; Ky Decker. Last updated{" "}
+    <time datetime={buildDate.toISOString()}>{lastUpdated}</time>.{" "}
+    <a href="https://www.jewishvoiceforpeace.org/" data-fathom="footer-link">
+      Free&nbsp;Palestine.
+    </a>
+  </div>
 </footer>
 
 <style>
   footer {
+    --gutter: var(--space-xl);
+    --content: min(860px, 100% - var(--gutter) * 2);
+    --column: calc((var(--content) - var(--gutter) * 2) / 3.5);
+
     font-size: var(--step-0);
     padding-block: var(--space-2xl);
     width: 100%;
     border-block-start: 1px solid var(--gray-6);
-  }
-
-  .content {
     display: grid;
-    grid-template:
-      "links1 links2 form" 1fr
-      "socials socials form" auto
-      "banner banner form" auto / 0.5fr 0.5fr 2fr;
-    gap: var(--space-m) var(--space-xl);
+    grid-template-columns:
+      [full-start] 1fr
+      [content-start] calc(var(--column) * 0.75)
+      calc(var(--column) * 0.75)
+      calc(var(--column) * 2) [content-end]
+      1fr [full-end];
+    grid-template-rows: 1fr auto auto;
+    grid-template-areas:
+      ". links1 links2 form ."
+      ". socials socials form ."
+      ". banner banner banner .";
+    gap: var(--space-l) var(--gutter);
 
     @media (width < 650px) {
-      grid-template:
-        "form form"
-        "links1 links2"
-        "socials socials"
-        "banner banner" / 1fr 1fr;
-      gap: var(--space-xl);
+      grid-template-columns:
+        [full-start] 0
+        [content-start] 1fr 1fr [content-end]
+        0 [full-end];
+      grid-template-rows: auto;
+      grid-template-areas:
+        ". links1 links2 ."
+        ". socials socials ."
+        "form form form form"
+        ". banner banner .";
+      gap: var(--gutter);
     }
   }
 
@@ -114,7 +137,7 @@ import SocialIcon from "./SocialIcon.astro";
       grid-area: links1;
     }
 
-    &:last-child {
+    &:nth-child(2) {
       grid-area: links2;
     }
   }
@@ -125,7 +148,18 @@ import SocialIcon from "./SocialIcon.astro";
     align-items: center;
     justify-content: space-between;
     color: var(--gray-10);
+    list-style: none;
+    padding: 0;
+    margin-block: 0;
     margin-inline: -8px;
+
+    @media (width >= 650px) {
+      margin-block-end: -8px;
+    }
+
+    li {
+      display: flex;
+    }
 
     a {
       display: inline-flex;
@@ -152,18 +186,18 @@ import SocialIcon from "./SocialIcon.astro";
   .banner {
     grid-area: banner;
     color: var(--gray-11);
-    display: flex;
-    align-items: center;
-    gap: var(--space-s);
     font-size: var(--step--1);
+    padding-block-start: var(--space-s);
 
     a {
-      text-decoration: none;
-
       @media (hover: hover) and (pointer: fine) {
         &:hover {
           color: var(--gray-12);
         }
+      }
+
+      &:focus-visible {
+        color: var(--gray-12);
       }
     }
   }

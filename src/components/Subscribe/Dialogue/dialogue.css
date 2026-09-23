@@ -5,15 +5,19 @@
   user-select: none;
   position: relative;
   width: 272px;
-  margin-inline: -148px -2px;
-  margin-block-start: -8px;
+  margin-inline-start: -148px;
   flex-shrink: 0;
 }
 
 .bubble {
-  background-color: var(--gray-1);
-  border: 3px solid var(--gray-12);
-  box-shadow: 0 2px 0 var(--gray-12);
+  /* Static light-theme sand values, matching the emote colors */
+  --bubble-background: #fdfdfc;
+  --bubble-foreground: #21201c;
+
+  background-color: var(--bubble-background);
+  border: 3px solid var(--bubble-foreground);
+  box-shadow: 0 2px 0 var(--bubble-foreground);
+  color: var(--bubble-foreground);
   padding: 0.5rem var(--space-m);
   font-family: var(--font-family-sans);
   font-size: var(--step--1);
@@ -45,7 +49,7 @@
 }
 
 .stamp:active {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
 .stamp-border {
@@ -53,13 +57,32 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  stroke: var(--gray-8);
+  fill: var(--gray-1);
+  stroke: var(--gray-6);
   stroke-width: 1px;
+}
+
+[data-theme="dark"] .stamp-border {
+  fill: var(--gray-a3);
+  stroke: var(--gray-a4);
 }
 
 @media (hover: hover) {
   .stamp:hover .stamp-border {
-    stroke: var(--gray-9);
+    stroke: var(--gray-7);
+  }
+
+  [data-theme="dark"] .stamp:hover .stamp-border {
+    stroke: var(--gray-a5);
+  }
+}
+
+.stamp:focus-visible {
+  outline: none;
+
+  .stamp-border {
+    stroke-width: 2px;
+    stroke: var(--gray-12);
   }
 }
 
@@ -70,11 +93,6 @@
   flex-shrink: 0;
   border-radius: var(--radius-xs);
   transform: scale(-1, 1);
-}
-
-.emphasized {
-  display: inline-block;
-  font-weight: var(--font-weight-bold);
 }
 
 .word {
