@@ -10,9 +10,14 @@
 }
 
 .bubble {
-  background-color: var(--gray-1);
-  border: 3px solid var(--gray-12);
-  box-shadow: 0 2px 0 var(--gray-12);
+  /* Static light-theme sand values, matching the emote colors */
+  --bubble-background: #fdfdfc;
+  --bubble-foreground: #21201c;
+
+  background-color: var(--bubble-background);
+  border: 3px solid var(--bubble-foreground);
+  box-shadow: 0 2px 0 var(--bubble-foreground);
+  color: var(--bubble-foreground);
   padding: 0.5rem var(--space-m);
   font-family: var(--font-family-sans);
   font-size: var(--step--1);
