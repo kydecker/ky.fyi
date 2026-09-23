@@ -6,7 +6,6 @@
   position: relative;
   height: 100%;
   width: 100%;
-  max-width: 600px;
   background-color: var(--gray-3);
   gap: var(--space-l);
   padding: var(--space-m);
@@ -81,7 +80,7 @@
 
 .iconButton:hover,
 .iconButton:focus {
-  color: var(--blue-9);
+  color: var(--gray-12);
 }
 
 .iconButton:disabled {
