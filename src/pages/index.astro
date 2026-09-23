@@ -49,7 +49,7 @@ const sortedPosts = posts.sort(
   <section>
     <Center>
       <h2>Things I've made</h2>
-      <ProjectGrid items={sortedProjects} cutoff={PROJECTS_CUTOFF} />
+      <ProjectGrid items={sortedProjects} cutoff={PROJECTS_CUTOFF} eager={1} />
     </Center>
   </section>
   <section>

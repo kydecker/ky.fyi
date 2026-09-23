@@ -14,9 +14,14 @@ interface Props {
       alt: string;
     };
   };
+  /**
+   * `priority` for the likely LCP image, `eager` for other images above the
+   * fold, and `lazy` for everything else
+   */
+  loading?: "priority" | "eager" | "lazy";
 }
 
-const { item } = Astro.props;
+const { item, loading = "lazy" } = Astro.props;
 ---
 
 <li>
@@ -26,9 +31,11 @@ const { item } = Astro.props;
         <Image
           src={item.previewImage.image}
           alt={item.previewImage.alt}
-          width={392}
-          height={205}
-          loading="lazy"
+          width={836}
+          widths={[418, 640, 836, 1280]}
+          sizes="(width < 640px) 100vw, 418px"
+          priority={loading === "priority"}
+          loading={loading === "eager" ? "eager" : undefined}
         />
       ) : (
         <div class="project-thumbnail-placeholder" />

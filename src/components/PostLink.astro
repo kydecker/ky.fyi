@@ -22,6 +22,9 @@ const displayDate = post.data.datePublished.getFullYear();
       <Image
         src={post.data.previewImage.image}
         alt={post.data.previewImage.alt}
+        width={836}
+        widths={[418, 640, 836, 1280]}
+        sizes="(width < 640px) 100vw, 418px"
       />
     </a>
   )}
@@ -52,6 +55,14 @@ const displayDate = post.data.datePublished.getFullYear();
 
   .post-image {
     display: block;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1.91 / 1;
+      object-fit: cover;
+    }
   }
 
   .post-body {

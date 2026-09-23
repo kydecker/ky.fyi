@@ -16,16 +16,26 @@ interface Props {
     };
   }>;
   cutoff?: number;
+  eager?: number;
 }
 
-const { items, cutoff } = Astro.props;
+const { items, cutoff, eager = 0 } = Astro.props;
 const visible = cutoff ? items.slice(0, cutoff) : items;
 const hidden = cutoff ? items.slice(cutoff) : [];
+
+const getLoading = (index: number) => {
+  if (index >= eager) return "lazy";
+  return index === 0 ? "priority" : "eager";
+};
 ---
 
 <Expandable layout="grid" count={hidden.length}>
   <Fragment slot="visible">
-    {visible.map((item) => <ProjectCard item={item} />)}
+    {visible.map((item, index) => (
+      <ProjectCard item={item} loading={getLoading(index)} />
+    ))}
   </Fragment>
-  {hidden.map((item) => <ProjectCard item={item} />)}
+  {hidden.map((item) => (
+    <ProjectCard item={item} />
+  ))}
 </Expandable>

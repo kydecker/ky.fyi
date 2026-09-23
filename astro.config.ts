@@ -34,10 +34,11 @@ export default defineConfig({
   trailingSlash: "never",
   build: {
     format: "file",
+    inlineStylesheets: "always",
   },
   adapter: cloudflare({
     prerenderEnvironment: "node",
-    imageService: "passthrough",
+    imageService: "compile",
   }),
   markdown: {
     processor: unified({
