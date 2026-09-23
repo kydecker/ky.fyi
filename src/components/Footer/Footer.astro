@@ -47,13 +47,19 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
       Colophon
     </a>
   </div>
-  <div class="socials">
+  <ul class="socials">
     {Object.values(siteInfo.socials).map((social) => (
-      <a href={social.href} data-fathom="footer-link" aria-label={social.name}>
-        <SocialIcon icon={social.icon} />
-      </a>
+      <li>
+        <a
+          href={social.href}
+          data-fathom="footer-link"
+          aria-label={social.name}
+        >
+          <SocialIcon icon={social.icon} />
+        </a>
+      </li>
     ))}
-  </div>
+  </ul>
   <div class="subscribe">
     <SubscribeForm client:visible />
   </div>
@@ -88,7 +94,7 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
       ". links1 links2 form ."
       ". socials socials form ."
       ". banner banner banner .";
-    gap: var(--space-m) var(--gutter);
+    gap: var(--space-l) var(--gutter);
 
     @media (width < 650px) {
       grid-template-columns:
@@ -142,10 +148,17 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
     align-items: center;
     justify-content: space-between;
     color: var(--gray-10);
+    list-style: none;
+    padding: 0;
+    margin-block: 0;
     margin-inline: -8px;
 
     @media (width >= 650px) {
       margin-block-end: -8px;
+    }
+
+    li {
+      display: flex;
     }
 
     a {
