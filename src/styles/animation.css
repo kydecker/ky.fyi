@@ -1,38 +1,3 @@
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes grow {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(100);
-  }
-}
-
-@keyframes stroke {
-  0% {
-    stroke: transparent;
-    stroke-dashoffset: 1;
-  }
-
-  0.0001% {
-    stroke: currentcolor;
-  }
-
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -40,54 +5,6 @@
 
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes slidePageInLeft {
-  0% {
-    transform: translateX(5rem);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slidePageOutLeft {
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(-5rem);
-    opacity: 0;
-  }
-}
-
-@keyframes slidePageInRight {
-  0% {
-    transform: translateX(-5rem);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slidePageOutRight {
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(5rem);
-    opacity: 0;
   }
 }
 

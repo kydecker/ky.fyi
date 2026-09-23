@@ -1,6 +1,6 @@
 :root {
   interpolate-size: allow-keywords;
-  color-scheme: light dark;
+  color-scheme: light;
 
   --accent: var(--lime-11);
 }
@@ -24,13 +24,14 @@ body {
   line-height: var(--line-height-body);
   text-rendering: optimizelegibility;
   font-synthesis: none;
-  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 [data-theme="dark"] body {
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: dark;
 }
 
 ::selection {
@@ -95,6 +96,7 @@ a {
   text-decoration-color: var(--gray-8);
   text-underline-offset: max(0.1em, 2.5px);
   transition:
+    color 0.2s ease-in-out,
     text-decoration-color 0.2s ease-in-out,
     font-weight 0.2s ease-in-out;
 }
@@ -110,9 +112,9 @@ a {
 a:focus-visible {
   color: var(--accent);
   font-weight: var(--font-weight-bold);
+  text-decoration: none;
 }
 
-a:focus-visible,
 button:focus-visible {
   text-decoration: none;
 }

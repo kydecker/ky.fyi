@@ -173,7 +173,6 @@
 
 .prose sup,
 .prose sub {
-  font-family: var(--font-caption);
   vertical-align: baseline;
   position: relative;
   top: -0.3em;
