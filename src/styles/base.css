@@ -96,9 +96,9 @@ a {
   text-decoration-color: var(--gray-8);
   text-underline-offset: max(0.1em, 2.5px);
   transition:
-    color 0.2s ease-in-out,
-    text-decoration-color 0.2s ease-in-out,
-    font-weight 0.2s ease-in-out;
+    color 0.15s ease-out,
+    text-decoration-color 0.15s ease-out,
+    font-weight 0.15s ease-out;
 }
 
 @media (hover: hover) {
