@@ -16,16 +16,20 @@ interface Props {
     };
   }>;
   cutoff?: number;
+  /** Load the first image eagerly with high fetch priority */
+  priority?: boolean;
 }
 
-const { items, cutoff } = Astro.props;
+const { items, cutoff, priority = false } = Astro.props;
 const visible = cutoff ? items.slice(0, cutoff) : items;
 const hidden = cutoff ? items.slice(cutoff) : [];
 ---
 
 <Expandable layout="grid" count={hidden.length}>
   <Fragment slot="visible">
-    {visible.map((item) => <ProjectCard item={item} />)}
+    {visible.map((item, index) => (
+      <ProjectCard item={item} priority={priority && index === 0} />
+    ))}
   </Fragment>
   {hidden.map((item) => <ProjectCard item={item} />)}
 </Expandable>

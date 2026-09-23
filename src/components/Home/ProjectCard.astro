@@ -14,9 +14,10 @@ interface Props {
       alt: string;
     };
   };
+  priority?: boolean;
 }
 
-const { item } = Astro.props;
+const { item, priority = false } = Astro.props;
 ---
 
 <li>
@@ -26,9 +27,11 @@ const { item } = Astro.props;
         <Image
           src={item.previewImage.image}
           alt={item.previewImage.alt}
-          width={392}
-          height={205}
-          loading="lazy"
+          width={860}
+          height={450}
+          widths={[430, 640, 860, 1280]}
+          sizes="(width < 640px) 100vw, 430px"
+          priority={priority}
         />
       ) : (
         <div class="project-thumbnail-placeholder" />

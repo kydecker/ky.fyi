@@ -37,7 +37,7 @@ export default defineConfig({
   },
   adapter: cloudflare({
     prerenderEnvironment: "node",
-    imageService: "passthrough",
+    imageService: "compile",
   }),
   markdown: {
     processor: unified({
