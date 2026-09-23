@@ -16,19 +16,27 @@ interface Props {
     };
   }>;
   cutoff?: number;
-  /** Load the first image eagerly with high fetch priority */
-  priority?: boolean;
+  /**
+   * Number of leading cards rendered above the fold. The first gets
+   * `priority`, the rest skip lazy loading.
+   */
+  eager?: number;
 }
 
-const { items, cutoff, priority = false } = Astro.props;
+const { items, cutoff, eager = 0 } = Astro.props;
 const visible = cutoff ? items.slice(0, cutoff) : items;
 const hidden = cutoff ? items.slice(cutoff) : [];
+
+const getLoading = (index: number) => {
+  if (index >= eager) return "lazy";
+  return index === 0 ? "priority" : "eager";
+};
 ---
 
 <Expandable layout="grid" count={hidden.length}>
   <Fragment slot="visible">
     {visible.map((item, index) => (
-      <ProjectCard item={item} priority={priority && index === 0} />
+      <ProjectCard item={item} loading={getLoading(index)} />
     ))}
   </Fragment>
   {hidden.map((item) => <ProjectCard item={item} />)}
