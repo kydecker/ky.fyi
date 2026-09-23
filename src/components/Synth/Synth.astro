@@ -65,7 +65,25 @@ import SynthScreen from "./SynthScreen.astro";
       document.getElementById("synth");
     const start: SVGElement | null | undefined = synth?.querySelector(".start");
 
-    start?.addEventListener("click", loadSynth);
+    const begin = () => {
+      start?.removeEventListener("click", begin);
+      synth?.removeEventListener("keydown", handleStartKey);
+      loadSynth();
+    };
+
+    const handleStartKey = (e: KeyboardEvent) => {
+      if (
+        (e.key === "Enter" || e.key === " ") &&
+        !e.repeat &&
+        synth?.dataset.enabled !== "true"
+      ) {
+        e.preventDefault();
+        begin();
+      }
+    };
+
+    start?.addEventListener("click", begin);
+    synth?.addEventListener("keydown", handleStartKey);
   }
 
   // Helpers -----------------------------------------------------//
@@ -500,6 +518,7 @@ import SynthScreen from "./SynthScreen.astro";
 
     &:focus-visible {
       border-radius: 24px;
+      outline-offset: 4px;
     }
   }
 
