@@ -16,10 +16,6 @@ interface Props {
     };
   }>;
   cutoff?: number;
-  /**
-   * Number of leading cards rendered above the fold. The first gets
-   * `priority`, the rest skip lazy loading.
-   */
   eager?: number;
 }
 
@@ -39,5 +35,7 @@ const getLoading = (index: number) => {
       <ProjectCard item={item} loading={getLoading(index)} />
     ))}
   </Fragment>
-  {hidden.map((item) => <ProjectCard item={item} />)}
+  {hidden.map((item) => (
+    <ProjectCard item={item} />
+  ))}
 </Expandable>
