@@ -34,6 +34,7 @@ export default defineConfig({
   trailingSlash: "never",
   build: {
     format: "file",
+    inlineStylesheets: "always",
   },
   adapter: cloudflare({
     prerenderEnvironment: "node",
