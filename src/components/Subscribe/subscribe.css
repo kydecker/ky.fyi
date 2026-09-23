@@ -27,7 +27,7 @@
   font-size: var(--step-1);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
-  margin-block: 0 var(--space-2xs);
+  margin-block: 0 var(--space-s);
 }
 
 .subscribe-header p {
