@@ -103,7 +103,7 @@ a {
 
 @media (hover: hover) {
   a:hover {
-    transition-duration: 0.05s;
+    transition-duration: 0s;
     color: var(--accent);
     font-weight: var(--font-weight-bold);
     text-decoration-color: var(--accent);
@@ -111,7 +111,7 @@ a {
 }
 
 a:focus-visible {
-  transition-duration: 0.05s;
+  transition-duration: 0s;
   color: var(--accent);
   font-weight: var(--font-weight-bold);
   text-decoration: none;
