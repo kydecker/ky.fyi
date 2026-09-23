@@ -63,9 +63,19 @@ const { item, loading = "lazy" } = Astro.props;
       outline: none;
 
       .project-thumbnail {
-        outline: var(--gray-12) solid 2px;
-        outline-offset: 4px;
+        outline: var(--accent) solid 3px;
+        outline-offset: 3px;
       }
+
+      .project-title {
+        color: var(--accent);
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    .project-card:hover .project-title {
+      color: var(--accent);
     }
   }
 
@@ -100,6 +110,7 @@ const { item, loading = "lazy" } = Astro.props;
     line-height: inherit;
     flex: 1;
     min-width: 0;
+    transition: color 0.15s ease-out;
   }
 
   .project-meta {

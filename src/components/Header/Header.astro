@@ -150,6 +150,11 @@ import Logo from "./Logo.astro";
       padding: var(--space-xs) var(--space-s);
       border: none;
       cursor: pointer;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--accent);
+      }
     }
 
     h1 {
@@ -158,6 +163,7 @@ import Logo from "./Logo.astro";
 
       a {
         padding-inline: 0;
+        outline: none;
       }
     }
   }

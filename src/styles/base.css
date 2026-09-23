@@ -1,6 +1,8 @@
 :root {
   interpolate-size: allow-keywords;
-  color-scheme: light dark;
+  color-scheme: light;
+
+  --accent: var(--lime-11);
 }
 
 html {
@@ -22,18 +24,19 @@ body {
   line-height: var(--line-height-body);
   text-rendering: optimizelegibility;
   font-synthesis: none;
-  color-scheme: light;
 }
 
-[data-theme="dark"] body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+[data-theme="dark"] {
   color-scheme: dark;
 }
 
+[data-theme="dark"] body {
+  -moz-osx-font-smoothing: grayscale;
+}
+
 ::selection {
-  background: var(--amber-4);
-  color: var(--amber-12);
+  background: var(--lime-4);
+  color: var(--lime-12);
 }
 
 h1,
@@ -93,22 +96,34 @@ a {
   text-decoration-color: var(--gray-8);
   text-underline-offset: max(0.1em, 2.5px);
   transition:
-    text-decoration-color 0.2s ease-in-out,
-    font-weight 0.2s ease-in-out;
+    color 0.6s ease-out,
+    text-decoration-color 0.6s ease-out,
+    font-weight 0.6s ease-out;
 }
 
 @media (hover: hover) {
-  a:hover,
-  a:focus {
-    text-decoration-color: var(--gray-11);
+  a:hover {
+    transition-duration: 0s;
+    color: var(--accent);
     font-weight: var(--font-weight-bold);
+    text-decoration-color: var(--accent);
   }
 }
 
-a:focus-visible,
+a:focus-visible {
+  transition-duration: 0s;
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
 button:focus-visible {
-  outline: var(--gray-12) solid 2px;
-  outline-offset: 2px;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: var(--accent) solid 3px;
+  outline-offset: 3px;
 }
 
 .visually-hidden {

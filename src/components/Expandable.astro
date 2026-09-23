@@ -64,16 +64,17 @@ const { layout, count, label = "more" } = Astro.props;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    padding: var(--space-2xs) var(--space-xs);
-    margin-inline: calc(var(--space-xs) * -1);
+    padding: var(--space-2xs) var(--space-s);
+    margin-inline: calc(var(--space-s) * -1);
+    border-radius: var(--radius-full);
     gap: var(--space-2xs);
     color: var(--gray-11);
     text-decoration: none;
     transition: color 0.15s ease-out;
 
     &:focus-visible {
-      outline: var(--gray-12) solid 2px;
-      outline-offset: 3px;
+      color: var(--accent);
+      font-weight: var(--font-weight-bold);
     }
 
     &::-webkit-details-marker {
@@ -82,7 +83,8 @@ const { layout, count, label = "more" } = Astro.props;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        color: var(--gray-12);
+        color: var(--accent);
+        font-weight: var(--font-weight-bold);
       }
     }
   }
