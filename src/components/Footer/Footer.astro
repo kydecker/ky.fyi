@@ -9,6 +9,9 @@ import SocialIcon from "./SocialIcon.astro";
   <Center>
     <div class="content">
       <div class="links">
+        <a href="/" data-fathom="footer-link">
+          Home
+        </a>
         <a href="/about" data-fathom="footer-link">
           About
         </a>
@@ -23,6 +26,9 @@ import SocialIcon from "./SocialIcon.astro";
         </a>
       </div>
       <div class="links">
+        <a href="/now" data-fathom="footer-link">
+          Now
+        </a>
         <a href="/guestbook" data-fathom="footer-link">
           Guestbook
         </a>
@@ -75,7 +81,7 @@ import SocialIcon from "./SocialIcon.astro";
     grid-template:
       "links1 links2 form" 1fr
       "socials socials form" auto
-      "banner banner form" auto / 0.5fr 0.5fr 2fr;
+      "banner banner banner" auto / 0.75fr 0.75fr 2fr;
     gap: var(--space-m) var(--space-xl);
 
     @media (width < 650px) {
@@ -164,6 +170,10 @@ import SocialIcon from "./SocialIcon.astro";
         &:hover {
           color: var(--gray-12);
         }
+      }
+
+      &:focus-visible {
+        color: var(--gray-12);
       }
     }
   }

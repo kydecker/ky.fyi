@@ -285,7 +285,7 @@ export const SubscribeForm = () => {
         <div className="subscribe-header">
           <div>
             <h2>Subscribe</h2>
-            <p>Emails about design, web dev, and life. A few times a year.</p>
+            <p>Emails! A few times a year. No spam, ever.</p>
           </div>
         </div>
         <Dialogue

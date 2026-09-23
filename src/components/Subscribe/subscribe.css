@@ -1,37 +1,38 @@
 .subscribe {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin-inline: auto;
   position: relative;
+  height: 100%;
+  width: 100%;
   max-width: 600px;
+  background-color: var(--gray-3);
   gap: var(--space-l);
+  padding: var(--space-m);
 }
 
 .subscribe-content {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  flex: 1;
 }
 
-.postcard-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-block-start: calc(-1 * var(--space-2xs));
-  user-select: none;
-  cursor: default;
+.subscribe-header {
+  flex: 1;
+  width: 100%;
 }
 
 .subscribe-header h2 {
   font-size: var(--step-1);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
-  margin-block: calc(-1 * var(--space-2xs)) var(--space-2xs);
+  margin-block: 0 var(--space-2xs);
 }
 
 .subscribe-header p {
-  text-wrap: balance;
+  font-size: var(--step--1);
+  max-width: 22ch;
 }
 
 .inputWrapper {
@@ -50,7 +51,7 @@
 .input {
   color: var(--gray-12);
   background: var(--gray-1);
-  padding: 0 var(--space-l);
+  padding: 0 var(--space-m);
   padding-inline-end: 4rem;
   z-index: 1;
 }
@@ -61,16 +62,16 @@
 }
 
 .iconButton {
-  background: var(--gray-12);
-  color: var(--gray-3);
+  background: transparent;
+  color: var(--gray-11);
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 0.5rem;
-  width: 48px;
-  height: 32px;
+  right: 0;
+  width: 52px;
+  height: 100%;
   padding: 0;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-m);
   border: none;
   cursor: pointer;
   display: flex;
@@ -78,13 +79,13 @@
   justify-content: center;
 }
 
-.iconButton:hover {
-  background: var(--gray-10);
+.iconButton:hover,
+.iconButton:focus {
+  color: var(--blue-9);
 }
 
 .iconButton:disabled {
-  background: var(--gray-9);
-  opacity: 0.8;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -94,36 +95,26 @@
   margin-block-start: var(--space-s);
 }
 
-.sniperLink {
-  background: var(--gray-12);
-  color: var(--gray-1);
-  font-weight: var(--font-weight-bold);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  border-radius: var(--radius-m);
-  padding: 0 0.5rem;
-  text-decoration: none;
-}
-
 .input,
 .sniperLink,
 .checkInbox {
   height: 3rem;
   width: 100%;
-  border: 2.5px solid var(--gray-12);
-  border-radius: var(--radius-full);
+  border: 1px solid var(--gray-6);
+  border-radius: var(--radius-m);
   line-height: 1;
   font-size: var(--step-0);
 }
 
-.input:hover {
-  outline: 3px solid var(--gray-a4);
+@media (hover: hover) {
+  .input:hover {
+    border-color: var(--gray-8);
+  }
 }
 
 .input:focus {
-  outline: 3px solid var(--amber-a5);
+  border-color: var(--gray-8);
+  outline: 2px solid var(--gray-12);
   outline-offset: 2px;
 }
 
@@ -137,6 +128,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.sniperLink {
+  background: var(--gray-12);
+  border-color: var(--gray-12);
+  color: var(--gray-1);
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  border-radius: var(--radius-m);
+  padding: 0 0.5rem;
+  text-decoration: none;
 }
 
 .sniperLink svg {
@@ -154,7 +159,7 @@
   align-items: center;
   justify-content: center;
   margin-inline-end: 0.75rem;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-xs);
 }
 
 .sniperLogo img {
