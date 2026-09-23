@@ -96,13 +96,14 @@ a {
   text-decoration-color: var(--gray-8);
   text-underline-offset: max(0.1em, 2.5px);
   transition:
-    color 0.15s ease-out,
-    text-decoration-color 0.15s ease-out,
-    font-weight 0.15s ease-out;
+    color 0.6s ease-out,
+    text-decoration-color 0.6s ease-out,
+    font-weight 0.6s ease-out;
 }
 
 @media (hover: hover) {
   a:hover {
+    transition-duration: 0.05s;
     color: var(--accent);
     font-weight: var(--font-weight-bold);
     text-decoration-color: var(--accent);
@@ -110,6 +111,7 @@ a {
 }
 
 a:focus-visible {
+  transition-duration: 0.05s;
   color: var(--accent);
   font-weight: var(--font-weight-bold);
   text-decoration: none;
