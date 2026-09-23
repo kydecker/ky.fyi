@@ -42,6 +42,27 @@ const pageTitle =
       media="(prefers-color-scheme: dark)"
       content="#191919"
     />
+    <!-- Set the theme before first paint to prevent a flash of the wrong theme -->
+    <script is:inline>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", theme === "dark" ? "#191919" : "#f9f9f9");
+        try {
+          localStorage.setItem("theme", theme);
+        } catch {}
+      })();
+    </script>
     <Font cssVariable="--font-sans" preload />
     <Font cssVariable="--font-mono" />
     <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />

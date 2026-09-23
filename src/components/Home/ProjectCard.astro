@@ -35,6 +35,7 @@ const { item, loading = "lazy" } = Astro.props;
           height={450}
           widths={[430, 640, 860, 1280]}
           sizes="(width < 640px) 100vw, 430px"
+          quality={90}
           priority={loading === "priority"}
           loading={loading === "eager" ? "eager" : undefined}
         />
