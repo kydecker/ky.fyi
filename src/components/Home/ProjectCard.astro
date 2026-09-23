@@ -31,11 +31,9 @@ const { item, loading = "lazy" } = Astro.props;
         <Image
           src={item.previewImage.image}
           alt={item.previewImage.alt}
-          width={860}
-          height={450}
-          widths={[430, 640, 860, 1280]}
-          sizes="(width < 640px) 100vw, 430px"
-          quality={90}
+          width={836}
+          widths={[418, 640, 836, 1280]}
+          sizes="(width < 640px) 100vw, 418px"
           priority={loading === "priority"}
           loading={loading === "eager" ? "eager" : undefined}
         />
