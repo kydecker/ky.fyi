@@ -65,7 +65,25 @@ import SynthScreen from "./SynthScreen.astro";
       document.getElementById("synth");
     const start: SVGElement | null | undefined = synth?.querySelector(".start");
 
-    start?.addEventListener("click", loadSynth);
+    const begin = () => {
+      start?.removeEventListener("click", begin);
+      synth?.removeEventListener("keydown", handleStartKey);
+      loadSynth();
+    };
+
+    const handleStartKey = (e: KeyboardEvent) => {
+      if (
+        (e.key === "Enter" || e.key === " ") &&
+        !e.repeat &&
+        synth?.dataset.enabled !== "true"
+      ) {
+        e.preventDefault();
+        begin();
+      }
+    };
+
+    start?.addEventListener("click", begin);
+    synth?.addEventListener("keydown", handleStartKey);
   }
 
   // Helpers -----------------------------------------------------//
@@ -475,17 +493,19 @@ import SynthScreen from "./SynthScreen.astro";
     width: 100%;
     max-width: 540px;
 
-    --synth-whitekey: white;
-    --synth-whitekey-pressed: var(--lime-4);
-    --synth-blackkey: var(--gray-12);
-    --synth-blackkey-pressed: var(--lime-12);
-    --synth-base: var(--gray-12);
-    --synth-stroke: var(--gray-12);
-    --synth-lcd-bg: var(--lime-5);
-    --synth-lcd-light: var(--lime-2);
-    --synth-lcd-medium: var(--lime-11);
-    --synth-lcd-dark: var(--lime-12);
-    --synth-keyletter: var(--lime-11);
+    --synth-whitekey: #ffffff;
+    --synth-whitekey-pressed: #f1f0ef;
+    --synth-blackkey: #2a2a28;
+    --synth-blackkey-pressed: #111110;
+    --synth-between-keys: #cfceca;
+    --synth-base: #111110;
+    --synth-stroke: #111110;
+    --synth-outline: #111110;
+    --synth-lcd-bg: #d4e7a6;
+    --synth-lcd-light: #f9faf2;
+    --synth-lcd-medium: #5b7c2f;
+    --synth-lcd-dark: #37401c;
+    --synth-keyletter: #b5b3ad;
 
     svg {
       overflow: visible;
@@ -498,20 +518,11 @@ import SynthScreen from "./SynthScreen.astro";
 
     &:focus-visible {
       border-radius: 24px;
+      outline-offset: 4px;
     }
   }
 
   :global([data-theme="dark"]) .synth {
-    --synth-whitekey: white;
-    --synth-whitekey-pressed: var(--lime-12);
-    --synth-blackkey: var(--lime-1);
-    --synth-blackkey-pressed: var(--lime-4);
-    --synth-base: var(--gray-1);
-    --synth-stroke: var(--gray-1);
-    --synth-lcd-bg: var(--lime-12);
-    --synth-lcd-light: white;
-    --synth-lcd-medium: var(--lime-8);
-    --synth-lcd-dark: var(--lime-5);
-    --synth-keyletter: var(--lime-6);
+    --synth-outline: #2a2a28;
   }
 </style>

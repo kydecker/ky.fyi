@@ -151,7 +151,12 @@ import Logo from "./Logo.astro";
       border: none;
       cursor: pointer;
 
-      &:hover,
+      @media (hover: hover) {
+        &:hover {
+          color: var(--accent);
+        }
+      }
+
       &:focus-visible {
         color: var(--accent);
       }
