@@ -58,8 +58,8 @@
 }
 
 [data-theme="dark"] .stamp-border {
-  fill: var(--gray-a6);
-  stroke: var(--gray-a6);
+  fill: var(--gray-a3);
+  stroke: var(--gray-a4);
 }
 
 @media (hover: hover) {
@@ -68,7 +68,7 @@
   }
 
   [data-theme="dark"] .stamp:hover .stamp-border {
-    stroke: var(--gray-a7);
+    stroke: var(--gray-a5);
   }
 }
 
