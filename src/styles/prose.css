@@ -33,14 +33,6 @@
   text-indent: 0;
 }
 
-.prose p a,
-.prose li a {
-  position: relative;
-  text-decoration: underline;
-  text-decoration-color: var(--gray-8);
-  text-underline-offset: 0.1em;
-}
-
 .prose h1,
 .prose h2,
 .prose h3,
@@ -57,27 +49,7 @@
 .prose h4 a,
 .prose h5 a,
 .prose h6 a {
-  text-decoration-color: transparent;
-  text-decoration-skip-ink: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .prose h2 a:hover,
-  .prose h3 a:hover,
-  .prose h4 a:hover,
-  .prose h5 a:hover,
-  .prose h6 a:hover {
-    text-decoration-color: var(--gray-7);
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .prose p a:hover,
-  .prose p a:focus,
-  .prose li a:hover,
-  .prose li a:focus {
-    text-decoration-color: var(--gray-11);
-  }
+  text-decoration: none;
 }
 
 .prose :not(hr) + h2:not(:first-child) {

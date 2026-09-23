@@ -82,7 +82,7 @@
 
   .stamp-border {
     stroke-width: 2px;
-    stroke: var(--gray-12);
+    stroke: var(--accent);
   }
 }
 

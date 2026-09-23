@@ -127,10 +127,7 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
     a {
       display: inline-block;
       padding-block: var(--link-padding-block);
-
-      &:not(:hover) {
-        text-decoration-color: transparent;
-      }
+      text-decoration: none;
     }
 
     &:first-child {
@@ -173,12 +170,12 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
 
       @media (hover: hover) and (pointer: fine) {
         &:hover {
-          color: var(--gray-12);
+          color: var(--accent);
         }
       }
 
       &:focus-visible {
-        color: var(--gray-12);
+        color: var(--accent);
       }
     }
   }
@@ -188,18 +185,6 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
     color: var(--gray-11);
     font-size: var(--step--1);
     padding-block-start: var(--space-s);
-
-    a {
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          color: var(--gray-12);
-        }
-      }
-
-      &:focus-visible {
-        color: var(--gray-12);
-      }
-    }
   }
 
   .subscribe {

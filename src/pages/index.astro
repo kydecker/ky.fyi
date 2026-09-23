@@ -129,17 +129,25 @@ const sortedPosts = posts.sort(
       cursor: pointer;
       color: inherit;
       text-decoration: underline;
-      text-decoration-color: var(--gray-8);
-      text-underline-offset: max(0.1em, 2.5px);
+      text-decoration-color: var(--gray-6);
+      text-underline-offset: max(0.08em, 2.5px);
+      text-decoration-skip-ink: none;
       transition:
         text-decoration-color 0.2s ease-in-out,
         font-weight 0.2s ease-in-out;
 
       @media (hover: hover) and (pointer: fine) {
         &:hover {
+          color: var(--accent);
+          text-decoration-color: var(--lime-6);
           font-weight: var(--font-weight-extrabold);
-          text-decoration-color: var(--gray-11);
         }
+      }
+
+      &:focus-visible {
+        color: var(--accent);
+        text-decoration-color: transparent;
+        font-weight: var(--font-weight-extrabold);
       }
     }
   }

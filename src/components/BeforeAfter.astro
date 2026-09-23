@@ -35,8 +35,9 @@ const { before, after } = Astro.props;
         height="24"
         viewBox="0 0 24 24"
         fill="currentColor"
-        ><path d="M9 6 3 12 9 18V6ZM15 18 21 12 15 6V18Z"></path></svg
       >
+        <path d="M9 6 3 12 9 18V6ZM15 18 21 12 15 6V18Z"></path>
+      </svg>
     </div>
   </div>
 </before-after>
@@ -134,7 +135,8 @@ const { before, after } = Astro.props;
     height: 100%;
 
     &:focus-visible ~ .slider-button {
-      outline: 3px solid var(--blue-a9);
+      outline: var(--accent) solid 3px;
+      outline-offset: 3px;
     }
   }
 </style>

@@ -80,7 +80,7 @@
 
 .iconButton:hover,
 .iconButton:focus {
-  color: var(--gray-12);
+  color: var(--accent);
 }
 
 .iconButton:disabled {
@@ -111,10 +111,8 @@
   }
 }
 
-.input:focus {
-  border-color: var(--gray-8);
-  outline: 2px solid var(--gray-12);
-  outline-offset: 2px;
+.input:focus-visible {
+  border-color: transparent;
 }
 
 .input:disabled {

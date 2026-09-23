@@ -1,6 +1,8 @@
 :root {
   interpolate-size: allow-keywords;
   color-scheme: light dark;
+
+  --accent: var(--lime-11);
 }
 
 html {
@@ -32,8 +34,8 @@ body {
 }
 
 ::selection {
-  background: var(--amber-4);
-  color: var(--amber-12);
+  background: var(--lime-4);
+  color: var(--lime-12);
 }
 
 h1,
@@ -98,17 +100,26 @@ a {
 }
 
 @media (hover: hover) {
-  a:hover,
-  a:focus {
-    text-decoration-color: var(--gray-11);
+  a:hover {
+    color: var(--accent);
     font-weight: var(--font-weight-bold);
+    text-decoration-color: var(--accent);
   }
+}
+
+a:focus-visible {
+  color: var(--accent);
+  font-weight: var(--font-weight-bold);
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: var(--gray-12) solid 2px;
-  outline-offset: 2px;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: var(--accent) solid 3px;
+  outline-offset: 3px;
 }
 
 .visually-hidden {

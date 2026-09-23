@@ -63,6 +63,10 @@ const displayDate = post.data.datePublished.getFullYear();
       aspect-ratio: 1.91 / 1;
       object-fit: cover;
     }
+
+    &:hover + .post-body .post-title {
+      color: var(--accent);
+    }
   }
 
   .post-body {
@@ -74,6 +78,10 @@ const displayDate = post.data.datePublished.getFullYear();
 
   .post-title {
     font-size: var(--step-1);
+
+    a {
+      text-decoration: none;
+    }
   }
 
   .post-eyebrow {

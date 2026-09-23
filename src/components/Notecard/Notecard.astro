@@ -32,26 +32,22 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
 <div class:list={["notecard", { small, loading }]}>
   <pre class="content">{content}</pre>
   <div class="credit">
-    {
-      author && (
-        <div class="author">
-          {url ? (
-            <a href={url} rel="external" data-fathom="author-link">
-              {author}
-            </a>
-          ) : (
-            author
-          )}
-        </div>
-      )
-    }
-    {
-      timestamp && (
-        <div class="date">
-          <RelativeDate date={new Date(timestamp)} />
-        </div>
-      )
-    }
+    {author && (
+      <div class="author">
+        {url ? (
+          <a href={url} rel="external" data-fathom="author-link">
+            {author}
+          </a>
+        ) : (
+          author
+        )}
+      </div>
+    )}
+    {timestamp && (
+      <div class="date">
+        <RelativeDate date={new Date(timestamp)} />
+      </div>
+    )}
   </div>
 </div>
 
@@ -93,6 +89,7 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
 
   .author {
     a {
+      color: inherit;
       text-decoration-color: inherit;
       outline-color: inherit;
     }

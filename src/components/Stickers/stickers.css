@@ -25,7 +25,7 @@
 
 .stickerPath:hover,
 .sticker:active .stickerPath {
-  stroke: var(--amber-9);
+  stroke: var(--accent);
   stroke-width: 6px;
 }
 
