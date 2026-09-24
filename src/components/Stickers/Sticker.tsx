@@ -6,11 +6,15 @@ import {
   type CSSProperties,
   type PointerEvent,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { getRandomValueBetween } from "../../helpers";
-import { incrementTopZIndex, topZIndex } from "../../stores/sam";
+import {
+  getTopZIndex,
+  incrementTopZIndex,
+  removeSam,
+  type Sam,
+} from "../../stores/sam";
 
 interface VariantData {
   path: string;
@@ -118,24 +122,6 @@ export const STICKER_VARIANTS: VariantData[] = [
   },
 ];
 
-export interface StickerProps {
-  /**
-   * The variant of the sticker to display.
-   * There are 16 variants total.
-   */
-  variant: number;
-
-  /**
-   * Whether the sticker is flying off the canvas
-   */
-  exiting: boolean;
-
-  /**
-   * Called once the exit animation has finished
-   */
-  onExited: () => void;
-}
-
 // Pixel buffer to prevent stickers from going off the canvas when placed randomly
 const BUFFER = 200;
 
@@ -166,7 +152,7 @@ const getNearestOffCanvasCoordinates = (
   return { x: offCanvasX, y: offCanvasY };
 };
 
-export const Sticker = ({ variant, exiting, onExited }: StickerProps) => {
+export const Sticker = ({ id, variant, exiting }: Sam) => {
   const totalVariants = STICKER_VARIANTS.length;
   const currentVariant = variant % totalVariants;
   const nextVariant = (variant + 1) % totalVariants;
@@ -176,7 +162,7 @@ export const Sticker = ({ variant, exiting, onExited }: StickerProps) => {
     new Image().src = STICKER_VARIANTS[nextVariant].srcSet;
   }, [nextVariant]);
 
-  const [zIndex, setZIndex] = useState(topZIndex.get());
+  const [zIndex, setZIndex] = useState(getTopZIndex);
   const [position, setPosition] = useState(() => ({
     x: getRandomValueBetween(0, window.innerWidth - BUFFER),
     y: getRandomValueBetween(0, window.innerHeight - BUFFER),
@@ -195,52 +181,47 @@ export const Sticker = ({ variant, exiting, onExited }: StickerProps) => {
   });
 
   // Distance from the pointer to the sticker's origin while dragging
-  const dragOffset = useRef<{ x: number; y: number } | null>(null);
-  const [dragging, setDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const dragging = dragOffset !== null;
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (exiting) return;
-
     // Keep the drag from selecting text or dragging the image
     event.preventDefault();
     // Capture on the path, the only part that takes input, so moves keep
     // arriving when the pointer outruns the sticker
     (event.target as Element).setPointerCapture(event.pointerId);
-    dragOffset.current = {
+    setDragOffset({
       x: event.clientX - position.x,
       y: event.clientY - position.y,
-    };
-    incrementTopZIndex();
-    setZIndex(topZIndex.get());
-    setDragging(true);
+    });
+    setZIndex(incrementTopZIndex());
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    const offset = dragOffset.current;
-    if (!offset) return;
+    // Stop following the pointer once shooed mid-drag
+    if (!dragOffset || exiting) return;
 
     setPosition({
-      x: event.clientX - offset.x,
-      y: event.clientY - offset.y,
+      x: event.clientX - dragOffset.x,
+      y: event.clientY - dragOffset.y,
     });
   };
 
-  const handlePointerUp = () => {
-    dragOffset.current = null;
-    setDragging(false);
-  };
+  const handlePointerUp = () => setDragOffset(null);
 
   const handleAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
     if (exiting && event.target === event.currentTarget) {
-      onExited();
+      removeSam(id);
     }
   };
 
-  const exitPosition = getNearestOffCanvasCoordinates(
-    position.x,
-    position.y,
-    400,
-  );
+  // Aim for the nearest edge only once the sticker is shooed
+  const exitPosition = exiting
+    ? getNearestOffCanvasCoordinates(position.x, position.y, 400)
+    : null;
 
   return (
     <div
@@ -251,8 +232,8 @@ export const Sticker = ({ variant, exiting, onExited }: StickerProps) => {
           translate: `${position.x}px ${position.y}px`,
           "--rotate": `${animation.rotate}deg`,
           "--start-rotate": `${animation.startRotate}deg`,
-          "--exit-x": `${exitPosition.x}px`,
-          "--exit-y": `${exitPosition.y}px`,
+          "--exit-x": exitPosition && `${exitPosition.x}px`,
+          "--exit-y": exitPosition && `${exitPosition.y}px`,
           "--exit-rotate": `${animation.exitRotate}deg`,
           "--exit-delay": `${animation.exitDelay}s`,
         } as CSSProperties

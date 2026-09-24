@@ -1,96 +1,30 @@
 import { useStore } from "@nanostores/react";
 import classNames from "classnames";
-import { nanoid } from "nanoid";
-import { type AnimationEvent, useEffect, useState } from "react";
-import { clearSams, numSams } from "../../stores/sam";
+import { useEffect } from "react";
+import { clearSams, numSams, sams } from "../../stores/sam";
 import { STICKER_VARIANTS, Sticker } from "./Sticker";
 
-interface StickerState {
-  id: string;
-  variant: number;
-  exiting: boolean;
-}
-
 export const Stickers = () => {
-  const [stickers, setStickers] = useState<StickerState[]>([]);
-  const [shaking, setShaking] = useState(false);
+  const $sams = useStore(sams);
   const $numSams = useStore(numSams);
-
-  // Keep the shoo button mounted while it animates out
-  const showShoo = $numSams > 2;
-  const [shooMounted, setShooMounted] = useState(showShoo);
-  if (showShoo && !shooMounted) {
-    setShooMounted(true);
-  }
-  const shooLeaving = shooMounted && !showShoo;
 
   useEffect(() => {
     // Preload first sticker
     new Image().src = STICKER_VARIANTS[0].srcSet;
   }, []);
 
-  useEffect(() => {
-    setStickers((prev) => {
-      // Send every sticker flying; each removes itself once off the canvas
-      if ($numSams === 0) {
-        return prev.some((sticker) => !sticker.exiting)
-          ? prev.map((sticker) => ({ ...sticker, exiting: true }))
-          : prev;
-      }
-
-      const active = prev.filter((sticker) => !sticker.exiting).length;
-      if ($numSams <= active) return prev;
-
-      return [
-        ...prev,
-        ...Array.from({ length: $numSams - active }, (_, i) => ({
-          id: nanoid(),
-          variant: active + i + 1,
-          exiting: false,
-        })),
-      ];
-    });
-  }, [$numSams]);
-
-  const removeSticker = (id: string) => {
-    setStickers((prev) => prev.filter((sticker) => sticker.id !== id));
-  };
-
-  const handleShoo = () => {
-    setShaking(true);
-    clearSams();
-    setTimeout(() => {
-      setShaking(false);
-    }, 300);
-  };
-
-  const handleShooAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
-    if (shooLeaving && event.target === event.currentTarget) {
-      setShooMounted(false);
-    }
-  };
+  const showShoo = $numSams > 2;
+  // Stay mounted, hidden, until the last shooed sticker is gone
+  const shooLeaving = $sams.length > 0 && $sams.every((sam) => sam.exiting);
 
   return (
     <div className="stickers" style={{ viewTransitionName: "stickers" }}>
-      {stickers.map(({ id, variant, exiting }) => (
-        <Sticker
-          key={id}
-          variant={variant}
-          exiting={exiting}
-          onExited={() => removeSticker(id)}
-        />
+      {$sams.map((sam) => (
+        <Sticker key={sam.id} {...sam} />
       ))}
-      {shooMounted && (
-        <div
-          className={classNames("shoo-wrapper", { leaving: shooLeaving })}
-          onAnimationEnd={handleShooAnimationEnd}
-        >
-          <button
-            data-sam-shoo
-            onClick={handleShoo}
-            className={classNames({ shaking })}
-            type="button"
-          >
+      {(showShoo || shooLeaving) && (
+        <div className={classNames("shoo-wrapper", { leaving: shooLeaving })}>
+          <button data-sam-shoo onClick={clearSams} type="button">
             Shoo Sam
           </button>
         </div>

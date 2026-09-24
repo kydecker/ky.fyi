@@ -20,7 +20,6 @@
   top: 0;
   left: 0;
   width: 200px;
-  pointer-events: none;
   touch-action: none;
   /* Position is set with translate; scale lifts the sticker while dragging */
   transform: rotate(var(--rotate));
@@ -37,6 +36,8 @@
 
 .sticker.dragging {
   scale: 1.3;
+  /* Own layer, so moving doesn't repaint the glow every frame */
+  will-change: translate;
 }
 
 /* Fly off the nearest edge of the canvas */
@@ -74,20 +75,26 @@
 }
 
 .stickerSvg {
-  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
+  --sticker-glow: drop-shadow(0 1px 1px var(--black-a5))
+    drop-shadow(0 0 4px #ffc53d) drop-shadow(0 0 12px #ffc53d);
+
   filter: drop-shadow(0 1px 1px var(--black-a5));
   transition: filter 0.2s ease-out;
 }
 
-/* Soft glow around the sticker's outline, not its square box */
-.stickerSvg:has(.stickerPath:hover),
-.sticker.dragging .stickerSvg {
-  filter: drop-shadow(0 1px 1px var(--black-a5))
-    drop-shadow(0 0 4px var(--amber-9)) drop-shadow(0 0 12px var(--amber-9));
+/*
+ * Soft glow around the sticker's outline, not its square box.
+ * Pointer devices only; touch screens just get the lift while dragging.
+ */
+@media (hover: hover) {
+  .stickerSvg:has(.stickerPath:hover),
+  .sticker.dragging .stickerSvg {
+    filter: var(--sticker-glow);
+  }
 }
 
 .shoo-wrapper {
@@ -175,6 +182,6 @@
   scale: 1.1;
 }
 
-[data-sam-shoo].shaking {
+.shoo-wrapper.leaving [data-sam-shoo] {
   animation: shoo 0.5s ease-in both;
 }

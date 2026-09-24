@@ -160,6 +160,8 @@ const sortedPosts = posts.sort(
 
   [data-sam-button] {
     cursor: pointer;
+    /* Rapid taps add Sams rather than double-tap zooming */
+    touch-action: manipulation;
 
     &:active {
       transform: scale(0.95);
