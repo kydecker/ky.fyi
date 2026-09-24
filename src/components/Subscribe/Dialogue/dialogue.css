@@ -4,7 +4,8 @@
   justify-content: flex-end;
   user-select: none;
   position: relative;
-  width: 272px;
+  --dialogue-width: 272px;
+  width: var(--dialogue-width);
   margin-inline-start: -148px;
   flex-shrink: 0;
 }
@@ -13,27 +14,84 @@
   /* Static light-theme sand values, matching the emote colors */
   --bubble-background: #fdfdfc;
   --bubble-foreground: #21201c;
+  --bubble-border-width: 3px;
+  --bubble-padding-inline: var(--space-m);
+  /* Fraction of the dialogue's width between the bubble and its right edge */
+  --bubble-inset: 0.32;
 
   background-color: var(--bubble-background);
-  border: 3px solid var(--bubble-foreground);
+  border: var(--bubble-border-width) solid var(--bubble-foreground);
   box-shadow: 0 2px 0 var(--bubble-foreground);
   color: var(--bubble-foreground);
-  padding: 0.5rem var(--space-m);
+  padding: 0.5rem var(--bubble-padding-inline);
   font-family: var(--font-family-sans);
   font-size: var(--step--1);
+  font-weight: var(--font-weight-medium);
   line-height: 1.1;
-  letter-spacing: var(--letter-spacing-loose);
   align-self: center;
   position: absolute;
-  right: 32%;
+  right: calc(var(--bubble-inset) * 100%);
   bottom: 75%;
   z-index: 1;
   cursor: default;
+  border-radius: 1rem 1rem 0 1rem;
+  transform-origin: bottom right;
+  animation: bubble-in 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-sizing: content-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: clip;
+  transition:
+    width 450ms cubic-bezier(0.4, 0, 0.1, 1),
+    height 450ms cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+[data-theme="dark"] .bubble {
+  --bubble-background: #e2e1de;
+  --bubble-foreground: #111110;
+}
+
+.bubbleContent {
+  flex-shrink: 0;
+  width: max-content;
+  max-width: calc(
+    var(--dialogue-width) *
+    (1 - var(--bubble-inset)) -
+    2 *
+    (var(--bubble-border-width) + var(--bubble-padding-inline))
+  );
+}
+
+.bubble.exiting {
+  animation: bubble-out 150ms ease-in both;
+}
+
+@keyframes bubble-out {
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translate(20px, 20px) scale(0);
+  }
 }
 
 .character {
   display: inline-block;
-  white-space: pre;
+  /* Zero duration: hidden until its delay, then appears instantly */
+  animation: character-in 0s both;
+  animation-delay: calc(var(--index) * 30ms + 200ms);
+}
+
+@keyframes character-in {
+  from {
+    opacity: 0;
+  }
 }
 
 .stamp {

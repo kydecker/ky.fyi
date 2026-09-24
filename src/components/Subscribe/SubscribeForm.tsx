@@ -43,7 +43,7 @@ const SNIPER_SENDER = siteInfo.email;
 const remarks: Record<RemarkType, Remark> = {
   intro: {
     text: [
-      "hey bestie",
+      "hey stranger",
       "what’s up",
       "hey you",
       "hey nerd",
