@@ -80,7 +80,7 @@
 
 .iconButton:hover,
 .iconButton:focus {
-  color: var(--accent);
+  color: var(--gray-12);
 }
 
 .iconButton:disabled {

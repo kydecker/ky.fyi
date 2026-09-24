@@ -36,14 +36,15 @@ const description = [
   description={description ?? "A score by Ky Decker"}
 >
   <div class="links">
-    <a href="/arrangements"><Icon icon="arrowLeft" />All arrangements</a>
-    {
-      pdf && (
-        <a href={pdf.src} download>
-          Download PDF
-        </a>
-      )
-    }
+    <a href="/arrangements">
+      <Icon icon="arrowLeft" />
+      All sheets
+    </a>
+    {pdf && (
+      <a href={pdf.src} download>
+        Download PDF
+      </a>
+    )}
   </div>
   <Score class="score" />
 </ProseLayout>
@@ -65,13 +66,17 @@ const description = [
     }
   }
 
-  :global(ol[data-lilypond-group]) {
+  :global(.prose ol[data-lilypond-group]) {
     display: flex;
     flex-direction: column;
     gap: var(--space-l);
     list-style: none;
     padding: 0;
     margin: 0 !important;
+
+    li::before {
+      content: none;
+    }
 
     img {
       max-inline-size: 100%;

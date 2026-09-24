@@ -1,8 +1,6 @@
 :root {
   interpolate-size: allow-keywords;
   color-scheme: light;
-
-  --accent: var(--lime-11);
 }
 
 html {
@@ -35,8 +33,13 @@ body {
 }
 
 ::selection {
-  background: var(--lime-4);
-  color: var(--lime-12);
+  background: #ffee9c;
+  color: #4f3422;
+}
+
+[data-theme="dark"] ::selection {
+  background: #fc820032;
+  color: #ffe7b3;
 }
 
 h1,
@@ -93,7 +96,7 @@ strong {
 
 a {
   text-decoration: underline;
-  text-decoration-color: var(--gray-8);
+  text-decoration-color: var(--gray-a8);
   text-underline-offset: max(0.1em, 2.5px);
   transition:
     color 0.6s ease-out,
@@ -104,15 +107,15 @@ a {
 @media (hover: hover) {
   a:hover {
     transition-duration: 0s;
-    color: var(--accent);
+    color: var(--gray-12);
     font-weight: var(--font-weight-bold);
-    text-decoration-color: var(--accent);
+    text-decoration-color: var(--gray-12);
   }
 }
 
 a:focus-visible {
   transition-duration: 0s;
-  color: var(--accent);
+  color: var(--gray-12);
   font-weight: var(--font-weight-bold);
   text-decoration: none;
 }
@@ -122,7 +125,7 @@ button:focus-visible {
 }
 
 :focus-visible {
-  outline: var(--accent) solid 3px;
+  outline: var(--gray-12) solid 3px;
   outline-offset: 3px;
 }
 
@@ -157,7 +160,7 @@ ol[data-lilypond-group] {
   img {
     width: 100%;
     margin: 0;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 1px var(--gray-a4);
     border-radius: 1px;
   }
 }
