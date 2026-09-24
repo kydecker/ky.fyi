@@ -19,17 +19,16 @@ interface DialogueBubbleProps {
  */
 const fitBubble = (bubble: HTMLElement, content: HTMLElement) => {
   let lineEnd = 0;
-  for (const character of content.querySelectorAll<HTMLElement>(".character")) {
-    if (character.textContent?.trim()) {
-      lineEnd = Math.max(lineEnd, character.offsetLeft + character.offsetWidth);
-    }
+  for (const word of content.querySelectorAll<HTMLElement>(".word")) {
+    lineEnd = Math.max(lineEnd, word.offsetLeft + word.offsetWidth);
   }
   const width = Math.ceil(lineEnd - content.offsetLeft);
+  const { offsetWidth, offsetHeight } = content;
 
   // Pull the trailing empty space past the bubble's edge, where it's clipped
-  content.style.marginInlineEnd = `${width - content.offsetWidth}px`;
+  content.style.marginInlineEnd = `${width - offsetWidth}px`;
   bubble.style.width = `${width}px`;
-  bubble.style.height = `${content.offsetHeight}px`;
+  bubble.style.height = `${offsetHeight}px`;
 };
 
 export const DialogueBubble = React.memo(({ text }: DialogueBubbleProps) => {
@@ -44,7 +43,8 @@ export const DialogueBubble = React.memo(({ text }: DialogueBubbleProps) => {
   const exiting = !text && !!shownText;
 
   const handleAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
-    if (event.animationName === "bubble-out") {
+    // Ignore the characters' animations bubbling up
+    if (exiting && event.target === event.currentTarget) {
       setShownText(null);
     }
   };
@@ -54,9 +54,8 @@ export const DialogueBubble = React.memo(({ text }: DialogueBubbleProps) => {
     const content = contentRef.current;
     if (!shownText || !bubble || !content) return;
 
-    fitBubble(bubble, content);
-
-    // Refit if the text reflows later, e.g. once a web font loads
+    // Fires once on observe, before paint, and again if the text reflows
+    // later, e.g. once a web font loads
     const observer = new ResizeObserver(() => fitBubble(bubble, content));
     observer.observe(content);
 
@@ -71,7 +70,7 @@ export const DialogueBubble = React.memo(({ text }: DialogueBubbleProps) => {
         onAnimationEnd={handleAnimationEnd}
         aria-hidden
       >
-        <span className="bubbleContent" ref={contentRef}>
+        <span className="bubbleContent" ref={contentRef} key={shownText}>
           <DialogueLine text={shownText} />
         </span>
       </div>

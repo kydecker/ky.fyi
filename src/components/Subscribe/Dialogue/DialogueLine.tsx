@@ -1,89 +1,37 @@
-import { nanoid } from "nanoid";
-
-const SPEED = 0.03;
-
-interface TypedCharacterProps {
-  /**
-   * Character to render
-   */
-  character: string;
-
-  /**
-   * Index of the character to be rendered
-   * to stagger animations
-   */
-  index: number;
-
-  /**
-   * Speed to display characters
-   * Lower is faster
-   */
-  speed?: number;
-
-  /**
-   * Amount to delay the initial typing sequence
-   * @default 0.2
-   */
-  delay?: number;
-}
-
-const TypedCharacter = ({
-  character,
-  index,
-  speed = SPEED,
-  delay = 0.2,
-}: TypedCharacterProps) => {
-  return (
-    <span
-      className="character"
-      style={{ animationDelay: `${index * speed + delay}s` }}
-    >
-      {character}
-    </span>
-  );
-};
+import { type CSSProperties, Fragment } from "react";
 
 interface DialogueLineProps {
   /**
    * Text to display
    */
   text: string;
-
-  /**
-   * Starting character index for continuous animation
-   * across line fragments and styles
-   * @default 0
-   */
-  index?: number;
-
-  /**
-   * Speed to display characters
-   */
-  speed?: number;
 }
 
-export const DialogueLine = ({
-  text,
-  index = 0,
-  speed = SPEED,
-}: DialogueLineProps) => {
-  const words = text.split(" ");
+export const DialogueLine = ({ text }: DialogueLineProps) => {
+  let offset = 0;
 
-  return words.map((word, wordIndex) => (
-    <span className="word" key={nanoid()}>
-      {word.split("").map((char) => {
-        return (
-          <TypedCharacter
-            key={nanoid()}
-            character={char}
-            index={index++}
-            speed={speed}
-          />
-        );
-      })}
-      {wordIndex < words.length - 1 && (
-        <TypedCharacter key={nanoid()} character=" " index={index++} />
-      )}
-    </span>
-  ));
+  return text.split(" ").map((word, wordIndex) => {
+    const start = offset;
+    // Spaces still take a turn in the typing sequence
+    offset += word.length + 1;
+
+    return (
+      // biome-ignore lint/suspicious/noArrayIndexKey: text is static per phrase
+      <Fragment key={wordIndex}>
+        {wordIndex > 0 && " "}
+        <span className="word">
+          {word.split("").map((character, characterIndex) => (
+            <span
+              // biome-ignore lint/suspicious/noArrayIndexKey: text is static per phrase
+              key={characterIndex}
+              className="character"
+              style={{ "--index": start + characterIndex } as CSSProperties}
+            >
+              {character}
+            </span>
+          ))}
+        </span>
+      </Fragment>
+    );
+  });
 };
