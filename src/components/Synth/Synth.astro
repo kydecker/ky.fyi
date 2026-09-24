@@ -68,7 +68,7 @@ import SynthScreen from "./SynthScreen.astro";
     const begin = () => {
       start?.removeEventListener("click", begin);
       synth?.removeEventListener("keydown", handleStartKey);
-      loadSynth();
+      loadSynth(synth);
     };
 
     const handleStartKey = (e: KeyboardEvent) => {
@@ -93,16 +93,18 @@ import SynthScreen from "./SynthScreen.astro";
 
   let timeout: NodeJS.Timeout;
 
-  async function loadSynth() {
+  async function loadSynth(synth: HTMLElement | null | undefined) {
     const { Howler } = await import("howler");
     const { sounds } = await import("./sounds.ts");
     const { unmute } = await import("./unmute");
 
+    if (!synth?.isConnected) {
+      return;
+    }
+
     Howler.autoUnlock = false;
     Howler.volume(0.5);
 
-    const synth: HTMLElement | null | undefined =
-      document.getElementById("synth");
     const keys: NodeListOf<SVGGElement> | undefined =
       synth?.querySelectorAll(".synth-key");
     const instrumentIcons: NodeListOf<SVGGElement> | undefined =
@@ -126,6 +128,10 @@ import SynthScreen from "./SynthScreen.astro";
     let isMouseDown = false;
     // let isTouching = false;
     let noteFadeOut: NodeJS.Timeout;
+
+    // Removes document-level listeners when navigating away
+    const controller = new AbortController();
+    const { signal } = controller;
 
     const enableSynth = () => {
       clearTimeout(timeout);
@@ -183,7 +189,7 @@ import SynthScreen from "./SynthScreen.astro";
           }
         };
 
-        setTimeout(roulette, speed);
+        timeout = setTimeout(roulette, speed);
       }
     };
 
@@ -432,8 +438,8 @@ import SynthScreen from "./SynthScreen.astro";
         // key.addEventListener("touchmove", handleTouchMove);
       });
       instrumentIconWrapper?.addEventListener("click", handleClickInstrument);
-      document.addEventListener("keydown", handleKeyDown);
-      document.addEventListener("keyup", handleKeyUp);
+      document.addEventListener("keydown", handleKeyDown, { signal });
+      document.addEventListener("keyup", handleKeyUp, { signal });
     };
 
     function startSynth() {
@@ -459,11 +465,13 @@ import SynthScreen from "./SynthScreen.astro";
         }
       };
 
+      controller.abort();
       clearTimeout(timeout);
+      clearTimeout(noteFadeOut);
       unloadSounds();
     }
 
-    document.addEventListener("astro:before-swap", unloadSynth);
+    document.addEventListener("astro:before-swap", unloadSynth, { once: true });
   }
 
   document.addEventListener("astro:page-load", prepareLoadSynth);

@@ -368,23 +368,35 @@ const chartMarkup = plot.outerHTML;
 </style>
 
 <script>
+  let observer: IntersectionObserver | undefined;
+
+  function teardownRatingCharts() {
+    observer?.disconnect();
+    observer = undefined;
+  }
+
   function initRatingCharts() {
+    teardownRatingCharts();
+
     const charts = document.querySelectorAll(".rating-chart:not(.in-view)");
     if (!charts.length) return;
 
-    const observer = new IntersectionObserver(
+    const chartObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
           entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
+          chartObserver.unobserve(entry.target);
         }
       },
-      { threshold: 0.7 },
+      { threshold: 0.5 },
     );
+    observer = chartObserver;
 
-    for (const chart of charts) observer.observe(chart);
+    for (const chart of charts) chartObserver.observe(chart);
   }
 
+  initRatingCharts();
   document.addEventListener("astro:page-load", initRatingCharts);
+  document.addEventListener("astro:before-swap", teardownRatingCharts);
 </script>
