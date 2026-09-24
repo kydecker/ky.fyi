@@ -1,8 +1,6 @@
-import type { Variants } from "motion/react";
-import * as m from "motion/react-m";
 import { nanoid } from "nanoid";
 
-const SPEED = 0.04;
+const SPEED = 0.03;
 
 interface TypedCharacterProps {
   /**
@@ -35,28 +33,13 @@ const TypedCharacter = ({
   speed = SPEED,
   delay = 0.2,
 }: TypedCharacterProps) => {
-  const characterVariants: Variants = {
-    initial: {
-      opacity: 0,
-      scale: 0,
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: index * speed + delay,
-      },
-    },
-  };
-
   return (
-    <m.span
+    <span
       className="character"
-      variants={characterVariants}
       style={{ animationDelay: `${index * speed + delay}s` }}
     >
       {character}
-    </m.span>
+    </span>
   );
 };
 

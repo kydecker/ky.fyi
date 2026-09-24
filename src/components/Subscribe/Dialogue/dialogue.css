@@ -4,7 +4,8 @@
   justify-content: flex-end;
   user-select: none;
   position: relative;
-  width: 272px;
+  --dialogue-width: 272px;
+  width: var(--dialogue-width);
   margin-inline-start: -148px;
   flex-shrink: 0;
 }
@@ -21,19 +22,72 @@
   padding: 0.5rem var(--space-m);
   font-family: var(--font-family-sans);
   font-size: var(--step--1);
+  font-weight: var(--font-weight-medium);
   line-height: 1.1;
-  letter-spacing: var(--letter-spacing-loose);
   align-self: center;
   position: absolute;
   right: 32%;
   bottom: 75%;
   z-index: 1;
   cursor: default;
+  border-radius: 1rem 1rem 0 1rem;
+  transform-origin: bottom right;
+  animation: bubble-in 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  /* Size is set from the widest line of text so it can transition */
+  box-sizing: content-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: clip;
+  transition:
+    width 450ms cubic-bezier(0.4, 0, 0.1, 1),
+    height 450ms cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+[data-theme="dark"] .bubble {
+  --bubble-background: #e2e1de;
+  --bubble-foreground: #111110;
+}
+
+.bubbleContent {
+  flex-shrink: 0;
+  /*
+   * Size from the text alone, wrapping at the width the bubble can grow to.
+   * fit-content would resolve against the bubble's current animated width.
+   */
+  width: max-content;
+  max-width: calc(var(--dialogue-width) * 0.68 - 6px - 2 * var(--space-m));
+}
+
+.bubble.exiting {
+  animation: bubble-out 150ms ease-in both;
+}
+
+@keyframes bubble-out {
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translate(20px, 20px) scale(0);
+  }
 }
 
 .character {
   display: inline-block;
   white-space: pre;
+  animation: character-in 200ms ease-out both;
+}
+
+@keyframes character-in {
+  from {
+    opacity: 0;
+  }
 }
 
 .stamp {

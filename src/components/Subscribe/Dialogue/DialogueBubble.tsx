@@ -1,8 +1,12 @@
 import "./dialogue.css";
 
-import type { Variants } from "motion/react";
-import * as m from "motion/react-m";
-import React from "react";
+import classNames from "classnames";
+import React, {
+  type AnimationEvent,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { DialogueLine } from "./DialogueLine";
 
@@ -10,44 +14,67 @@ interface DialogueBubbleProps {
   text: string | null;
 }
 
+/**
+ * Size the bubble to the widest rendered line
+ */
+const fitBubble = (bubble: HTMLElement, content: HTMLElement) => {
+  let lineEnd = 0;
+  for (const character of content.querySelectorAll<HTMLElement>(".character")) {
+    if (character.textContent?.trim()) {
+      lineEnd = Math.max(lineEnd, character.offsetLeft + character.offsetWidth);
+    }
+  }
+  const width = Math.ceil(lineEnd - content.offsetLeft);
+
+  // Pull the trailing empty space past the bubble's edge, where it's clipped
+  content.style.marginInlineEnd = `${width - content.offsetWidth}px`;
+  bubble.style.width = `${width}px`;
+  bubble.style.height = `${content.offsetHeight}px`;
+};
+
 export const DialogueBubble = React.memo(({ text }: DialogueBubbleProps) => {
-  const bubbleVariants: Variants = {
-    initial: {
-      opacity: 0,
-      scale: 0,
-      x: -20,
-      y: 20,
-      borderRadius: "1rem 1rem 0.2rem 1rem",
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        type: "spring",
-        mass: 1,
-        damping: 20,
-        stiffness: 200,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0,
-    },
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLSpanElement>(null);
+
+  // Keep showing the last phrase while the bubble animates out
+  const [shownText, setShownText] = useState(text);
+  if (text && text !== shownText) {
+    setShownText(text);
+  }
+  const exiting = !text && !!shownText;
+
+  const handleAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
+    if (event.animationName === "bubble-out") {
+      setShownText(null);
+    }
   };
 
+  useLayoutEffect(() => {
+    const bubble = bubbleRef.current;
+    const content = contentRef.current;
+    if (!shownText || !bubble || !content) return;
+
+    fitBubble(bubble, content);
+
+    // Refit if the text reflows later, e.g. once a web font loads
+    const observer = new ResizeObserver(() => fitBubble(bubble, content));
+    observer.observe(content);
+
+    return () => observer.disconnect();
+  }, [shownText]);
+
   return (
-    text && (
-      <m.div
-        layout
-        variants={bubbleVariants}
-        initial="initial"
-        animate="animate"
-        className="bubble"
+    shownText && (
+      <div
+        className={classNames("bubble", { exiting })}
+        ref={bubbleRef}
+        onAnimationEnd={handleAnimationEnd}
+        aria-hidden
       >
-        <DialogueLine text={text} />
-      </m.div>
+        <span className="bubbleContent" ref={contentRef}>
+          <DialogueLine text={shownText} />
+        </span>
+      </div>
     )
   );
 });
