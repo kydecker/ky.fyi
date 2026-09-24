@@ -1,9 +1,6 @@
 import { type CSSProperties, Fragment } from "react";
 
 interface DialogueLineProps {
-  /**
-   * Text to display
-   */
   text: string;
 }
 
