@@ -4,9 +4,6 @@ import { atom, computed } from "nanostores";
 export interface Sam {
   id: string;
   variant: number;
-  /**
-   * Flying off the canvas; removed once its exit animation ends
-   */
   exiting: boolean;
 }
 
