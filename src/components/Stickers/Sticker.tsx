@@ -5,7 +5,6 @@ import {
   type AnimationEvent,
   type CSSProperties,
   type PointerEvent,
-  useEffect,
   useState,
 } from "react";
 import { getRandomValueBetween } from "../../helpers";
@@ -23,7 +22,7 @@ interface VariantData {
   alt: string;
 }
 
-export const STICKER_VARIANTS: VariantData[] = [
+const STICKER_VARIANTS: VariantData[] = [
   {
     path: "M61.3881 320.98C60.1679 331.073 68.4008 343 82.4363 343C91.893 343 98.3821 336.272 102.265 327.708C106.84 317.616 98.299 289.48 102.265 282.446C107.092 273.883 129.03 267.227 137.345 271.742C144.666 275.718 146.51 299.278 154.427 305.995C162.359 312.723 174.56 307.913 180.051 295.903C183.737 287.84 170.595 262.873 174.56 257.368C177.949 252.664 235.57 266.237 245.331 271.742C251.561 275.255 250.517 288.257 256.923 293.762C263.329 299.267 281.631 304.772 290.173 305.995C298.714 307.218 312.746 300.796 318.847 300.796C324.948 300.796 340.2 320.675 347.216 315.781C351.346 312.901 347.216 286.728 345.691 278.165C344.166 269.601 353.282 247.488 342.318 228.527C312.66 177.236 241.19 99.5016 201.692 69.8028C189.49 60.6281 164.708 52.4775 135.192 57.5694C106.822 62.4633 64.9173 95.0192 58.3201 118.431C50.6761 145.557 61.3881 177.361 61.3881 217.518C61.3881 234.339 51.6269 250.64 51.0168 263.485C50.5288 273.761 60.7813 289.376 65.659 295.903C67.4874 298.349 62.3642 312.907 61.3881 320.98Z",
     srcSet: "/images/sam/sam1.webp",
@@ -152,15 +151,11 @@ const getNearestOffCanvasCoordinates = (
   return { x: offCanvasX, y: offCanvasY };
 };
 
-export const Sticker = ({ id, variant, exiting }: Sam) => {
-  const totalVariants = STICKER_VARIANTS.length;
-  const currentVariant = variant % totalVariants;
-  const nextVariant = (variant + 1) % totalVariants;
+export const getStickerVariant = (variant: number) =>
+  STICKER_VARIANTS[variant % STICKER_VARIANTS.length];
 
-  useEffect(() => {
-    // Preload next variant to display
-    new Image().src = STICKER_VARIANTS[nextVariant].srcSet;
-  }, [nextVariant]);
+export const Sticker = ({ id, variant, exiting }: Sam) => {
+  const sticker = getStickerVariant(variant);
 
   const [zIndex, setZIndex] = useState(getTopZIndex);
   const [position, setPosition] = useState(() => ({
@@ -168,7 +163,7 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
     y: getRandomValueBetween(0, window.innerHeight - BUFFER),
   }));
 
-  // Random values are fixed on mount so re-renders don't change them mid-animation
+  // Fixed on mount so re-renders don't change them mid-animation
   const [animation] = useState(() => {
     const rotate = getRandomValueBetween(-10, 10);
     return {
@@ -180,7 +175,6 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
     };
   });
 
-  // Distance from the pointer to the sticker's origin while dragging
   const [dragOffset, setDragOffset] = useState<{
     x: number;
     y: number;
@@ -188,10 +182,9 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
   const dragging = dragOffset !== null;
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    // Keep the drag from selecting text or dragging the image
+    // Prevent text selection and native image drag
     event.preventDefault();
-    // Capture on the path, the only part that takes input, so moves keep
-    // arriving when the pointer outruns the sticker
+    // Capture on the path so fast drags keep tracking
     (event.target as Element).setPointerCapture(event.pointerId);
     setDragOffset({
       x: event.clientX - position.x,
@@ -201,7 +194,6 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    // Stop following the pointer once shooed mid-drag
     if (!dragOffset || exiting) return;
 
     setPosition({
@@ -218,7 +210,6 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
     }
   };
 
-  // Aim for the nearest edge only once the sticker is shooed
   const exitPosition = exiting
     ? getNearestOffCanvasCoordinates(position.x, position.y, 400)
     : null;
@@ -252,22 +243,11 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          className="stickerPath"
-          d={STICKER_VARIANTS[currentVariant].path}
-          fill="white"
-        />
+        <path className="stickerPath" d={sticker.path} fill="white" />
       </svg>
       <picture className="stickerPicture">
-        <source
-          srcSet={STICKER_VARIANTS[currentVariant].srcSet}
-          type="image/webp"
-        />
-        <img
-          src={STICKER_VARIANTS[currentVariant].src}
-          alt={STICKER_VARIANTS[currentVariant].alt}
-          draggable="false"
-        />
+        <source srcSet={sticker.srcSet} type="image/webp" />
+        <img src={sticker.src} alt={sticker.alt} draggable="false" />
       </picture>
     </div>
   );

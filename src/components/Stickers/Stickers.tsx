@@ -2,19 +2,21 @@ import { useStore } from "@nanostores/react";
 import classNames from "classnames";
 import { useEffect } from "react";
 import { clearSams, numSams, sams } from "../../stores/sam";
-import { STICKER_VARIANTS, Sticker } from "./Sticker";
+import { getStickerVariant, Sticker } from "./Sticker";
 
 export const Stickers = () => {
   const $sams = useStore(sams);
   const $numSams = useStore(numSams);
 
+  // Preload the next two stickers' images
   useEffect(() => {
-    // Preload first sticker
-    new Image().src = STICKER_VARIANTS[0].srcSet;
-  }, []);
+    for (const variant of [$numSams + 1, $numSams + 2]) {
+      new Image().src = getStickerVariant(variant).srcSet;
+    }
+  }, [$numSams]);
 
   const showShoo = $numSams > 2;
-  // Stay mounted, hidden, until the last shooed sticker is gone
+  // Keep the hidden button mounted until the last sticker leaves
   const shooLeaving = $sams.length > 0 && $sams.every((sam) => sam.exiting);
 
   return (
