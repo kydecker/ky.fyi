@@ -121,34 +121,31 @@ const STICKER_VARIANTS: VariantData[] = [
   },
 ];
 
-// Pixel buffer to prevent stickers from going off the canvas when placed randomly
-const BUFFER = 200;
+// Matches .sticker's width in stickers.css
+const STICKER_SIZE = 200;
 
-const getNearestOffCanvasCoordinates = (
-  x: number,
-  y: number,
-  offset: number,
-): { x: number; y: number } => {
-  const canvasWidth = window.innerWidth;
-  const canvasHeight = window.innerHeight;
+// Away from the viewport's center, until fully past the edge it crosses
+const getExitPosition = (x: number, y: number) => {
+  const { innerWidth: width, innerHeight: height } = window;
+  const centerX = x + STICKER_SIZE / 2;
+  const centerY = y + STICKER_SIZE / 2;
 
-  // Calculate the center of the canvas
-  const centerX = canvasWidth / 2;
-  const centerY = canvasHeight / 2;
+  const angle = Math.atan2(centerY - height / 2, centerX - width / 2);
+  const dx = Math.cos(angle);
+  const dy = Math.sin(angle);
 
-  // Calculate the vector from the input point to the center of the canvas
-  const dx = x - centerX;
-  const dy = y - centerY;
+  const distanceToExit = (center: number, direction: number, size: number) =>
+    direction === 0
+      ? Number.POSITIVE_INFINITY
+      : ((direction > 0 ? size + STICKER_SIZE : -STICKER_SIZE) - center) /
+        direction;
 
-  // Calculate the angle of the vector
-  const angle = Math.atan2(dy, dx);
+  const distance = Math.min(
+    distanceToExit(centerX, dx, width),
+    distanceToExit(centerY, dy, height),
+  );
 
-  // Calculate the off-canvas coordinates by moving in the direction of the angle
-  // by the specified offset, taking the point off the canvas
-  const offCanvasX = x + Math.cos(angle) * (canvasWidth / 2 + offset);
-  const offCanvasY = y + Math.sin(angle) * (canvasHeight / 2 + offset);
-
-  return { x: offCanvasX, y: offCanvasY };
+  return { x: x + dx * distance, y: y + dy * distance };
 };
 
 export const getStickerVariant = (variant: number) =>
@@ -159,8 +156,8 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
 
   const [zIndex, setZIndex] = useState(getTopZIndex);
   const [position, setPosition] = useState(() => ({
-    x: getRandomValueBetween(0, window.innerWidth - BUFFER),
-    y: getRandomValueBetween(0, window.innerHeight - BUFFER),
+    x: getRandomValueBetween(0, window.innerWidth - STICKER_SIZE),
+    y: getRandomValueBetween(0, window.innerHeight - STICKER_SIZE),
   }));
 
   // Fixed on mount so re-renders don't change them mid-animation
@@ -210,9 +207,7 @@ export const Sticker = ({ id, variant, exiting }: Sam) => {
     }
   };
 
-  const exitPosition = exiting
-    ? getNearestOffCanvasCoordinates(position.x, position.y, 400)
-    : null;
+  const exitPosition = exiting ? getExitPosition(position.x, position.y) : null;
 
   return (
     <div
