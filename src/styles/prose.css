@@ -141,7 +141,7 @@
 .prose abbr {
   border-bottom: none;
   text-decoration: dotted underline;
-  text-decoration-color: var(--gray-7);
+  text-decoration-color: var(--gray-a8);
   text-underline-offset: 0.1em;
   position: relative;
   cursor: help;
