@@ -381,19 +381,17 @@ const chartMarkup = plot.outerHTML;
     const charts = document.querySelectorAll(".rating-chart:not(.in-view)");
     if (!charts.length) return;
 
-    const chartObserver = new IntersectionObserver(
-      (entries) => {
+    observer = new IntersectionObserver(
+      (entries, observer) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
           entry.target.classList.add("in-view");
-          chartObserver.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.5 },
     );
-    observer = chartObserver;
-
-    for (const chart of charts) chartObserver.observe(chart);
+    for (const chart of charts) observer.observe(chart);
   }
 
   initRatingCharts();

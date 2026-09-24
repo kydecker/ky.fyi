@@ -555,35 +555,30 @@
     display: none;
   }
 
+  .instrument,
+  .notehead,
   .synth-randomize {
     display: none;
-
-    @media (pointer: coarse) {
-      display: none;
-    }
   }
 
-  :global([data-loading="true"]) .synth-randomize {
-    display: none;
+  .instrument.active {
+    display: block;
   }
 
-  @media (pointer: coarse) {
-    .synth-instrument:hover .instrument {
-      display: none;
-    }
+  @media not all and (pointer: coarse) {
+    :global([data-loading="false"]) .synth-instrument:hover {
+      .instrument {
+        display: none;
+      }
 
-    .synth-randomize .synth-instrument:hover {
-      display: block;
+      .synth-randomize {
+        display: block;
+      }
     }
 
     .instrument-arrow:hover .lcd-base {
       fill: var(--synth-lcd-dark);
     }
-  }
-
-  .instrument,
-  .notehead {
-    display: none;
   }
 
   :global([data-enabled="false"]) {
