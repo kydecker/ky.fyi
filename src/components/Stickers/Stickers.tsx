@@ -1,22 +1,28 @@
 import { useStore } from "@nanostores/react";
 import classNames from "classnames";
-import { AnimatePresence, LazyMotion } from "motion/react";
-import * as m from "motion/react-m";
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { type AnimationEvent, useEffect, useState } from "react";
 import { clearSams, numSams } from "../../stores/sam";
-import { STICKER_VARIANTS, Sticker, type StickerProps } from "./Sticker";
+import { STICKER_VARIANTS, Sticker } from "./Sticker";
 
-const loadFeatures = () =>
-  import("./motionFeatures").then((res) => res.default);
+interface StickerState {
+  id: string;
+  variant: number;
+  exiting: boolean;
+}
 
 export const Stickers = () => {
-  const [stickers, setStickers] = useState<StickerProps[]>([]);
-  const [showShoo, setShowShoo] = useState(false);
-  const [exiting, setExiting] = useState(false);
-  // Defer loading animation features until the first sticker appears
-  const [motionEnabled, setMotionEnabled] = useState(false);
+  const [stickers, setStickers] = useState<StickerState[]>([]);
+  const [shaking, setShaking] = useState(false);
   const $numSams = useStore(numSams);
+
+  // Keep the shoo button mounted while it animates out
+  const showShoo = $numSams > 2;
+  const [shooMounted, setShooMounted] = useState(showShoo);
+  if (showShoo && !shooMounted) {
+    setShooMounted(true);
+  }
+  const shooLeaving = shooMounted && !showShoo;
 
   useEffect(() => {
     // Preload first sticker
@@ -24,69 +30,70 @@ export const Stickers = () => {
   }, []);
 
   useEffect(() => {
-    if ($numSams > 0) setMotionEnabled(true);
+    setStickers((prev) => {
+      // Send every sticker flying; each removes itself once off the canvas
+      if ($numSams === 0) {
+        return prev.some((sticker) => !sticker.exiting)
+          ? prev.map((sticker) => ({ ...sticker, exiting: true }))
+          : prev;
+      }
 
-    if ($numSams === 0) {
-      setStickers([]);
-      setShowShoo(false);
-      return;
-    }
+      const active = prev.filter((sticker) => !sticker.exiting).length;
+      if ($numSams <= active) return prev;
 
-    setShowShoo($numSams > 2);
-
-    if ($numSams > stickers.length) {
-      setStickers((prev) => [
+      return [
         ...prev,
-        {
+        ...Array.from({ length: $numSams - active }, (_, i) => ({
           id: nanoid(),
-          variant: $numSams,
-        },
-      ]);
-    }
-  }, [$numSams, stickers.length]);
+          variant: active + i + 1,
+          exiting: false,
+        })),
+      ];
+    });
+  }, [$numSams]);
+
+  const removeSticker = (id: string) => {
+    setStickers((prev) => prev.filter((sticker) => sticker.id !== id));
+  };
 
   const handleShoo = () => {
-    setExiting(true);
+    setShaking(true);
     clearSams();
     setTimeout(() => {
-      setExiting(false);
+      setShaking(false);
     }, 300);
+  };
+
+  const handleShooAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
+    if (shooLeaving && event.target === event.currentTarget) {
+      setShooMounted(false);
+    }
   };
 
   return (
     <div className="stickers" style={{ viewTransitionName: "stickers" }}>
-      {motionEnabled && (
-        <LazyMotion features={loadFeatures} strict>
-          <AnimatePresence>
-            {stickers.map(({ id, variant }) => (
-              <Sticker key={id} id={id} variant={variant} />
-            ))}
-            {showShoo && (
-              <m.div
-                key="shoo-button"
-                className="shoo-wrapper"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{
-                  opacity: 0,
-                  scale: 0,
-                  transition: { duration: 0.2, delay: 0.45 },
-                }}
-              >
-                <button
-                  data-sam-shoo
-                  onClick={handleShoo}
-                  className={classNames({
-                    exiting,
-                  })}
-                  type="button"
-                >
-                  Shoo Sam
-                </button>
-              </m.div>
-            )}
-          </AnimatePresence>
-        </LazyMotion>
+      {stickers.map(({ id, variant, exiting }) => (
+        <Sticker
+          key={id}
+          variant={variant}
+          exiting={exiting}
+          onExited={() => removeSticker(id)}
+        />
+      ))}
+      {shooMounted && (
+        <div
+          className={classNames("shoo-wrapper", { leaving: shooLeaving })}
+          onAnimationEnd={handleShooAnimationEnd}
+        >
+          <button
+            data-sam-shoo
+            onClick={handleShoo}
+            className={classNames({ shaking })}
+            type="button"
+          >
+            Shoo Sam
+          </button>
+        </div>
       )}
     </div>
   );

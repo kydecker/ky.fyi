@@ -1,9 +1,14 @@
 import "./stickers.css";
 
-import { useStore } from "@nanostores/react";
-import type { MotionNodeDragHandlers } from "motion/react";
-import * as m from "motion/react-m";
-import { useEffect, useState } from "react";
+import classNames from "classnames";
+import {
+  type AnimationEvent,
+  type CSSProperties,
+  type PointerEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { getRandomValueBetween } from "../../helpers";
 import { incrementTopZIndex, topZIndex } from "../../stores/sam";
 
@@ -115,21 +120,53 @@ export const STICKER_VARIANTS: VariantData[] = [
 
 export interface StickerProps {
   /**
-   * The unique identifier for the sticker.
-   */
-  id: string;
-
-  /**
    * The variant of the sticker to display.
    * There are 16 variants total.
    */
   variant: number;
+
+  /**
+   * Whether the sticker is flying off the canvas
+   */
+  exiting: boolean;
+
+  /**
+   * Called once the exit animation has finished
+   */
+  onExited: () => void;
 }
 
-export const Sticker = ({ variant }: StickerProps) => {
-  // Pixel buffer to prevent stickers from going off the canvas when placed randomly
-  const BUFFER = 200;
+// Pixel buffer to prevent stickers from going off the canvas when placed randomly
+const BUFFER = 200;
 
+const getNearestOffCanvasCoordinates = (
+  x: number,
+  y: number,
+  offset: number,
+): { x: number; y: number } => {
+  const canvasWidth = window.innerWidth;
+  const canvasHeight = window.innerHeight;
+
+  // Calculate the center of the canvas
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+
+  // Calculate the vector from the input point to the center of the canvas
+  const dx = x - centerX;
+  const dy = y - centerY;
+
+  // Calculate the angle of the vector
+  const angle = Math.atan2(dy, dx);
+
+  // Calculate the off-canvas coordinates by moving in the direction of the angle
+  // by the specified offset, taking the point off the canvas
+  const offCanvasX = x + Math.cos(angle) * (canvasWidth / 2 + offset);
+  const offCanvasY = y + Math.sin(angle) * (canvasHeight / 2 + offset);
+
+  return { x: offCanvasX, y: offCanvasY };
+};
+
+export const Sticker = ({ variant, exiting, onExited }: StickerProps) => {
   const totalVariants = STICKER_VARIANTS.length;
   const currentVariant = variant % totalVariants;
   const nextVariant = (variant + 1) % totalVariants;
@@ -139,87 +176,92 @@ export const Sticker = ({ variant }: StickerProps) => {
     new Image().src = STICKER_VARIANTS[nextVariant].srcSet;
   }, [nextVariant]);
 
-  const $topZIndex = useStore(topZIndex);
-  const [zIndex, setZIndex] = useState($topZIndex);
-  const [x, setX] = useState(
-    getRandomValueBetween(0, window.innerWidth - BUFFER),
-  );
-  const [y, setY] = useState(
-    getRandomValueBetween(0, window.innerHeight - BUFFER),
-  );
-  const [rotate] = useState(getRandomValueBetween(-10, 10));
+  const [zIndex, setZIndex] = useState(topZIndex.get());
+  const [position, setPosition] = useState(() => ({
+    x: getRandomValueBetween(0, window.innerWidth - BUFFER),
+    y: getRandomValueBetween(0, window.innerHeight - BUFFER),
+  }));
 
-  // Twist in animation
-  const initialRotation = rotate + getRandomValueBetween(-20, 20);
+  // Random values are fixed on mount so re-renders don't change them mid-animation
+  const [animation] = useState(() => {
+    const rotate = getRandomValueBetween(-10, 10);
+    return {
+      rotate,
+      // Twist in animation
+      startRotate: rotate + getRandomValueBetween(-20, 20),
+      exitRotate: getRandomValueBetween(-90, 90),
+      exitDelay: getRandomValueBetween(0.1, 0.4),
+    };
+  });
 
-  const handleDragStart: MotionNodeDragHandlers["onDragStart"] = () => {
+  // Distance from the pointer to the sticker's origin while dragging
+  const dragOffset = useRef<{ x: number; y: number } | null>(null);
+  const [dragging, setDragging] = useState(false);
+
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (exiting) return;
+
+    // Keep the drag from selecting text or dragging the image
+    event.preventDefault();
+    // Capture on the path, the only part that takes input, so moves keep
+    // arriving when the pointer outruns the sticker
+    (event.target as Element).setPointerCapture(event.pointerId);
+    dragOffset.current = {
+      x: event.clientX - position.x,
+      y: event.clientY - position.y,
+    };
     incrementTopZIndex();
-    setZIndex($topZIndex);
+    setZIndex(topZIndex.get());
+    setDragging(true);
   };
 
-  const handleDragEnd: MotionNodeDragHandlers["onDragEnd"] = (_, info) => {
-    const { x, y } = info.point;
-    setX(x);
-    setY(y);
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    const offset = dragOffset.current;
+    if (!offset) return;
+
+    setPosition({
+      x: event.clientX - offset.x,
+      y: event.clientY - offset.y,
+    });
   };
 
-  const getNearestOffCanvasCoordinates = (
-    x: number,
-    y: number,
-    offset: number,
-  ): { x: number; y: number } => {
-    const canvasWidth = window.innerWidth;
-    const canvasHeight = window.innerHeight;
-
-    // Calculate the center of the canvas
-    const centerX = canvasWidth / 2;
-    const centerY = canvasHeight / 2;
-
-    // Calculate the vector from the input point to the center of the canvas
-    const dx = x - centerX;
-    const dy = y - centerY;
-
-    // Calculate the angle of the vector
-    const angle = Math.atan2(dy, dx);
-
-    // Calculate the off-canvas coordinates by moving in the direction of the angle
-    // by the specified offset, taking the point off the canvas
-    const offCanvasX = x + Math.cos(angle) * (canvasWidth / 2 + offset);
-    const offCanvasY = y + Math.sin(angle) * (canvasHeight / 2 + offset);
-
-    return { x: offCanvasX, y: offCanvasY };
+  const handlePointerUp = () => {
+    dragOffset.current = null;
+    setDragging(false);
   };
+
+  const handleAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
+    if (exiting && event.target === event.currentTarget) {
+      onExited();
+    }
+  };
+
+  const exitPosition = getNearestOffCanvasCoordinates(
+    position.x,
+    position.y,
+    400,
+  );
 
   return (
-    <m.div
-      className="sticker"
-      initial={{ opacity: 0, x, y, scale: 2, rotate: initialRotation }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        rotate,
-        transition: {
-          type: "spring",
-          damping: 8,
-          mass: 0.2,
-          stiffness: 80,
-        },
-      }}
-      exit={{
-        ...getNearestOffCanvasCoordinates(x, y, 400),
-        rotate: getRandomValueBetween(-90, 90),
-        transition: {
-          type: "spring",
-          mass: 4,
-          delay: getRandomValueBetween(0.2, 0.7),
-        },
-      }}
-      drag
-      dragMomentum={false}
-      whileDrag={{ scale: 1.3, cursor: "grabbing" }}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      style={{ zIndex }}
+    <div
+      className={classNames("sticker", { dragging, exiting })}
+      style={
+        {
+          zIndex,
+          translate: `${position.x}px ${position.y}px`,
+          "--rotate": `${animation.rotate}deg`,
+          "--start-rotate": `${animation.startRotate}deg`,
+          "--exit-x": `${exitPosition.x}px`,
+          "--exit-y": `${exitPosition.y}px`,
+          "--exit-rotate": `${animation.exitRotate}deg`,
+          "--exit-delay": `${animation.exitDelay}s`,
+        } as CSSProperties
+      }
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      onAnimationEnd={handleAnimationEnd}
       data-testid="samSticker"
     >
       <svg
@@ -246,6 +288,6 @@ export const Sticker = ({ variant }: StickerProps) => {
           draggable="false"
         />
       </picture>
-    </m.div>
+    </div>
   );
 };
