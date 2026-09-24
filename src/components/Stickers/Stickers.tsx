@@ -8,10 +8,12 @@ export const Stickers = () => {
   const $sams = useStore(sams);
   const $numSams = useStore(numSams);
 
-  // Preload the next two stickers' images
+  // Preload and decode the next two stickers' images
   useEffect(() => {
     for (const variant of [$numSams + 1, $numSams + 2]) {
-      new Image().src = getStickerVariant(variant).srcSet;
+      const image = new Image();
+      image.src = getStickerVariant(variant).srcSet;
+      image.decode().catch(() => {});
     }
   }, [$numSams]);
 
