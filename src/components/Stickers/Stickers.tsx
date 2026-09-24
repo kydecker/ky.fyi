@@ -1,92 +1,37 @@
 import { useStore } from "@nanostores/react";
 import classNames from "classnames";
-import { AnimatePresence, LazyMotion } from "motion/react";
-import * as m from "motion/react-m";
-import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
-import { clearSams, numSams } from "../../stores/sam";
-import { STICKER_VARIANTS, Sticker, type StickerProps } from "./Sticker";
-
-const loadFeatures = () =>
-  import("./motionFeatures").then((res) => res.default);
+import { useEffect } from "react";
+import { clearSams, numSams, sams } from "../../stores/sam";
+import { getStickerVariant, Sticker } from "./Sticker";
 
 export const Stickers = () => {
-  const [stickers, setStickers] = useState<StickerProps[]>([]);
-  const [showShoo, setShowShoo] = useState(false);
-  const [exiting, setExiting] = useState(false);
-  // Defer loading animation features until the first sticker appears
-  const [motionEnabled, setMotionEnabled] = useState(false);
+  const $sams = useStore(sams);
   const $numSams = useStore(numSams);
 
+  // Preload and decode the next two stickers' images
   useEffect(() => {
-    // Preload first sticker
-    new Image().src = STICKER_VARIANTS[0].srcSet;
-  }, []);
-
-  useEffect(() => {
-    if ($numSams > 0) setMotionEnabled(true);
-
-    if ($numSams === 0) {
-      setStickers([]);
-      setShowShoo(false);
-      return;
+    for (const variant of [$numSams + 1, $numSams + 2]) {
+      const image = new Image();
+      image.src = getStickerVariant(variant).srcSet;
+      image.decode().catch(() => {});
     }
+  }, [$numSams]);
 
-    setShowShoo($numSams > 2);
-
-    if ($numSams > stickers.length) {
-      setStickers((prev) => [
-        ...prev,
-        {
-          id: nanoid(),
-          variant: $numSams,
-        },
-      ]);
-    }
-  }, [$numSams, stickers.length]);
-
-  const handleShoo = () => {
-    setExiting(true);
-    clearSams();
-    setTimeout(() => {
-      setExiting(false);
-    }, 300);
-  };
+  const showShoo = $numSams > 2;
+  // Keep the hidden button mounted until the last sticker leaves
+  const shooLeaving = $sams.length > 0 && $sams.every((sam) => sam.exiting);
 
   return (
     <div className="stickers" style={{ viewTransitionName: "stickers" }}>
-      {motionEnabled && (
-        <LazyMotion features={loadFeatures} strict>
-          <AnimatePresence>
-            {stickers.map(({ id, variant }) => (
-              <Sticker key={id} id={id} variant={variant} />
-            ))}
-            {showShoo && (
-              <m.div
-                key="shoo-button"
-                className="shoo-wrapper"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{
-                  opacity: 0,
-                  scale: 0,
-                  transition: { duration: 0.2, delay: 0.45 },
-                }}
-              >
-                <button
-                  data-sam-shoo
-                  onClick={handleShoo}
-                  className={classNames({
-                    exiting,
-                  })}
-                  type="button"
-                >
-                  Shoo Sam
-                </button>
-              </m.div>
-            )}
-          </AnimatePresence>
-        </LazyMotion>
+      {$sams.map((sam) => (
+        <Sticker key={sam.id} {...sam} />
+      ))}
+      {(showShoo || shooLeaving) && (
+        <div className={classNames("shoo-wrapper", { leaving: shooLeaving })}>
+          <button data-sam-shoo onClick={clearSams} type="button">
+            Shoo Sam
+          </button>
+        </div>
       )}
     </div>
   );

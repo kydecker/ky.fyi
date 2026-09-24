@@ -56,7 +56,6 @@
     "fathom-client": "^3.7.2",
     "howler": "^2.2.4",
     "linkedom": "^0.18.13",
-    "motion": "^13.2.0",
     "nanoid": "^6.0.1",
     "nanostores": "^1.5.3",
     "react": "^19.3.0",

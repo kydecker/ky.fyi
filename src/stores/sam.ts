@@ -1,18 +1,38 @@
-import { atom } from "nanostores";
+import { nanoid } from "nanoid";
+import { atom, computed } from "nanostores";
 
-export const numSams = atom(0);
-export const topZIndex = atom(1);
+export interface Sam {
+  id: string;
+  variant: number;
+  exiting: boolean;
+}
+
+export const sams = atom<Sam[]>([]);
+
+export const numSams = computed(
+  sams,
+  (list) => list.filter((sam) => !sam.exiting).length,
+);
+
+let topZIndex = 1;
+
+export const getTopZIndex = () => topZIndex;
+
+export const incrementTopZIndex = () => ++topZIndex;
 
 export const addSam = () => {
-  topZIndex.set(topZIndex.get() + 1);
-  numSams.set(numSams.get() + 1);
-};
-
-export const incrementTopZIndex = () => {
-  topZIndex.set(topZIndex.get() + 1);
+  incrementTopZIndex();
+  sams.set([
+    ...sams.get(),
+    { id: nanoid(), variant: numSams.get() + 1, exiting: false },
+  ]);
 };
 
 export const clearSams = () => {
-  topZIndex.set(1);
-  numSams.set(0);
+  topZIndex = 1;
+  sams.set(sams.get().map((sam) => ({ ...sam, exiting: true })));
+};
+
+export const removeSam = (id: string) => {
+  sams.set(sams.get().filter((sam) => sam.id !== id));
 };
