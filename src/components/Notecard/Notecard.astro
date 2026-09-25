@@ -35,7 +35,7 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
     {author && (
       <div class="author">
         {url ? (
-          <a href={url} rel="external" data-fathom="author-link">
+          <a href={url} rel="external">
             {author}
           </a>
         ) : (
@@ -99,18 +99,3 @@ const backgroundImage = `url(${NOTECARD_THEMES[theme].src})`;
     font-size: 0.85em;
   }
 </style>
-
-<script>
-  import * as Fathom from "fathom-client";
-
-  document.addEventListener("astro:page-load", () => {
-    document
-      .querySelectorAll("[data-fathom='author-link']")
-      .forEach((author) => {
-        author.addEventListener("click", () => {
-          const url = author.getAttribute("href");
-          Fathom.trackEvent(`guestbook: click link (${url})`);
-        });
-      });
-  });
-</script>

@@ -23,8 +23,6 @@ import Logo from "./Logo.astro";
 </header>
 
 <script>
-  import * as Fathom from "fathom-client";
-
   type Theme = "light" | "dark";
 
   function getActiveTheme(): Theme {
@@ -104,8 +102,6 @@ import Logo from "./Logo.astro";
         root.style.removeProperty("--theme-ripple-radius");
       });
     }
-
-    Fathom.trackEvent("nav: toggle theme");
   }
 
   // Run on initial load
@@ -114,15 +110,6 @@ import Logo from "./Logo.astro";
   document.addEventListener("astro:before-swap", (ev) => {
     setupToggle(ev.newDocument);
     setActiveTheme(getActiveTheme(), ev.newDocument);
-  });
-
-  document.addEventListener("astro:page-load", () => {
-    document.querySelectorAll("[data-fathom='nav-link']").forEach((navlink) => {
-      navlink.addEventListener("click", () => {
-        const url = navlink.getAttribute("href");
-        Fathom.trackEvent(`nav: click link (${url})`);
-      });
-    });
   });
 </script>
 

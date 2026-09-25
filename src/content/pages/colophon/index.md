@@ -2,7 +2,7 @@
 title: Colophon
 description: Colophon is a designer-y word for “how it’s made”—here’s what powers ky.fyi.
 datePublished: 2023-09-26 03:47:00-04:00
-dateModified: 2026-07-08 12:32:26-04:00
+dateModified: 2026-09-25 08:49:16-04:00
 headerImage:
   image: ["./img600.webp", "./img900.webp", "./img1200.webp"]
   alt: The spines of 12 books, including Visual Explanations, The Display of Quantitative Information, The Geometry of Type, Understanding Comics, Nicely Said, Don't Make Me Think!, Queer by Design, The 99% Invisible City, Interaction of Color, The Elements of Style, Thinking Fast and Slow, and The Death and Life of Great American Cities.
@@ -63,7 +63,7 @@ This site aims to conform to the Level AA accessibility standards outlined in th
 
 ## Privacy
 
-I collect basic, fully-anonymized page view analytics using [Fathom](https://usefathom.com/ref/VMZJZD). I don't want your data! If you don't believe me, take a look at the [public analytics for ky.fyi](https://app.usefathom.com/share/wkftecuz/ky.fyi). On the flip side, if you'd like to share who you are and where you're visiting from—just for kicks—you can sign the [guestbook](/guestbook).
+I collect fully-anonymized page view analytics using [Cloudflare](https://www.cloudflare.com/web-analytics/) to help improve site performance. I don't want your data! But if you'd like to share who you are and where you're visiting from—just for kicks—you can sign the [guestbook](/guestbook).
 
 ## Notice an issue?
 

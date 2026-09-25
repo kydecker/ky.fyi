@@ -122,12 +122,3 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     font-weight: var(--font-weight-bold);
   }
 </style>
-
-<script>
-  import * as Fathom from "fathom-client";
-
-  document.addEventListener("astro:page-load", () => {
-    const path = window.location.pathname;
-    Fathom.trackEvent("404: " + path);
-  });
-</script>

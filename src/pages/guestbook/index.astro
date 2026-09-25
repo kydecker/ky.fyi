@@ -37,11 +37,9 @@ const description = "Leave a message in ky.fyi.";
     {isFirstPage && <NotecardComposer client:load />}
     <GuestbookEntries currentPage={currentPage} server:defer>
       <Fragment slot="fallback">
-        {
-          Array.from({ length: 24 }).map(() => (
-            <Notecard theme={1} content="" loading />
-          ))
-        }
+        {Array.from({ length: 24 }).map(() => (
+          <Notecard theme={1} content="" loading />
+        ))}
       </Fragment>
     </GuestbookEntries>
   </div>
@@ -59,15 +57,3 @@ const description = "Leave a message in ky.fyi.";
     overflow: hidden;
   }
 </style>
-
-<script>
-  import * as Fathom from "fathom-client";
-
-  document.addEventListener("astro:page-load", () => {
-    document
-      .querySelector("[data-fathom='explanation']")
-      ?.addEventListener("click", () => {
-        Fathom.trackEvent("guestbook: learn more");
-      });
-  });
-</script>

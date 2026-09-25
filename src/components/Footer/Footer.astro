@@ -14,47 +14,23 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
 
 <footer>
   <div class="links">
-    <a href="/" data-fathom="footer-link">
-      Home
-    </a>
-    <a href="/about" data-fathom="footer-link">
-      About
-    </a>
-    <a href="/projects" data-fathom="footer-link">
-      Projects
-    </a>
-    <a href="/posts" data-fathom="footer-link">
-      Writing
-    </a>
-    <a href="/arrangements" data-fathom="footer-link">
-      Sheet Music
-    </a>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/projects">Projects</a>
+    <a href="/posts">Writing</a>
+    <a href="/arrangements">Sheet Music</a>
   </div>
   <div class="links">
-    <a href="/now" data-fathom="footer-link">
-      Now
-    </a>
-    <a href="/guestbook" data-fathom="footer-link">
-      Guestbook
-    </a>
-    <a href="/webrings" data-fathom="footer-link">
-      Webrings
-    </a>
-    <a href="/resume" data-fathom="footer-link">
-      Resume
-    </a>
-    <a href="/colophon" data-fathom="footer-link">
-      Colophon
-    </a>
+    <a href="/now">Now</a>
+    <a href="/guestbook">Guestbook</a>
+    <a href="/webrings">Webrings</a>
+    <a href="/resume">Resume</a>
+    <a href="/colophon">Colophon</a>
   </div>
   <ul class="socials">
     {Object.values(siteInfo.socials).map((social) => (
       <li>
-        <a
-          href={social.href}
-          data-fathom="footer-link"
-          aria-label={social.name}
-        >
+        <a href={social.href} aria-label={social.name}>
           <SocialIcon icon={social.icon} />
         </a>
       </li>
@@ -66,9 +42,7 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
   <div class="banner">
     &copy; Ky Decker. Last updated{" "}
     <time datetime={buildDate.toISOString()}>{lastUpdated}</time>.{" "}
-    <a href="https://www.jewishvoiceforpeace.org/" data-fathom="footer-link">
-      Free&nbsp;Palestine.
-    </a>
+    <a href="https://www.jewishvoiceforpeace.org/">Free&nbsp;Palestine.</a>
   </div>
 </footer>
 
@@ -186,18 +160,3 @@ const lastUpdated = buildDate.toLocaleDateString("en-US", {
     grid-area: form;
   }
 </style>
-
-<script>
-  import * as Fathom from "fathom-client";
-
-  document.addEventListener("astro:page-load", () => {
-    document
-      .querySelectorAll("[data-fathom='footer-link']")
-      .forEach((navlink) => {
-        navlink.addEventListener("click", () => {
-          const url = navlink.getAttribute("href");
-          Fathom.trackEvent(`nav: click link (${url})`);
-        });
-      });
-  });
-</script>

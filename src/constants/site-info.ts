@@ -10,7 +10,6 @@ export const siteInfo = {
   name: "Ky Decker",
   description: "Ky is a designer and web developer based in New York City.",
   rssTitle: "Dispatches from Ky Decker",
-  fathomId: "WKFTECUZ",
   email: "hi@ky.fyi",
   socials: {
     email: { name: "Email", href: "mailto:hi@ky.fyi", icon: "mail" },
