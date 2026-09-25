@@ -102,11 +102,6 @@ const pageTitle =
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{pageTitle}</title>
     <ClientRouter />
-    <script>
-      import * as Fathom from "fathom-client";
-      import { siteInfo } from "../constants/site-info";
-      Fathom.load(siteInfo.fathomId);
-    </script>
   </head>
   <body>
     <slot />

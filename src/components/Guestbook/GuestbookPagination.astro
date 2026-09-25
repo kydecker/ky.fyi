@@ -34,51 +34,42 @@ const pageText = `Viewing page ${currentPage} of ${totalPages}.`;
 ---
 
 <Center>
-  {
-    isLastPage ? (
-      <div class="postscript">
-        You've reached the end!
-        <>
-          <br />
-          <a
-            href="/posts/design-outside-the-computer"
-            data-fathom="explanation"
-          >
-            Read how I made this guestbook.
-          </a>
-        </>
-      </div>
-    ) : (
-      <div class="postscript">
-        {totalEntriesText}
+  {isLastPage ? (
+    <div class="postscript">
+      You've reached the end!
+      <>
         <br />
-        {pageText}
-      </div>
-    )
-  }
+        <a href="/posts/design-outside-the-computer">
+          Read how I made this guestbook.
+        </a>
+      </>
+    </div>
+  ) : (
+    <div class="postscript">
+      {totalEntriesText}
+      <br />
+      {pageText}
+    </div>
+  )}
 
   <div class="pagination">
-    {
-      currentPage > 1 && (
-        <a
-          aria-label="Previous page"
-          href={
-            currentPage === 2
-              ? "/guestbook"
-              : `/guestbook?page=${currentPage - 1}`
-          }
-        >
-          <Icon icon="arrowLeft" />
-        </a>
-      )
-    }
-    {
-      currentPage < totalPages && (
-        <a aria-label="Next page" href={`/guestbook?page=${currentPage + 1}`}>
-          <Icon icon="arrowRight" />
-        </a>
-      )
-    }
+    {currentPage > 1 && (
+      <a
+        aria-label="Previous page"
+        href={
+          currentPage === 2
+            ? "/guestbook"
+            : `/guestbook?page=${currentPage - 1}`
+        }
+      >
+        <Icon icon="arrowLeft" />
+      </a>
+    )}
+    {currentPage < totalPages && (
+      <a aria-label="Next page" href={`/guestbook?page=${currentPage + 1}`}>
+        <Icon icon="arrowRight" />
+      </a>
+    )}
   </div>
 </Center>
 

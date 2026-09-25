@@ -1,4 +1,3 @@
-import * as Fathom from "fathom-client";
 import {
   type ChangeEvent,
   type SubmitEventHandler,
@@ -173,7 +172,6 @@ export const NotecardComposer = () => {
     ) {
       setContentValue(contentValue);
       setErrorMessage("There's not enough room for that.");
-      Fathom.trackEvent("guestbook: show textarea warning");
     } else {
       setContentValue(e.target.value);
       setErrorMessage(null);
@@ -182,12 +180,10 @@ export const NotecardComposer = () => {
 
   const handleNextTheme = () => {
     setSelectedTheme(nextThemeIndex);
-    Fathom.trackEvent("guestbook: next theme");
   };
 
   const handlePrevTheme = () => {
     setSelectedTheme(prevThemeIndex);
-    Fathom.trackEvent("guestbook: prev theme");
   };
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
@@ -208,7 +204,6 @@ export const NotecardComposer = () => {
 
       if (res.ok) {
         window.location.href = "/guestbook";
-        Fathom.trackEvent("guestbook: submit");
         return;
       }
 

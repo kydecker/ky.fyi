@@ -67,7 +67,6 @@ const sortedPosts = posts.sort(
 </BaseLayout>
 
 <script>
-  import * as Fathom from "fathom-client";
   import { addSam } from "../stores/sam";
 
   function setupSam() {
@@ -79,18 +78,6 @@ const sortedPosts = posts.sort(
 
   document.addEventListener("astro:after-swap", () => {
     setupSam();
-  });
-
-  document.addEventListener("astro:page-load", () => {
-    document
-      .querySelector("[data-sam-button]")
-      ?.addEventListener("click", () => {
-        Fathom.trackEvent("stickers: add sam");
-      });
-
-    document.querySelector("[data-sam-shoo]")?.addEventListener("click", () => {
-      Fathom.trackEvent("stickers: shoo sam");
-    });
   });
 </script>
 
