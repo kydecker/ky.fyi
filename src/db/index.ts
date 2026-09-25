@@ -1,10 +1,7 @@
-// biome-ignore-all lint/style/noNonNullAssertion: env vars are defined.
+import { drizzle } from "drizzle-orm/d1";
 
-import { drizzle } from "drizzle-orm/libsql";
-
-export const db = drizzle({
-  connection: {
-    url: import.meta.env.TURSO_CONNECTION_URL!,
-    authToken: import.meta.env.TURSO_AUTH_TOKEN!,
-  },
-});
+// Imported lazily so prerendered pages (built in Node) can load this module.
+export async function getDb() {
+  const { env } = await import("cloudflare:workers");
+  return drizzle(env.GUESTBOOK_DB);
+}

@@ -13,6 +13,7 @@
       "!worker-configuration.d.ts",
       "!**/.vscode",
       "!**/.astro",
+      "!**/.wrangler",
       "!**/src/components/Synth/unmute.js"
     ]
   },

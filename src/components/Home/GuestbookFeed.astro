@@ -1,13 +1,9 @@
 ---
-import { getGuestbookCount } from "../../db/queries/select";
 import Carousel from "../Carousel.astro";
 import CarouselButton from "../CarouselButton.astro";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
-import GuestbookItems, { LIMIT } from "./GuestbookItems.astro";
-
-const result = await getGuestbookCount();
-const moreCount = Math.max((result?.count ?? 0) - LIMIT, 0);
+import GuestbookItems from "./GuestbookItems.astro";
 ---
 
 <Carousel>
@@ -18,7 +14,7 @@ const moreCount = Math.max((result?.count ?? 0) - LIMIT, 0);
           <Notecard content="" theme={1} small loading />
         </CarouselItem>
       ))}
+      <CarouselButton url="/guestbook">More messages</CarouselButton>
     </Fragment>
   </GuestbookItems>
-  <CarouselButton url="/guestbook">{moreCount} more messages</CarouselButton>
 </Carousel>
