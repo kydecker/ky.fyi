@@ -23,8 +23,8 @@ const displayDate = post.data.datePublished.getFullYear();
         src={post.data.previewImage.image}
         alt={post.data.previewImage.alt}
         width={836}
-        widths={[418, 640, 836, 1280]}
-        sizes="(width < 640px) 100vw, 418px"
+        widths={[360, 418, 540, 640, 836, 1040, 1280]}
+        sizes="(width < 640px) calc(100vw - 3rem), (width < 900px) calc(50vw - 2rem), 418px"
       />
     </a>
   )}
