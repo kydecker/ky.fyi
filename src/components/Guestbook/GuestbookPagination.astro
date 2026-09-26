@@ -2,20 +2,15 @@
 import { getGuestbookCount } from "../../db/queries/select";
 import Center from "../Center.astro";
 import { Icon } from "../Icon/Icon";
+import { getPageUrl, getTotalPages } from "./pagination";
 
-const currentPage = Number(Astro.props.currentPage) || 1;
+interface Props {
+  currentPage: number;
+}
 
-const baseEntriesPerPage = 24;
-
-const entryCount = await getGuestbookCount();
-const totalEntries = entryCount?.count ?? 0;
-const remainingEntries = Math.max(0, totalEntries - 1);
-const totalPages = Math.max(
-  1,
-  Math.ceil(remainingEntries / baseEntriesPerPage),
-);
-
-const isLastPage = currentPage === totalPages;
+const { currentPage } = Astro.props;
+const totalEntries = await getGuestbookCount();
+const totalPages = getTotalPages(totalEntries);
 
 const entriesSuffix = [
   "messages so far.",
@@ -26,47 +21,36 @@ const entriesSuffix = [
   "notes total.",
   "messages as of now.",
 ];
-
-const totalEntriesText = `${totalEntries} ${
-  entriesSuffix[Math.floor(Math.random() * entriesSuffix.length)]
-}`;
-const pageText = `Viewing page ${currentPage} of ${totalPages}.`;
+const suffix = entriesSuffix[Math.floor(Math.random() * entriesSuffix.length)];
 ---
 
 <Center>
-  {isLastPage ? (
-    <div class="postscript">
-      You've reached the end!
+  <div class="postscript">
+    {currentPage === totalPages ? (
       <>
+        You've reached the end!
         <br />
         <a href="/posts/design-outside-the-computer">
           Read how I made this guestbook.
         </a>
       </>
-    </div>
-  ) : (
-    <div class="postscript">
-      {totalEntriesText}
-      <br />
-      {pageText}
-    </div>
-  )}
+    ) : (
+      <>
+        {totalEntries} {suffix}
+        <br />
+        Viewing page {currentPage} of {totalPages}.
+      </>
+    )}
+  </div>
 
   <div class="pagination">
     {currentPage > 1 && (
-      <a
-        aria-label="Previous page"
-        href={
-          currentPage === 2
-            ? "/guestbook"
-            : `/guestbook?page=${currentPage - 1}`
-        }
-      >
+      <a aria-label="Previous page" href={getPageUrl(currentPage - 1)}>
         <Icon icon="arrowLeft" />
       </a>
     )}
     {currentPage < totalPages && (
-      <a aria-label="Next page" href={`/guestbook?page=${currentPage + 1}`}>
+      <a aria-label="Next page" href={getPageUrl(currentPage + 1)}>
         <Icon icon="arrowRight" />
       </a>
     )}

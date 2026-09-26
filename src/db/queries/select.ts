@@ -1,8 +1,8 @@
-import { desc, eq, not } from "drizzle-orm";
+import { and, desc, eq, gte, not, sql } from "drizzle-orm";
 import { getDb } from "../index";
 import { guestbookStatsTable, guestbookTable } from "../schema";
 
-export async function getGuestbookEntries(offset = 0, pageSize = 24) {
+export async function getGuestbookEntries(offset: number, limit: number) {
   const db = await getDb();
   return db
     .select({
@@ -15,15 +15,31 @@ export async function getGuestbookEntries(offset = 0, pageSize = 24) {
     .from(guestbookTable)
     .where(not(guestbookTable.isSpam))
     .orderBy(desc(guestbookTable.timestamp))
-    .limit(pageSize)
+    .limit(limit)
     .offset(offset);
 }
 
 export async function getGuestbookCount() {
   const db = await getDb();
-  return db
+  const row = await db
     .select({ count: guestbookStatsTable.visible })
     .from(guestbookStatsTable)
     .where(eq(guestbookStatsTable.id, 1))
     .get();
+  return row?.count ?? 0;
+}
+
+export async function hasRecentEntryFromIp(ip: string) {
+  const db = await getDb();
+  const row = await db
+    .select({ id: guestbookTable.id })
+    .from(guestbookTable)
+    .where(
+      and(
+        eq(guestbookTable.ip, ip),
+        gte(guestbookTable.timestamp, sql`datetime('now', '-1 day')`),
+      ),
+    )
+    .get();
+  return row !== undefined;
 }
