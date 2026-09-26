@@ -530,7 +530,8 @@
       fill: var(--synth-lcd-dark);
     }
 
-    &:hover .lcd-base {
+    &:hover .lcd-base,
+    :global([data-loading="true"]) & .lcd-base {
       animation: press-start 1s step-start infinite;
 
       &:nth-child(2) {
