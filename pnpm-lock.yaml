@@ -187,9 +187,6 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.7.4
         version: 3.7.4
-      '@nanostores/react':
-        specifier: ^2.0.1
-        version: 2.0.1(nanostores@1.5.3)(react@19.3.0)
       '@observablehq/plot':
         specifier: ^0.6.17
         version: 0.6.17
@@ -223,12 +220,6 @@ importers:
       linkedom:
         specifier: ^0.18.13
         version: 0.18.13
-      nanoid:
-        specifier: ^6.0.1
-        version: 6.0.1
-      nanostores:
-        specifier: ^1.5.3
-        version: 1.5.3
       react:
         specifier: ^19.3.0
         version: 19.3.0
@@ -1626,13 +1617,6 @@ packages:
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
-
-  '@nanostores/react@2.0.1':
-    resolution: {integrity: sha512-txbZTd+7/hnO7FhtF8Pmr+cu0ThdCuCnOyEEh0DsEM2Hp9PfOa5EY4uj3wpZpypSzp5BuqDgf2AxVAKoUIWOFQ==}
-    engines: {node: ^22.0.0 || ^24.0.0 || >=26.0.0}
-    peerDependencies:
-      nanostores: ^1.2.0
-      react: '>=18.0.0'
 
   '@napi-rs/wasm-runtime@1.2.3':
     resolution: {integrity: sha512-UMduMbqO5s5zF2NkNacMT/yK5Y5QiKvWr2+50bzIIxFDwVJ2h49b+oyjaCGPhJxd2/gC2x39EHv/gHVuu36x2Q==}
@@ -3321,15 +3305,6 @@ packages:
     resolution: {integrity: sha512-xQLf0A3HOMlgHq0n247/LRuAOYmB7dXJ/DvAxGvsSBij45XtBSmQycu+F8ODbHwns/XyFZagyL1+J0Offw1E0g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-
-  nanoid@6.0.1:
-    resolution: {integrity: sha512-3wVS3i51pE2pi1k5FFL/95BGfVS0kSsvDVuGXHOtxox/TywUmtgq+3qiTOTbs9J7KfHaXPiN171k/A6dBnaXFw==}
-    engines: {node: ^22 || ^24 || >=26}
-    hasBin: true
-
-  nanostores@1.5.3:
-    resolution: {integrity: sha512-rQLB6eV4f2AW/n3L0JmwCROpaisYy9EDEADvEFSd1C/qG8hB6O5TPlh9A791JRbJr4CnMQBzptDcvD9OR1+6WA==}
-    engines: {node: ^20.0.0 || >=22.0.0}
 
   neotraverse@1.0.1:
     resolution: {integrity: sha512-WmmLty1YWwJl9yZi77v2dVIV6X2kuYV8YYBI/G3LWGKdGHmHUvL1z7FW0iDvEvGAwNEoc5x1tOOOyDnf5jJw/w==}
@@ -5296,11 +5271,6 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
-
-  '@nanostores/react@2.0.1(nanostores@1.5.3)(react@19.3.0)':
-    dependencies:
-      nanostores: 1.5.3
-      react: 19.3.0
 
   '@napi-rs/wasm-runtime@1.2.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:
@@ -7299,10 +7269,6 @@ snapshots:
   nano-staged@1.0.2: {}
 
   nanoid@3.3.17: {}
-
-  nanoid@6.0.1: {}
-
-  nanostores@1.5.3: {}
 
   neotraverse@1.0.1: {}
 

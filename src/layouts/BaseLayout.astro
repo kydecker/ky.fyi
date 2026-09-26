@@ -4,7 +4,6 @@ import "../styles/animation.css";
 
 import Footer from "../components/Footer/Footer.astro";
 import Header from "../components/Header/Header.astro";
-import { Stickers } from "../components/Stickers/Stickers";
 import UnstyledBase from "./UnstyledBase.astro";
 
 interface Props {
@@ -42,7 +41,6 @@ const {
   </main>
   {includeFooter && <Footer />}
   <slot name="after-footer" />
-  <Stickers client:idle />
 </UnstyledBase>
 
 <style>
