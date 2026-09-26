@@ -8,6 +8,7 @@
       "!**/dist",
       "!**/node_modules",
       "!**/playwright-report",
+      "!**/test-results",
       "!**/.vercel",
       "!**/.netlify",
       "!worker-configuration.d.ts",
