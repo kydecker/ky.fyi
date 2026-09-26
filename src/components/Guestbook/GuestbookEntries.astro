@@ -1,26 +1,14 @@
 ---
 import { getGuestbookEntries } from "../../db/queries/select";
 import Notecard from "../Notecard/Notecard.astro";
+import { getPageRange } from "./pagination";
 
-const currentPage = Number(Astro.props.currentPage) || 1;
-const baseEntriesPerPage = 24;
-const entriesPerPage =
-  currentPage === 1 ? baseEntriesPerPage - 1 : baseEntriesPerPage;
-const isFirstPage = currentPage === 1;
-const offset = isFirstPage ? 0 : (currentPage - 1) * baseEntriesPerPage - 1;
+interface Props {
+  currentPage: number;
+}
 
-const guestbook = await getGuestbookEntries(offset, entriesPerPage);
+const { offset, limit } = getPageRange(Astro.props.currentPage);
+const guestbook = await getGuestbookEntries(offset, limit);
 ---
 
-{
-  guestbook.map(({ author, url, content, timestamp, theme }) => (
-    <Notecard
-      author={author}
-      url={url}
-      content={content}
-      timestamp={timestamp}
-      theme={theme}
-      randomTranslate
-    />
-  ))
-}
+{guestbook.map((entry) => <Notecard {...entry} randomTranslate />)}

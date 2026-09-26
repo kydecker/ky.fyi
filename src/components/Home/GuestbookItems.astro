@@ -7,25 +7,19 @@ import CarouselButton from "../CarouselButton.astro";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
 
-const LIMIT = 5;
+export const LIMIT = 5;
 
-const [guestbook, result] = await Promise.all([
+const [guestbook, total] = await Promise.all([
   getGuestbookEntries(0, LIMIT),
   getGuestbookCount(),
 ]);
-const moreCount = Math.max((result?.count ?? 0) - LIMIT, 0);
 ---
 
-{guestbook.map(({ author, url, content, timestamp, theme }) => (
+{guestbook.map((entry) => (
   <CarouselItem>
-    <Notecard
-      author={author}
-      url={url}
-      content={content}
-      timestamp={timestamp}
-      theme={theme}
-      small
-    />
+    <Notecard {...entry} small />
   </CarouselItem>
 ))}
-<CarouselButton url="/guestbook">{moreCount} more messages</CarouselButton>
+<CarouselButton url="/guestbook">
+  {Math.max(total - LIMIT, 0)} more messages
+</CarouselButton>
