@@ -4,7 +4,6 @@ import "../styles/colors.css";
 import "../styles/theme.css";
 
 import { Font, getImage } from "astro:assets";
-import { ClientRouter } from "astro:transitions";
 import { siteInfo } from "../constants/site-info";
 import defaultOgImage from "../images/default.png";
 
@@ -30,7 +29,7 @@ const pageTitle =
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="generator" content={Astro.generator} />
@@ -101,7 +100,6 @@ const pageTitle =
     <link rel="manifest" href="/manifest.json" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{pageTitle}</title>
-    <ClientRouter />
   </head>
   <body>
     <slot />

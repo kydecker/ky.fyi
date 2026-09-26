@@ -31,14 +31,14 @@ import Logo from "./Logo.astro";
       : "light";
   }
 
-  function setActiveTheme(theme: Theme, doc = window.document) {
-    doc.documentElement.setAttribute("data-theme", theme);
+  function setActiveTheme(theme: Theme) {
+    document.documentElement.setAttribute("data-theme", theme);
 
     // Update localStorage
     window.localStorage.setItem("theme", theme);
 
     // Update meta theme
-    const metaTheme = doc.querySelector('meta[name="theme-color"]');
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme !== null)
       metaTheme.setAttribute(
         "content",
@@ -46,7 +46,7 @@ import Logo from "./Logo.astro";
       );
   }
 
-  function setupToggle(document = window.document) {
+  function setupToggle() {
     let toggleButton = document.querySelector("[data-theme-toggle]");
 
     toggleButton &&
@@ -104,13 +104,7 @@ import Logo from "./Logo.astro";
     }
   }
 
-  // Run on initial load
   setupToggle();
-
-  document.addEventListener("astro:before-swap", (ev) => {
-    setupToggle(ev.newDocument);
-    setActiveTheme(getActiveTheme(), ev.newDocument);
-  });
 </script>
 
 <style>
