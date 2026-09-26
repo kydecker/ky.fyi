@@ -24,7 +24,7 @@
   box-shadow: 0 2px 0 var(--bubble-foreground);
   color: var(--bubble-foreground);
   padding: 0.5rem var(--bubble-padding-inline);
-  font-family: var(--font-family-sans);
+  font-family: var(--font-sans);
   font-size: var(--step--1);
   font-weight: var(--font-weight-medium);
   line-height: 1.1;

@@ -59,7 +59,8 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./src/fonts/HEX_Franklin_v0.3_Variable.woff2"],
+            src: ["./src/fonts/franklin.woff2"],
+            weight: "300 700",
           },
         ],
       },
@@ -72,7 +73,8 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./src/fonts/MonoLisaVariableNormal.woff2"],
+            src: ["./src/fonts/monolisa.woff2"],
+            weight: "300 700",
           },
         ],
       },
