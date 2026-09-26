@@ -530,7 +530,8 @@
       fill: var(--synth-lcd-dark);
     }
 
-    &:hover .lcd-base {
+    &:hover .lcd-base,
+    :global([data-state="loading"]) & .lcd-base {
       animation: press-start 1s step-start infinite;
 
       &:nth-child(2) {
@@ -551,7 +552,8 @@
     }
   }
 
-  :global([data-enabled="true"]) .start {
+  :global([data-state="spinning"]) .start,
+  :global([data-state="ready"]) .start {
     display: none;
   }
 
@@ -566,7 +568,7 @@
   }
 
   @media not all and (pointer: coarse) {
-    :global([data-loading="false"]) .synth-instrument:hover {
+    :global([data-state="ready"]) .synth-instrument:hover {
       .instrument {
         display: none;
       }
@@ -581,7 +583,8 @@
     }
   }
 
-  :global([data-enabled="false"]) {
+  :global([data-state="idle"]),
+  :global([data-state="loading"]) {
     .synth-instruments,
     .synth-staff {
       display: none;
