@@ -22,7 +22,7 @@ export const Stickers = () => {
   const shooLeaving = $sams.length > 0 && $sams.every((sam) => sam.exiting);
 
   return (
-    <div className="stickers" style={{ viewTransitionName: "stickers" }}>
+    <div className="stickers">
       {$sams.map((sam) => (
         <Sticker key={sam.id} {...sam} />
       ))}

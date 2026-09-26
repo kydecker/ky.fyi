@@ -69,16 +69,9 @@ const sortedPosts = posts.sort(
 <script>
   import { addSam } from "../stores/sam";
 
-  function setupSam() {
-    const samButton = document.querySelector("[data-sam-button]");
-    samButton?.addEventListener("click", () => addSam());
-  }
-
-  setupSam();
-
-  document.addEventListener("astro:after-swap", () => {
-    setupSam();
-  });
+  document
+    .querySelector("[data-sam-button]")
+    ?.addEventListener("click", () => addSam());
 </script>
 
 <style>

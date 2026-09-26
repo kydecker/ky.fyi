@@ -2,8 +2,6 @@
 import "../styles/base.css";
 import "../styles/animation.css";
 
-import type { TransitionAnimationPair } from "astro";
-
 import Footer from "../components/Footer/Footer.astro";
 import Header from "../components/Header/Header.astro";
 import { Stickers } from "../components/Stickers/Stickers";
@@ -31,43 +29,6 @@ const {
   padBottom,
   previewImage,
 } = Astro.props;
-
-const forwards: TransitionAnimationPair = {
-  old: {
-    name: "fadeOutUp",
-    duration: "0.2s",
-    easing: "ease-in",
-    fillMode: "forwards",
-  },
-  new: {
-    name: "fadeInUp",
-    duration: "0.3s",
-    delay: "0.2s",
-    easing: "ease-out",
-    fillMode: "backwards",
-  },
-};
-
-const backwards: TransitionAnimationPair = {
-  old: {
-    name: "fadeOutDown",
-    duration: "0.2s",
-    easing: "ease-in",
-    fillMode: "forwards",
-  },
-  new: {
-    name: "fadeInDown",
-    duration: "0.3s",
-    delay: "0.2s",
-    easing: "ease-out",
-    fillMode: "backwards",
-  },
-};
-
-const viewTransition = {
-  forwards,
-  backwards,
-};
 ---
 
 <UnstyledBase
@@ -76,66 +37,15 @@ const viewTransition = {
   previewImage={previewImage}
 >
   {includeHeader && <Header />}
-  <main
-    class:list={["main", { padTop }, { padBottom }]}
-    transition:animate={viewTransition}
-  >
+  <main class:list={["main", { padTop }, { padBottom }]}>
     <slot />
   </main>
   {includeFooter && <Footer />}
   <slot name="after-footer" />
-  <Stickers client:idle transition:persist="stickers" />
+  <Stickers client:idle />
 </UnstyledBase>
 
 <style>
-  @keyframes fadeOutUp {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    to {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeOutDown {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    to {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-  }
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-16px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .main {
     flex: 1;
     width: 100%;

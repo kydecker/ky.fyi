@@ -102,10 +102,6 @@ import SynthScreen from "./SynthScreen.astro";
       import("./unmute"),
     ]);
 
-    if (!synth.isConnected) {
-      return;
-    }
-
     Howler.autoUnlock = false;
     Howler.volume(0.5);
 
@@ -132,9 +128,6 @@ import SynthScreen from "./SynthScreen.astro";
     let isMouseDown = false;
     // let isTouching = false;
     let noteFadeOut: NodeJS.Timeout;
-
-    // Removes document-level listeners when navigating away
-    const controller = new AbortController();
 
     const enableSynth = () => {
       clearTimeout(timeout);
@@ -433,12 +426,8 @@ import SynthScreen from "./SynthScreen.astro";
         // key.addEventListener("touchmove", handleTouchMove);
       });
       instrumentIconWrapper?.addEventListener("click", handleClickInstrument);
-      document.addEventListener("keydown", handleKeyDown, {
-        signal: controller.signal,
-      });
-      document.addEventListener("keyup", handleKeyUp, {
-        signal: controller.signal,
-      });
+      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("keyup", handleKeyUp);
     };
 
     function startSynth() {
@@ -452,30 +441,9 @@ import SynthScreen from "./SynthScreen.astro";
     }
 
     startSynth();
-
-    function unloadSynth() {
-      const unloadSounds = () => {
-        for (const [_key, value] of Object.entries(sounds.ui)) {
-          value.howl.unload();
-        }
-
-        for (const [_key, value] of Object.entries(sounds.instruments)) {
-          value.howl.unload();
-        }
-      };
-
-      controller.abort();
-      clearTimeout(timeout);
-      clearTimeout(noteFadeOut);
-      unloadSounds();
-    }
-
-    document.addEventListener("astro:before-swap", unloadSynth, {
-      signal: controller.signal,
-    });
   }
 
-  document.addEventListener("astro:page-load", prepareLoadSynth);
+  prepareLoadSynth();
 </script>
 
 <div
