@@ -1,6 +1,6 @@
 import "./stickers.css";
 
-import { getRandomValueBetween } from "../../helpers";
+import { getRandomValueBetween } from "../../helpers/getRandomValueBetween";
 import { STICKER_VARIANTS } from "./variants";
 
 // Matches .sticker's width in stickers.css

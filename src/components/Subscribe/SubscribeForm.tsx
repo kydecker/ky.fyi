@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { siteInfo } from "../../constants/site-info";
-import { isValidEmail } from "../../helpers/helpers";
+import { isValidEmail } from "../../helpers/isValidEmail";
 import { Icon } from "../Icon/Icon";
 import { Dialogue } from "./Dialogue/Dialogue";
 import { type EmoteType, emoteData } from "./Dialogue/Emote";

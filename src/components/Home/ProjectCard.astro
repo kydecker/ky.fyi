@@ -19,9 +19,11 @@ interface Props {
    * fold, and `lazy` for everything else
    */
   loading?: "priority" | "eager" | "lazy";
+  headingLevel?: 2 | 3;
 }
 
-const { item, loading = "lazy" } = Astro.props;
+const { item, loading = "lazy", headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as const;
 ---
 
 <li>
@@ -42,7 +44,7 @@ const { item, loading = "lazy" } = Astro.props;
       )}
     </div>
     <div class="project-info">
-      <h3 class="project-title">{item.title}</h3>
+      <Heading class="project-title">{item.title}</Heading>
       <div class="project-meta">
         <span class="project-category">{item.category}</span>
         <time class="project-year">{item.year}</time>

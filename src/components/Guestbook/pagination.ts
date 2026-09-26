@@ -1,4 +1,4 @@
-export const ENTRIES_PER_PAGE = 24;
+const ENTRIES_PER_PAGE = 24;
 
 // The composer takes the first slot on page 1.
 export function getPageRange(page: number) {

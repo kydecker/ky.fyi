@@ -3,7 +3,7 @@ import "./icon.css";
 import classNames from "classnames";
 
 // Icons sourced from https://remixicon.com
-export type IconType =
+type IconType =
   | "arrowLeft"
   | "arrowRight"
   | "arrowDown"

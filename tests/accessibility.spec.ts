@@ -3,12 +3,16 @@ import { expect, test } from "@playwright/test";
 
 const paths = [
   "/",
-  "/garden",
   "/about",
-  "/now",
-  "/guestbook",
-  "/webrings",
+  "/arrangements",
   "/colophon",
+  "/guestbook",
+  "/now",
+  "/posts",
+  "/projects",
+  "/resume",
+  "/webrings",
+  "/404",
 ];
 
 test.describe("all pages", () => {
