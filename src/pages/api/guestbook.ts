@@ -3,7 +3,7 @@ import {
   AUTHOR_MAX_LENGTH,
   CONTENT_MAX_LENGTH,
   NOTECARD_THEMES,
-} from "../../components/Notecard/constants";
+} from "../../components/Guestbook/constants";
 import { insertGuestbookEntry } from "../../db/queries/insert";
 import { hasRecentEntryFromIp } from "../../db/queries/select";
 

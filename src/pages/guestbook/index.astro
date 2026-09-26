@@ -1,13 +1,13 @@
 ---
 import GuestbookEntries from "../../components/Guestbook/GuestbookEntries.astro";
 import GuestbookPagination from "../../components/Guestbook/GuestbookPagination.astro";
+import Notecard from "../../components/Guestbook/Notecard.astro";
+import { NotecardComposer } from "../../components/Guestbook/NotecardComposer";
 import {
   getPageRange,
   getPageUrl,
   getTotalPages,
 } from "../../components/Guestbook/pagination";
-import Notecard from "../../components/Notecard/Notecard.astro";
-import { NotecardComposer } from "../../components/Notecard/NotecardComposer";
 import { getGuestbookCount } from "../../db/queries/select";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import guestbookPreview from "./guestbook.png";
