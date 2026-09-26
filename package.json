@@ -23,6 +23,7 @@
     "test": "playwright test",
     "check-links": "astro build && lychee --config .lychee.toml .",
     "knip": "knip",
+    "db:seed:local": "wrangler d1 migrations apply guestbook --local && wrangler d1 execute guestbook --local --file=tests/fixtures/guestbook-seed.sql",
     "deploy": "wrangler deploy",
     "versions-upload": "wrangler versions upload"
   },
@@ -42,7 +43,6 @@
     "@astrojs/react": "6.0.5",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@libsql/client": "^0.18.0",
     "@nanostores/react": "^2.0.1",
     "@observablehq/plot": "^0.6.17",
     "@types/react": "^19.3.0",

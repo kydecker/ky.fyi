@@ -1,8 +1,9 @@
 import { count, desc, not } from "drizzle-orm";
-import { db } from "../index";
+import { getDb } from "../index";
 import { guestbookTable } from "../schema";
 
 export async function getGuestbookEntries(offset = 0, pageSize = 24) {
+  const db = await getDb();
   return db
     .select()
     .from(guestbookTable)
@@ -13,6 +14,7 @@ export async function getGuestbookEntries(offset = 0, pageSize = 24) {
 }
 
 export async function getGuestbookCount() {
+  const db = await getDb();
   return db
     .select({ count: count() })
     .from(guestbookTable)

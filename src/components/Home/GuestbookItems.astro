@@ -1,11 +1,19 @@
 ---
-import { getGuestbookEntries } from "../../db/queries/select";
+import {
+  getGuestbookCount,
+  getGuestbookEntries,
+} from "../../db/queries/select";
+import CarouselButton from "../CarouselButton.astro";
 import CarouselItem from "../CarouselItem.astro";
 import Notecard from "../Notecard/Notecard.astro";
 
-export const LIMIT = 5;
+const LIMIT = 5;
 
-const guestbook = await getGuestbookEntries(0, LIMIT);
+const [guestbook, result] = await Promise.all([
+  getGuestbookEntries(0, LIMIT),
+  getGuestbookCount(),
+]);
+const moreCount = Math.max((result?.count ?? 0) - LIMIT, 0);
 ---
 
 {guestbook.map(({ author, url, content, timestamp, theme }) => (
@@ -20,3 +28,4 @@ const guestbook = await getGuestbookEntries(0, LIMIT);
     />
   </CarouselItem>
 ))}
+<CarouselButton url="/guestbook">{moreCount} more messages</CarouselButton>

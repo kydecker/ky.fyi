@@ -1,9 +1,5 @@
 name: CI
 
-env:
-  TURSO_CONNECTION_URL: ${{ secrets.TURSO_CONNECTION_URL }}
-  TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
-
 permissions:
   contents: read
 
@@ -62,6 +58,9 @@ jobs:
 
       - name: Install Playwright
         run: pnpm exec playwright install chromium
+
+      - name: Seed local D1
+        run: pnpm db:seed:local
 
       - name: Run Playwright tests
         run: pnpm test

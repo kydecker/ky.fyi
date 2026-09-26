@@ -1,9 +1,17 @@
 {
-  "name": "ky-fyi",
+  "name": "ky",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-05-10",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "html_handling": "drop-trailing-slash"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "GUESTBOOK_DB",
+      "database_name": "guestbook",
+      "database_id": "6d727414-70fc-4836-84c5-9e08b6ce2565",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

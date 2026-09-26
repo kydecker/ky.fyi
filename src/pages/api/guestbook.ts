@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { and, eq, gte } from "drizzle-orm";
-import { db } from "../../db";
+import { getDb } from "../../db";
 import { insertGuestbookEntry } from "../../db/queries/insert";
 import { guestbookTable } from "../../db/schema";
 
@@ -61,6 +61,7 @@ export const POST = (async ({ request, clientAddress }) => {
       .toISOString()
       .replace("T", " ")
       .slice(0, 19);
+    const db = await getDb();
     const recent = await db
       .select({ id: guestbookTable.id })
       .from(guestbookTable)
