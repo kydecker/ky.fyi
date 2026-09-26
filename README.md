@@ -7,18 +7,6 @@ For information about the technology and tools behind the site, visit [ky.fyi/co
 > [!NOTE]
 > You're welcome to fork this site, use it as inspiration, and modify things for your own projects—just don't steal it or try to claim it as your own. When in doubt, message me and we can chat about what you want to do.
 
-## Getting Started
-
-To get started, run:
-
-```bash
-pnpm dev
-```
-
-If it's the first time running the repo you may need to run `pnpm i` to install packages.
-
-Other scripts in `package.json` can also be run with `pnpm`.
-
 ## Link Checking
 
 [![Check Links](https://github.com/kydecker/ky.fyi/actions/workflows/links.yml/badge.svg)](https://github.com/kydecker/ky.fyi/actions/workflows/links.yml)
