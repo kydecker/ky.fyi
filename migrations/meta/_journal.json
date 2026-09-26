@@ -8,6 +8,13 @@
       "when": 1781118412307,
       "tag": "0000_loose_silhouette",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790382030898,
+      "tag": "0001_guestbook_indexes_and_stats",
+      "breakpoints": true
     }
   ]
 }
