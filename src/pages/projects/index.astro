@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Center from "../../components/Center.astro";
 import ProjectGrid from "../../components/Home/ProjectGrid.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import { sortFeaturedFirst } from "../../helpers";
+import { sortFeaturedFirst } from "../../helpers/sortFeaturedFirst";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const title = "Projects";
@@ -22,6 +22,6 @@ const feed = projects
 <BaseLayout title={title} description={description} includeFooter padBottom>
   <PageHeader title={title} description={description} />
   <Center>
-    <ProjectGrid items={feed} eager={2} />
+    <ProjectGrid items={feed} eager={2} headingLevel={2} />
   </Center>
 </BaseLayout>

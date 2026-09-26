@@ -1,5 +1,5 @@
 import { Howler } from "howler";
-import { getRandomValueBetween } from "../../helpers";
+import { getRandomValueBetween } from "../../helpers/getRandomValueBetween";
 import { sounds, uiReady } from "./sounds";
 import { unmute } from "./unmute";
 

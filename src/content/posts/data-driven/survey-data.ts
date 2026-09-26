@@ -23,6 +23,7 @@ export const surveys: Survey[] = [
   { id: "survey_4", label: "Dec 2025", date: "2025-12-01" },
 ];
 
+/** @lintignore Raw survey data, kept for reference */
 export const respondents: Record<string, number> = {
   survey_1: 22,
   survey_2: 23,
@@ -30,6 +31,7 @@ export const respondents: Record<string, number> = {
   survey_4: 19,
 };
 
+/** @lintignore Raw survey data, kept for reference */
 export const questions: Question[] = [
   {
     id: "what_is_your_role_at_scribe",
@@ -126,7 +128,7 @@ export const questions: Question[] = [
   },
 ];
 
-export const scorecard: ScorecardCategory[] = [
+const scorecard: ScorecardCategory[] = [
   {
     id: "meeting_feature_needs",
     label: "Meeting feature needs",
