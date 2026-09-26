@@ -36,9 +36,10 @@ const sortedPosts = posts.sort(
       <h1 class="intro">
         <p>
           <a href="/about">Ky Decker</a> designs interfaces in NYC with{" "}
-          <button type="button" data-sam-button>
-            Samwise
-          </button>
+          <span data-sam-text>Samwise</span>
+          <template data-sam-template>
+            <button type="button" data-sam-button>Samwise</button>
+          </template>
         </p>
       </h1>
       <div class="synth">
@@ -67,11 +68,23 @@ const sortedPosts = posts.sort(
 </BaseLayout>
 
 <script>
-  import { addSam } from "../stores/sam";
+  // Swap the plain text for a button, so it's only clickable with JS
+  const template = document.querySelector<HTMLTemplateElement>(
+    "[data-sam-template]",
+  );
+  const button = template?.content.firstElementChild;
+  if (button) document.querySelector("[data-sam-text]")?.replaceWith(button);
+  template?.remove();
 
-  document
-    .querySelector("[data-sam-button]")
-    ?.addEventListener("click", () => addSam());
+  // Loaded on demand so stickers stay off the critical path
+  const loadStickers = () => import("../components/Stickers/stickers");
+
+  button?.addEventListener("pointerenter", loadStickers, { once: true });
+  button?.addEventListener("focus", loadStickers, { once: true });
+  button?.addEventListener("click", async () => {
+    const { addSam } = await loadStickers();
+    addSam();
+  });
 </script>
 
 <style>
@@ -98,6 +111,16 @@ const sortedPosts = posts.sort(
       }
     }
 
+    /* The Samwise text matches the button it's swapped for */
+    a,
+    button,
+    [data-sam-text] {
+      text-decoration: underline;
+      text-decoration-color: var(--gray-a6);
+      text-underline-offset: max(0.08em, 2.5px);
+      text-decoration-skip-ink: none;
+    }
+
     a,
     button {
       background: unset;
@@ -106,12 +129,9 @@ const sortedPosts = posts.sort(
       line-height: unset;
       display: unset;
       padding: unset;
+      letter-spacing: inherit;
       cursor: pointer;
       color: inherit;
-      text-decoration: underline;
-      text-decoration-color: var(--gray-a6);
-      text-underline-offset: max(0.08em, 2.5px);
-      text-decoration-skip-ink: none;
       transition:
         text-decoration-color 0.2s ease-in-out,
         font-weight 0.2s ease-in-out;
@@ -129,6 +149,13 @@ const sortedPosts = posts.sort(
         text-decoration-color: transparent;
         font-weight: var(--font-weight-extrabold);
       }
+    }
+  }
+
+  /* Without JS, Samwise stays plain text */
+  @media (scripting: none) {
+    .intro [data-sam-text] {
+      text-decoration: none;
     }
   }
 
