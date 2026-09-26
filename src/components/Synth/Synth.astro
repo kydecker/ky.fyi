@@ -15,15 +15,14 @@ import SynthScreen from "./SynthScreen.astro";
     const begin = () => {
       start?.removeEventListener("click", begin);
       synth.removeEventListener("keydown", handleStartKey);
-      synth.dataset.loading = "true";
+      synth.dataset.state = "loading";
       import("./synth").then(({ loadSynth }) => loadSynth(synth));
     };
 
     const handleStartKey = (e: KeyboardEvent) => {
       if (
         (e.key === "Enter" || e.key === " ") &&
-        !e.repeat &&
-        synth.dataset.enabled !== "true"
+        !e.repeat
       ) {
         e.preventDefault();
         begin();
@@ -41,8 +40,7 @@ import SynthScreen from "./SynthScreen.astro";
   id="synth"
   class="synth"
   tabindex="0"
-  data-enabled="false"
-  data-loading="false"
+  data-state="idle"
 >
   <svg
     width="100%"
@@ -82,7 +80,8 @@ import SynthScreen from "./SynthScreen.astro";
       box-shadow: var(--synth-shadow, none);
     }
 
-    &[data-loading="true"] {
+    &[data-state="loading"],
+    &[data-state="spinning"] {
       pointer-events: none;
       cursor: default;
     }

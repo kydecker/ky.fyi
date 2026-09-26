@@ -1,87 +1,51 @@
-import { type Howl, Howler } from "howler";
-import { sounds } from "./sounds";
+import { Howler } from "howler";
+import { getRandomValueBetween } from "../../helpers";
+import { sounds, uiReady } from "./sounds";
 import { unmute } from "./unmute";
 
 const STAFF_TYPE_PREFIX = "staff-";
 const NOTEHEAD_PREFIX = "note-";
 
-type WhiteKey =
+type NoteName =
   | "C3"
+  | "Csharp3"
   | "D3"
+  | "Dsharp3"
   | "E3"
   | "F3"
+  | "Fsharp3"
   | "G3"
+  | "Gsharp3"
   | "A3"
+  | "Asharp3"
   | "B3"
   | "C4"
+  | "Csharp4"
   | "D4"
+  | "Dsharp4"
   | "E4";
 
-type BlackKey =
-  | "Csharp3"
-  | "Dsharp3"
-  | "Fsharp3"
-  | "Gsharp3"
-  | "Asharp3"
-  | "Csharp4"
-  | "Dsharp4";
-
-type NoteName = WhiteKey | BlackKey;
-
-/** Keyboard `e.key` → note (keydown + keyup). */
-const KEY_TO_NOTE: Partial<Record<string, NoteName>> = {
+/** Lowercased keyboard `e.key` → note (keydown + keyup). */
+const KEY_TO_NOTE: Record<string, NoteName | undefined> = {
   a: "C3",
-  A: "C3",
   w: "Csharp3",
-  W: "Csharp3",
   s: "D3",
-  S: "D3",
   e: "Dsharp3",
-  E: "Dsharp3",
   d: "E3",
-  D: "E3",
   f: "F3",
-  F: "F3",
   t: "Fsharp3",
-  T: "Fsharp3",
   g: "G3",
-  G: "G3",
   y: "Gsharp3",
-  Y: "Gsharp3",
   h: "A3",
-  H: "A3",
   u: "Asharp3",
-  U: "Asharp3",
   j: "B3",
-  J: "B3",
   k: "C4",
-  K: "C4",
   o: "Csharp4",
-  O: "Csharp4",
   l: "D4",
-  L: "D4",
   p: "Dsharp4",
-  P: "Dsharp4",
   ";": "E4",
   ":": "E4",
 };
-
-// Helpers -----------------------------------------------------//
-function randomIntFromInterval(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-const whenLoaded = (howl: Howl) =>
-  new Promise<void>((resolve) => {
-    if (howl.state() === "loaded") {
-      resolve();
-      return;
-    }
-    howl.once("load", () => resolve());
-    howl.once("loaderror", () => resolve());
-  });
-
-let timeout: NodeJS.Timeout;
 
 export function loadSynth(synth: HTMLElement) {
   Howler.autoUnlock = false;
@@ -101,38 +65,28 @@ export function loadSynth(synth: HTMLElement) {
 
   // State -------------------------------------------------------//
   const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
-  const numInstruments = sounds.instruments.length - 1;
+  const numInstruments = sounds.instruments.length;
 
   let activeInstrument = 0;
   let isMouseDown = false;
-  let noteFadeOut: NodeJS.Timeout;
+  let lettersHidden = false;
+  let noteFadeOut: ReturnType<typeof setTimeout>;
 
   const enableSynth = async () => {
-    clearTimeout(timeout);
-
-    if (synth.dataset.enabled !== "true") {
-      // Wait for the roulette's click/ding so it doesn't start silent
-      await Promise.all(
-        Object.values(sounds.ui).map(({ howl }) => whenLoaded(howl)),
-      );
-      synth.dataset.enabled = "true";
-      loadInstrumentSounds();
-      setRandomInstrument(revealKeyboardLetters);
+    for (const { howl } of sounds.instruments) {
+      howl.load();
     }
-  };
-
-  const loadInstrumentSounds = () => {
-    for (const [_key, value] of Object.entries(sounds.instruments)) {
-      value.howl.load();
-    }
+    // Wait for the roulette's click/ding so it doesn't start silent
+    await uiReady;
+    setRandomInstrument(revealKeyboardLetters);
   };
 
   // Instrument Chooser -----------------------------------------//
   const setRandomInstrument = (callback?: () => void) => {
-    synth.dataset.loading = "true";
+    synth.dataset.state = "spinning";
 
-    const baseSpeed = randomIntFromInterval(30, 50); // Lower is faster
-    const force = randomIntFromInterval(5, 30); // How hard do you 'pull down the wheel'?
+    const baseSpeed = getRandomValueBetween(30, 50); // Lower is faster
+    const force = getRandomValueBetween(5, 30); // How hard do you 'pull down the wheel'?
     const slowestSpeed = 700; // How slow can the roulette go before ending?
     const friction = 1.3; // How quickly to put on the brakes (1 to 1.5)
 
@@ -140,53 +94,31 @@ export function loadSynth(synth: HTMLElement) {
     let i = 1;
 
     const roulette = () => {
-      nextInstrument();
+      stepInstrument(1);
       i++;
 
       if (speed >= slowestSpeed) {
         sounds.ui.ding.howl.play();
-        synth.dataset.loading = "false";
-        clearTimeout(timeout);
-        if (callback) {
-          callback();
-        }
+        synth.dataset.state = "ready";
+        callback?.();
       } else {
         speed *= friction;
         if (i <= force) {
           speed *= 0.8;
         }
-        timeout = setTimeout(roulette, speed);
+        setTimeout(roulette, speed);
       }
     };
 
-    timeout = setTimeout(roulette, speed);
+    setTimeout(roulette, speed);
   };
 
-  const showActiveInstrumentIcon = () => {
+  const stepInstrument = (delta: 1 | -1) => {
+    activeInstrument =
+      (activeInstrument + delta + numInstruments) % numInstruments;
     instrumentIcons.forEach((icon, i) => {
       icon.classList.toggle("active", i === activeInstrument);
     });
-  };
-
-  const setActiveInstrument = (num: number) => {
-    if (num > numInstruments) {
-      activeInstrument = 0;
-    } else if (num < 0) {
-      activeInstrument = numInstruments;
-    } else {
-      activeInstrument = num;
-    }
-
-    showActiveInstrumentIcon();
-  };
-
-  const nextInstrument = () => {
-    setActiveInstrument(activeInstrument + 1);
-    sounds.ui.click.howl.play();
-  };
-
-  const prevInstrument = () => {
-    setActiveInstrument(activeInstrument - 1);
     sounds.ui.click.howl.play();
   };
 
@@ -207,13 +139,11 @@ export function loadSynth(synth: HTMLElement) {
 
     // Prep a timer to fade out noteheads
     // if no other actions are taken
-    noteFadeOut = setTimeout(() => {
-      hideNoteheads();
-    }, 5000);
+    noteFadeOut = setTimeout(hideNoteheads, 5000);
   };
 
   const hideNoteheads = () => {
-    noteheads?.forEach((notehead) => {
+    noteheads.forEach((notehead) => {
       notehead.style.display = "none";
     });
   };
@@ -222,7 +152,7 @@ export function loadSynth(synth: HTMLElement) {
   const revealKeyboardLetters = () => {
     // Only show keyboard on non-touch devices
     if (!isTouchDevice) {
-      keyLetters?.forEach((letter, i) => {
+      keyLetters.forEach((letter, i) => {
         setTimeout(() => {
           letter.classList.add("visible");
         }, i * 30);
@@ -231,7 +161,11 @@ export function loadSynth(synth: HTMLElement) {
   };
 
   const hideKeyboardLetters = () => {
-    keyLetters?.forEach((letter) => {
+    if (lettersHidden) {
+      return;
+    }
+    lettersHidden = true;
+    keyLetters.forEach((letter) => {
       letter.classList.add("fadeout");
       setTimeout(() => {
         letter.classList.remove("visible");
@@ -243,7 +177,7 @@ export function loadSynth(synth: HTMLElement) {
     const keyId = document.getElementById(noteName);
     if (!keyId?.classList.contains("pressed")) {
       keyId?.classList.add("pressed");
-      playNote(noteName);
+      sounds.instruments[activeInstrument].howl.play(noteName);
       showActiveNotehead(noteName);
     }
   };
@@ -253,24 +187,15 @@ export function loadSynth(synth: HTMLElement) {
   };
 
   const releaseAllKeys = () => {
-    keys?.forEach((key) => {
+    keys.forEach((key) => {
       key.classList.remove("pressed");
     });
   };
 
-  const playNote = (noteName: NoteName) => {
-    sounds.instruments[activeInstrument].howl.play(noteName);
-  };
-
   // Event Binding ---------------------------------------------//
-  const handleClickNext = (e: MouseEvent) => {
+  const handleClickStep = (delta: 1 | -1) => (e: MouseEvent) => {
     e.preventDefault();
-    nextInstrument();
-  };
-
-  const handleClickPrev = (e: MouseEvent) => {
-    e.preventDefault();
-    prevInstrument();
+    stepInstrument(delta);
   };
 
   const handleClickInstrument = (e: MouseEvent) => {
@@ -278,10 +203,15 @@ export function loadSynth(synth: HTMLElement) {
     setRandomInstrument();
   };
 
-  const handleMouseDown = function (this: SVGElement, e: MouseEvent) {
+  const handlePointerStart = function (
+    this: SVGElement,
+    e: MouseEvent | TouchEvent,
+  ) {
     e.preventDefault();
     hideKeyboardLetters();
-    isMouseDown = true;
+    if (e.type === "mousedown") {
+      isMouseDown = true;
+    }
     pressKey(this.id as NoteName);
   };
 
@@ -297,34 +227,27 @@ export function loadSynth(synth: HTMLElement) {
     releaseKey(this.id as NoteName);
   };
 
-  const handleTouchStart = function (this: SVGElement, e: TouchEvent) {
-    e.preventDefault();
-    hideKeyboardLetters();
-    pressKey(this.id as NoteName);
-  };
-
   const handleMouseUp = () => {
     isMouseDown = false;
     releaseAllKeys();
   };
 
+  const isPlayable = () =>
+    synth.dataset.state === "ready" && synth.matches(":focus-within");
+
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (synth.dataset.loading !== "false" || !synth.matches(":focus-within")) {
+    if (!isPlayable()) {
       return;
     }
 
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       hideKeyboardLetters();
       e.preventDefault();
-      if (e.key === "ArrowLeft") {
-        prevInstrument();
-      } else {
-        nextInstrument();
-      }
+      stepInstrument(e.key === "ArrowLeft" ? -1 : 1);
       return;
     }
 
-    const note = KEY_TO_NOTE[e.key];
+    const note = KEY_TO_NOTE[e.key.toLowerCase()];
     if (note === undefined) {
       return;
     }
@@ -335,11 +258,11 @@ export function loadSynth(synth: HTMLElement) {
   };
 
   const handleKeyUp = (e: KeyboardEvent) => {
-    if (synth.dataset.loading !== "false" || !synth.matches(":focus-within")) {
+    if (!isPlayable()) {
       return;
     }
 
-    const note = KEY_TO_NOTE[e.key];
+    const note = KEY_TO_NOTE[e.key.toLowerCase()];
     if (note === undefined) {
       return;
     }
@@ -348,27 +271,22 @@ export function loadSynth(synth: HTMLElement) {
   };
 
   const bindEvents = () => {
-    prevArrow?.addEventListener("click", handleClickPrev);
-    nextArrow?.addEventListener("click", handleClickNext);
+    prevArrow?.addEventListener("click", handleClickStep(-1));
+    nextArrow?.addEventListener("click", handleClickStep(1));
     synth.addEventListener("mouseup", handleMouseUp);
     synth.addEventListener("touchend", releaseAllKeys);
-    keys?.forEach((key) => {
-      key.addEventListener("mousedown", handleMouseDown);
+    keys.forEach((key) => {
+      key.addEventListener("mousedown", handlePointerStart);
       key.addEventListener("mouseenter", handleMouseEnter);
       key.addEventListener("mouseout", handleMouseOut);
-      key.addEventListener("touchstart", handleTouchStart);
+      key.addEventListener("touchstart", handlePointerStart);
     });
     instrumentIconWrapper?.addEventListener("click", handleClickInstrument);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
   };
 
-  function startSynth() {
-    enableSynth();
-    bindEvents();
-
-    unmute(Howler.ctx, false, false);
-  }
-
-  startSynth();
+  enableSynth();
+  bindEvents();
+  unmute(Howler.ctx, false, false);
 }

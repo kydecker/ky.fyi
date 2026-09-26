@@ -236,3 +236,18 @@ export const sounds = {
     },
   ],
 };
+
+const whenLoaded = (howl: Howl) =>
+  new Promise<void>((resolve) => {
+    if (howl.state() === "loaded") {
+      resolve();
+      return;
+    }
+    howl.once("load", () => resolve());
+    howl.once("loaderror", () => resolve());
+  });
+
+/** Resolves once the UI sounds (preloaded on import) are ready or failed. */
+export const uiReady = Promise.all(
+  Object.values(sounds.ui).map(({ howl }) => whenLoaded(howl)),
+);
