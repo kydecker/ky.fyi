@@ -31,14 +31,14 @@
     "pre-commit": "./node_modules/.bin/nano-staged"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "14.3.1",
+    "@astrojs/cloudflare": "14.3.3",
     "@astrojs/markdown-remark": "^7.3.1",
-    "@astrojs/mdx": "8.0.1",
-    "@astrojs/react": "6.0.5",
+    "@astrojs/mdx": "8.0.2",
+    "@astrojs/react": "6.0.6",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@observablehq/plot": "^0.6.17",
-    "astro": "7.3.2",
+    "astro": "7.3.5",
     "astro-expressive-code": "^0.44.2",
     "astro-lilypond": "^1.1.2",
     "classnames": "^2.5.1",
