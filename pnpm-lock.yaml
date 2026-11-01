@@ -267,7 +267,7 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
       wrangler:
-        specifier: ^4.154.0
+        specifier: ^4.155.0
         version: 4.156.0(@types/node@26.6.5)
 
 packages:
