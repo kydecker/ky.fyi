@@ -2,7 +2,7 @@
 title: Colophon
 description: Colophon is a designer-y word for “how it’s made”—here’s what powers ky.fyi.
 datePublished: 2023-09-26 03:47:00-04:00
-dateModified: 2026-09-25 18:49:16-04:00
+dateModified: 2026-11-01 11:55:00-04:00
 headerImage:
   image: ["./img600.webp", "./img900.webp", "./img1200.webp"]
   alt: The spines of 12 books, including Visual Explanations, The Display of Quantitative Information, The Geometry of Type, Understanding Comics, Nicely Said, Don't Make Me Think!, Queer by Design, The 99% Invisible City, Interaction of Color, The Elements of Style, Thinking Fast and Slow, and The Death and Life of Great American Cities.
@@ -55,7 +55,7 @@ I minimize energy usage on this site by avoiding unnecessary scripts (such as tr
 > The internet consumes a lot of electricity. 416.2TWh per year to be precise. To give you some perspective, that's more than the entire United Kingdom.
 > <cite>[Website Carbon Calculator](https://www.websitecarbon.com)</cite>
 
-As of March 25, 2026, [carbon results for ky.fyi](https://www.websitecarbon.com/website/ky-fyi/) indicate that the home page is cleaner than 89% of web pages tested, producing **0.06g of CO<sub>2</sub>** per page view.
+As of October 1, 2026, [carbon results for ky.fyi](https://www.websitecarbon.com/website/ky-fyi/) indicate that the home page is cleaner than 94% of web pages tested, producing **0.03g of CO<sub>2</sub>** per page view.
 
 ## Accessibility
 

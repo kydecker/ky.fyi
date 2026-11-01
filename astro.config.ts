@@ -60,7 +60,13 @@ export default defineConfig({
         variants: [
           {
             src: ["./src/fonts/franklin.woff2"],
-            weight: "300 700",
+            weight: "320 700",
+            style: "normal",
+          },
+          {
+            src: ["./src/fonts/franklin-italic.woff2"],
+            weight: "320 700",
+            style: "italic",
           },
         ],
       },
