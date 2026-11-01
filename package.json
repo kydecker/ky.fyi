@@ -55,7 +55,7 @@
     "@astrojs/check": "^0.9.10",
     "@axe-core/playwright": "^4.14.0",
     "@biomejs/biome": "^2.5.15",
-    "@playwright/test": "^1.64.0",
+    "@playwright/test": "^1.64.1",
     "@types/howler": "^2.2.13",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
