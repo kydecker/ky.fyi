@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@axe-core/playwright": "^4.13.0",
+    "@axe-core/playwright": "^4.14.0",
     "@biomejs/biome": "^2.5.15",
     "@playwright/test": "^1.64.0",
     "@types/howler": "^2.2.13",
