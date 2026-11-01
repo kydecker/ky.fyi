@@ -23,9 +23,7 @@ pyftsubset /tmp/monolisa.ttf --flavor=woff2 --output-file=src/fonts/monolisa.wof
   --unicodes="$UNICODES" --layout-features="$BASE,ss01,ss02,ss03,ss04,ss05,ss06,zero,onum"
 ```
 
-- Franklin uses the separate upright/italic sources rather than the combined `ital`-axis file, so only the upright is preloaded and the italic downloads only on pages that render italic text.
 - Franklin's `wght` range covers `--font-weight-*` in theme.css (320 dark-mode normal through 700 extrabold).
 - `U+25C6` (◆) is used by prose.css bullets.
-- Franklin's symbols are folded into the main files rather than a separate `unicode-range` file, since Astro's preload filter can't exclude it. `case`, `frac`, `sups`, and `subs` are dropped since nothing enables them; precomposed characters (½, ²) still render.
 - MonoLisa's features match `font-feature-settings` on `code, pre` in base.css.
 - `wdth` is pinned since nothing uses `font-stretch`.
