@@ -13,9 +13,8 @@ const { post } = Astro.props;
   <h2 class="post-title">
     <a href={`/posts/${post.id}`}>{post.data.title}</a>
   </h2>
-  <div class="post-eyebrow">
-    <span>{post.data.category}</span>
-    <span class="separator" aria-hidden="true">·</span>
+  <div class="post-meta">
+    <span class="post-category">{post.data.category}</span>
     <RelativeDate date={post.data.datePublished} client:visible />
   </div>
 </div>
@@ -29,13 +28,14 @@ const { post } = Astro.props;
     text-wrap: pretty;
   }
 
-  .post-eyebrow {
+  .post-meta {
     font-size: var(--step--1);
     color: var(--gray-11);
     font-variant-numeric: tabular-nums;
   }
 
-  .separator {
+  .post-category::after {
+    content: " · " / "";
     color: var(--gray-8);
   }
 
