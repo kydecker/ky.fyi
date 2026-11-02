@@ -5,12 +5,15 @@ interface Props {
   layout: "grid" | "list";
   count: number;
   label?: string;
+  gap?: string;
+  divided?: boolean;
 }
 
-const { layout, count, label = "more" } = Astro.props;
+const { layout, count, label = "more", gap, divided = false } = Astro.props;
+const style = gap ? `--expandable-gap: ${gap}` : undefined;
 ---
 
-<ul class:list={["expandable-items", layout]}>
+<ul class:list={["expandable-items", layout, { divided }]} style={style}>
   <slot name="visible" />
 </ul>
 {count > 0 && (
@@ -18,7 +21,7 @@ const { layout, count, label = "more" } = Astro.props;
     <summary class="expandable-trigger">
       {count} {label} <Icon icon="arrowDown" size="20" />
     </summary>
-    <ul class:list={["expandable-items", layout]}>
+    <ul class:list={["expandable-items", layout, { divided }]} style={style}>
       <slot />
     </ul>
   </details>
@@ -26,12 +29,12 @@ const { layout, count, label = "more" } = Astro.props;
 
 <style>
   .expandable-items {
+    --expandable-gap: var(--space-xl);
     list-style: none;
     padding: 0;
   }
 
   .expandable-items.grid {
-    --expandable-gap: var(--space-xl);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--expandable-gap) var(--space-l);
@@ -46,10 +49,25 @@ const { layout, count, label = "more" } = Astro.props;
   }
 
   .expandable-items.list {
-    --expandable-gap: var(--space-xl);
     display: flex;
     flex-direction: column;
     gap: var(--expandable-gap);
+  }
+
+  .divided {
+    &.list > :global(:nth-child(n + 2)),
+    &.grid > :global(:nth-child(n + 3)),
+    .expandable > & > :global(*) {
+      padding-block-start: var(--expandable-gap);
+      border-block-start: 1px solid var(--gray-6);
+    }
+
+    @media (width < 640px) {
+      &.grid > :global(:nth-child(2)) {
+        padding-block-start: var(--expandable-gap);
+        border-block-start: 1px solid var(--gray-6);
+      }
+    }
   }
 
   .expandable {
