@@ -25,21 +25,22 @@ franklin_exclude=(
   U+A4D0-A4FF             # Lisu (ꓘ)
 )
 
-# MonoLisa
-monolisa_source=source/MonoLisaVariableNormal.woff2
-monolisa_axes=(
-  wght=300:700
+# Commit Mono
+# Variable export from commitmono.com; settings in source/custom-settings.json.
+# Upright and italic are separate files so the italic only downloads on pages that use it.
+commit_source="source/CommitMono VariableFont.woff2"
+commit_axes=(
+  wght=320:700 # Matches Franklin's range so code follows the body weight
 )
-monolisa_features=(
-  ss01 ss02 ss03 ss04 ss05 ss06 zero onum # Matches font-feature-settings on `code, pre` in base.css
+commit_features=(
+  ss03 ss04 ss05 cv06 cv07 cv11 # Matches font-feature-settings on `code, pre` in base.css
 )
-monolisa_exclude=(
+commit_exclude=(
   U+0300-0303 U+0305-0307 U+0309-0328 U+032A-036F # Combining marks; keeps macron, diaeresis, vertical line below
   U+0370-052F             # Greek, Cyrillic
-  U+0530-1CFF             # Non-Latin currency (֏ ৳ ฿ ៛)
   U+2070-209F             # Super/subscripts (⁴ ₂)
   U+2100-2112 U+2114-2121 U+2123-218F # Letterlike, fractions (№ ℮ ⅓)
-  U+3000-303F             # CJK brackets (〈 〉)
+  U+2800-28FF             # Braille patterns
   U+E000-F8FF             # Private use (Powerline glyphs)
 )
 
@@ -81,7 +82,10 @@ build "$franklin_upright" franklin "${franklin_axes[*]}" \
   "$(join "${base_features[@]}" "${franklin_features[@]}")" "${franklin_exclude[@]}"
 build "$franklin_italic" franklin-italic "${franklin_axes[*]}" \
   "$(join "${base_features[@]}" "${franklin_features[@]}")" "${franklin_exclude[@]}"
-build "$monolisa_source" monolisa "${monolisa_axes[*]}" \
-  "$(join "${base_features[@]}" "${monolisa_features[@]}")" "${monolisa_exclude[@]}"
+commit_features_csv=$(join "${base_features[@]}" "${commit_features[@]}")
+build "$commit_source" commit-mono "${commit_axes[*]} ital=0" \
+  "$commit_features_csv" "${commit_exclude[@]}"
+build "$commit_source" commit-mono-italic "${commit_axes[*]} ital=1" \
+  "$commit_features_csv" "${commit_exclude[@]}"
 
 ls -l ./*.woff2

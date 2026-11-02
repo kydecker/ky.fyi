@@ -2,7 +2,7 @@
 title: Colophon
 description: Colophon is a designer-y word for “how it’s made”—here’s what powers ky.fyi.
 datePublished: 2023-09-26 03:47:00-04:00
-dateModified: 2026-11-01 11:55:00-04:00
+dateModified: 2026-11-02 14:00:00-04:00
 headerImage:
   image: ["./img600.webp", "./img900.webp", "./img1200.webp"]
   alt: The spines of 12 books, including Visual Explanations, The Display of Quantitative Information, The Geometry of Type, Understanding Comics, Nicely Said, Don't Make Me Think!, Queer by Design, The 99% Invisible City, Interaction of Color, The Elements of Style, Thinking Fast and Slow, and The Death and Life of Great American Cities.
@@ -31,7 +31,7 @@ I shared more about the hardware I use on [Uses This](https://usesthis.com/inter
 
 ## Typography
 
-Text is set in [HEX Franklin Variable](https://hex.xyz/HEX_Franklin/) with code in [`MonoLisa`](https://www.monolisa.dev/). Typography is scaled using a lot of math and a [fluid type scale](https://utopia.fyi/blog/designing-with-fluid-type-scales) by [Utopia](https://utopia.fyi/type/calculator/), meaning that font sizes will interpolate between mobile and desktop to optimize for the current browser width.
+Text is set in [HEX Franklin Variable](https://hex.xyz/HEX_Franklin/) with code in [`Commit Mono`](https://commitmono.com). Typography is scaled using a lot of math and a [fluid type scale](https://utopia.fyi/blog/designing-with-fluid-type-scales) by [Utopia](https://utopia.fyi/type/calculator/), meaning that font sizes will interpolate between mobile and desktop to optimize for the current browser width.
 
 Type inspiration can be found anywhere, from comic art and video games to [bodega window displays](https://www.are.na/ky-decker/nyc-bodega-art), but I often return to a handful of resources:
 

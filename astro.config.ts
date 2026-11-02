@@ -18,8 +18,7 @@ export default defineConfig({
       styleOverrides: {
         borderRadius: "0",
         borderWidth: "1px",
-        codeFontFamily:
-          "'MonoLisa', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        codeFontFamily: "var(--font-mono)",
         codeFontSize: "0.85em",
         uiFontSize: "0.9em",
       },
@@ -73,14 +72,20 @@ export default defineConfig({
     },
     {
       provider: fontProviders.local(),
-      name: "MonoLisa",
+      name: "Commit Mono",
       cssVariable: "--font-mono",
       fallbacks: ["monospace"],
       options: {
         variants: [
           {
-            src: ["./src/fonts/monolisa.woff2"],
-            weight: "300 700",
+            src: ["./src/fonts/commit-mono.woff2"],
+            weight: "320 700",
+            style: "normal",
+          },
+          {
+            src: ["./src/fonts/commit-mono-italic.woff2"],
+            weight: "320 700",
+            style: "italic",
           },
         ],
       },
