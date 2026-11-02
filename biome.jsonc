@@ -46,6 +46,15 @@
       }
     }
   },
+  "markdown": {
+    "parser": {
+      "frontmatter": true
+    },
+    "formatter": {
+      "enabled": true,
+      "formatEmbeds": true
+    }
+  },
   "overrides": [
     {
       "includes": ["**/*.astro"],
