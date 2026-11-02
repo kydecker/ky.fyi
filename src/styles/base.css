@@ -86,8 +86,7 @@ small {
 code,
 pre {
   font-family: var(--font-mono);
-  font-feature-settings:
-    "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "zero", "onum";
+  font-feature-settings: "ss03", "ss04", "ss05", "cv06", "cv07", "cv11";
 }
 
 strong {
@@ -98,9 +97,11 @@ a {
   text-decoration: underline;
   text-decoration-color: var(--gray-a8);
   text-underline-offset: max(0.1em, 2.5px);
+  text-decoration-thickness: 0.05em;
   transition:
     color 0.6s ease-out,
     text-decoration-color 0.6s ease-out,
+    text-decoration-thickness 0.6s ease-out,
     font-weight 0.6s ease-out;
 }
 
@@ -110,6 +111,7 @@ a {
     color: var(--gray-12);
     font-weight: var(--font-weight-bold);
     text-decoration-color: var(--gray-12);
+    text-decoration-thickness: 0.075em;
   }
 }
 

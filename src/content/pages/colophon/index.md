@@ -31,7 +31,7 @@ I shared more about the hardware I use on [Uses This](https://usesthis.com/inter
 
 ## Typography
 
-Text is set in [HEX Franklin Variable](https://hex.xyz/HEX_Franklin/) with code in [`MonoLisa`](https://www.monolisa.dev/). Typography is scaled using a lot of math and a [fluid type scale](https://utopia.fyi/blog/designing-with-fluid-type-scales) by [Utopia](https://utopia.fyi/type/calculator/), meaning that font sizes will interpolate between mobile and desktop to optimize for the current browser width.
+Text is set in [HEX Franklin Variable](https://hex.xyz/HEX_Franklin/) with code in [`Commit Mono`](https://commitmono.com). Typography is scaled using a lot of math and a [fluid type scale](https://utopia.fyi/blog/designing-with-fluid-type-scales) by [Utopia](https://utopia.fyi/type/calculator/), meaning that font sizes will interpolate between mobile and desktop to optimize for the current browser width.
 
 Type inspiration can be found anywhere, from comic art and video games to [bodega window displays](https://www.are.na/ky-decker/nyc-bodega-art), but I often return to a handful of resources:
 

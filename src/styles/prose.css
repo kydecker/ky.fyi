@@ -44,6 +44,14 @@
   clear: both;
 }
 
+.prose h2 a,
+.prose h3 a,
+.prose h4 a,
+.prose h5 a,
+.prose h6 a {
+  text-decoration: none;
+}
+
 .prose :not(hr) + h2:not(:first-child) {
   margin-top: var(--space-3xl);
 }
@@ -123,10 +131,8 @@
 }
 
 .prose :not(pre) code {
-  background-color: var(--gray-3);
-  box-shadow: 0 0 0 1px var(--gray-6);
-  padding-inline: 0.15em;
-  font-size: 0.95em;
+  background-color: var(--gray-4);
+  padding: 0.1em 0.15em;
 }
 
 .prose abbr {
