@@ -18,7 +18,13 @@ export const collections = {
             alt: z.string(),
           })
           .optional(),
-        category: z.enum(["Case Study", "Reflections", "Tutorial", "Research"]),
+        category: z.enum([
+          "Case Study",
+          "Reflections",
+          "Tutorial",
+          "Research",
+          "Development",
+        ]),
         projectInfo: z
           .object({
             timeline: z
