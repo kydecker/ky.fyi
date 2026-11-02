@@ -31,14 +31,14 @@
     "pre-commit": "./node_modules/.bin/nano-staged"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "14.3.4",
-    "@astrojs/markdown-remark": "^7.3.2",
-    "@astrojs/mdx": "8.0.3",
-    "@astrojs/react": "7.0.1",
+    "@astrojs/cloudflare": "14.4.3",
+    "@astrojs/markdown-remark": "^7.3.5",
+    "@astrojs/mdx": "8.1.2",
+    "@astrojs/react": "7.1.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@observablehq/plot": "^0.6.17",
-    "astro": "7.3.8",
+    "astro": "7.4.4",
     "astro-expressive-code": "^0.44.3",
     "astro-lilypond": "^1.3.0",
     "classnames": "^2.5.1",
@@ -52,12 +52,12 @@
     "sharp": "^0.35.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@axe-core/playwright": "^4.14.0",
     "@biomejs/biome": "^2.6.4",
     "@playwright/test": "^1.64.1",
     "@types/howler": "^2.2.13",
-    "@types/node": "^26.6.5",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dotenv": "^18.0.9",
@@ -66,7 +66,7 @@
     "nano-staged": "^1.0.2",
     "simple-git-hooks": "^2.14.0",
     "typescript": "^6.0.3",
-    "wrangler": "^4.154.0"
+    "wrangler": "^4.155.0"
   },
   "bugs": {
     "url": "https://github.com/kydecker/ky.fyi/issues"
