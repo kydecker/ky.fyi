@@ -7,7 +7,7 @@ category: Development
 
 Since 2021, all of the major browser vendors (including Google, Apple, Microsoft, Firefox, and others) have collaborated together on [Interop](https://github.com/web-platform-tests/interop), a coordinated effort to improve global support for new web technologies.
 
-This year, the Firefox team have launched a website to allow developers to [rank Interop 2027 proposals](https://interop-rank.fxdx.dev/). These rankings will get used to inform Interop planning with the other browser vendors.
+This year, the Firefox team has launched a website to allow developers to [rank Interop 2027 proposals](https://interop-rank.fxdx.dev/). These rankings will get used to inform Interop planning with the other browser vendors.
 
 Here are my top nine!
 
