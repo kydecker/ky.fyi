@@ -89,6 +89,27 @@ pre {
   font-feature-settings: "ss03", "ss04", "ss05", "cv06", "cv07", "cv11";
 }
 
+/* Increase the boldness of Commit Mono to more closely match the weight of HEX Franklin */
+:is(h1, h2, h3, h4, h5, h6, strong, b) code {
+  font-weight: var(--font-weight-extrabold);
+}
+
+a code {
+  transition: font-weight 0.6s ease-out;
+}
+
+a:focus-visible code {
+  transition-duration: 0s;
+  font-weight: var(--font-weight-extrabold);
+}
+
+@media (hover: hover) {
+  a:hover code {
+    transition-duration: 0s;
+    font-weight: var(--font-weight-extrabold);
+  }
+}
+
 strong {
   font-weight: var(--font-weight-bold);
 }
