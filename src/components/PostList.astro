@@ -6,14 +6,15 @@ import PostLink from "./PostLink.astro";
 interface Props {
   posts: CollectionEntry<"posts">[];
   cutoff?: number;
+  layout?: "grid" | "list";
 }
 
-const { posts, cutoff } = Astro.props;
+const { posts, cutoff, layout = "list" } = Astro.props;
 const visible = cutoff ? posts.slice(0, cutoff) : posts;
 const hidden = cutoff ? posts.slice(cutoff) : [];
 ---
 
-<Expandable layout="list" count={hidden.length}>
+<Expandable layout={layout} count={hidden.length} gap="var(--space-m)" divided>
   <Fragment slot="visible">
     {
       visible.map((post) => (

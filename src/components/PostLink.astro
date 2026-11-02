@@ -1,98 +1,60 @@
 ---
-import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import { RelativeDate } from "./RelativeDate/RelativeDate";
 
 interface Props {
   post: CollectionEntry<"posts">;
 }
 
 const { post } = Astro.props;
-
-const displayDate = post.data.datePublished.getFullYear();
 ---
 
 <div class="post">
-  {post.data.previewImage && (
-    <a
-      href={`/posts/${post.id}`}
-      class="post-image"
-      tabindex="-1"
-      aria-hidden="true"
-    >
-      <Image
-        src={post.data.previewImage.image}
-        alt={post.data.previewImage.alt}
-        width={836}
-        widths={[360, 418, 540, 640, 836, 1040, 1280]}
-        sizes="(width < 640px) calc(100vw - 3rem), (width < 900px) calc(50vw - 2rem), 418px"
-      />
-    </a>
-  )}
-  <div class="post-body">
-    <div class="post-eyebrow">
-      <span>{post.data.category}</span>
-      <time datetime={post.data.datePublished.toISOString()}>
-        {displayDate}
-      </time>
-    </div>
-    <h2 class="post-title">
-      <a href={`/posts/${post.id}`}>{post.data.title}</a>
-    </h2>
-    <p>{post.data.description}</p>
+  <h2 class="post-title">
+    <a href={`/posts/${post.id}`}>{post.data.title}</a>
+  </h2>
+  <div class="post-eyebrow">
+    <span>{post.data.category}</span>
+    <span class="separator" aria-hidden="true">·</span>
+    <RelativeDate date={post.data.datePublished} client:visible />
   </div>
 </div>
 
 <style>
   .post {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-l);
-
-    @media (width < 640px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .post-image {
-    display: block;
-
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1.91 / 1;
-      object-fit: cover;
-    }
-
-    &:hover + .post-body .post-title {
-      color: var(--gray-12);
-    }
-  }
-
-  .post-body {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-2xs);
     text-wrap: pretty;
   }
 
-  .post-title {
-    font-size: var(--step-1);
-
-    a {
-      text-decoration: none;
-    }
-  }
-
   .post-eyebrow {
     font-size: var(--step--1);
     color: var(--gray-11);
+    font-variant-numeric: tabular-nums;
+  }
 
-    time {
-      font-variant-numeric: tabular-nums;
-      &::before {
-        content: " · ";
-        color: var(--gray-8);
+  .separator {
+    color: var(--gray-8);
+  }
+
+  .post-title {
+    font-size: var(--step-0);
+
+    a {
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+    }
+
+    @media (hover: hover) {
+      a:hover {
+        text-decoration: underline;
       }
     }
   }

@@ -10,7 +10,7 @@ import { sortFeaturedFirst } from "../helpers/sortFeaturedFirst";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const PROJECTS_CUTOFF = 4;
-const WRITING_CUTOFF = 2;
+const WRITING_CUTOFF = 6;
 
 const projects = await getCollection("projects");
 const sortedProjects = projects
@@ -38,7 +38,9 @@ const sortedPosts = posts.sort(
           <a href="/about">Ky Decker</a> designs interfaces in NYC with{" "}
           <span data-sam-text>Samwise</span>
           <template data-sam-template>
-            <button type="button" data-sam-button>Samwise</button>
+            <button type="button" data-sam-button>
+              Samwise
+            </button>
           </template>
         </p>
       </h1>
@@ -56,7 +58,7 @@ const sortedPosts = posts.sort(
   <section>
     <Center>
       <h2>Latest writing</h2>
-      <PostList posts={sortedPosts} cutoff={WRITING_CUTOFF} />
+      <PostList posts={sortedPosts} cutoff={WRITING_CUTOFF} layout="grid" />
     </Center>
   </section>
   <section>
