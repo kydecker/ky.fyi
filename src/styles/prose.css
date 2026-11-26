@@ -52,14 +52,14 @@
   text-decoration: none;
 }
 
-.prose :not(hr) + h2:not(:first-child) {
-  margin-top: var(--space-3xl);
-}
-
 .prose h2,
 .prose h3,
 .prose h4 {
   margin-block-end: var(--space-m);
+}
+
+.prose :not(hr) + h2:not(:first-child) {
+  margin-top: var(--space-3xl);
 }
 
 .prose h3 {
@@ -305,11 +305,6 @@
   grid-column: popout;
   margin-block: var(--space-xl);
 
-  &:first-child,
-  + aside {
-    margin-top: 0;
-  }
-
   @media (width < 620px) {
     width: 100%;
     grid-column: full;
@@ -317,6 +312,11 @@
 }
 
 .prose > hr + aside {
+  margin-top: 0;
+}
+
+.prose > aside + aside,
+.prose > aside:first-child {
   margin-top: 0;
 }
 
